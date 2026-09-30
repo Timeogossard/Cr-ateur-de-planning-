@@ -1,1263 +1,743 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon Créateur de Planning</title>
 
-  <title>Mon Créateur de Planning</title>
+<style>
+* {
+    box-sizing: border-box;
+}
 
-  <style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6fb;
+    color: #222;
+}
 
-    * {
-      box-sizing: border-box;
-    }
+header {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: white;
+    padding: 25px 15px;
+    text-align: center;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f1f5f9;
-      color: #1e293b;
-    }
+header h1 {
+    margin: 0 0 8px;
+}
 
-    /* EN-TÊTE */
+header p {
+    margin: 0;
+}
 
-    header {
-      background: #2563eb;
-      color: white;
-      text-align: center;
-      padding: 30px 20px;
-    }
+.container {
+    max-width: 1200px;
+    margin: 25px auto;
+    padding: 0 15px;
+}
 
-    header h1 {
-      margin: 0 0 10px;
-      font-size: 32px;
-    }
+.premium {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    border: 2px solid #f59e0b;
+}
 
-    header p {
-      margin: 0;
-      opacity: 0.9;
-    }
+.premium h2 {
+    margin-top: 0;
+}
 
-    /* CONTENEUR */
+.premium ul {
+    line-height: 1.8;
+}
 
-    .conteneur {
-      max-width: 1400px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
+.premium button {
+    background: #f59e0b;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
 
-    /* NAVIGATION */
+.premium button:hover {
+    background: #d97706;
+}
 
-    .navigation {
-      background: white;
-      padding: 15px;
-      border-radius: 15px;
-      margin-bottom: 20px;
+.formulaire {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+}
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
+.formulaire h2 {
+    margin-top: 0;
+}
 
-      box-shadow: 0 3px 15px rgba(0,0,0,0.08);
-    }
+.formulaire-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+}
 
-    .navigation button {
-      border: none;
-      background: #2563eb;
-      color: white;
-      padding: 12px 18px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+}
 
-    .navigation button:hover {
-      background: #1d4ed8;
-    }
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
 
-    .titre-semaine {
-      font-size: 20px;
-      font-weight: bold;
-      text-align: center;
-    }
+.btn-ajouter {
+    margin-top: 15px;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
 
-    /* FORMULAIRE */
+.btn-ajouter:hover {
+    background: #4338ca;
+}
 
-    .formulaire {
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      margin-bottom: 20px;
+.navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
 
-      box-shadow: 0 3px 15px rgba(0,0,0,0.08);
-    }
+.navigation button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #4f46e5;
+    color: white;
+}
 
-    .formulaire h2 {
-      margin-top: 0;
-    }
+.navigation button:hover {
+    background: #4338ca;
+}
 
-    .champs {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 12px;
-    }
+#periode {
+    font-size: 20px;
+    font-weight: bold;
+}
 
-    label {
-      font-weight: bold;
-      font-size: 14px;
-    }
+.calendrier {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
 
-    input,
-    select {
-      width: 100%;
-      padding: 11px;
-      margin-top: 6px;
+.jour {
+    background: white;
+    min-height: 250px;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
 
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
+.jour.aujourd-hui {
+    border: 3px solid #4f46e5;
+}
 
-      font-size: 15px;
-    }
+.jour-titre {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
-    .boutons-formulaire {
-      display: flex;
-      gap: 10px;
-      margin-top: 15px;
-    }
+.date {
+    color: #666;
+    font-size: 14px;
+}
 
-    .bouton-principal {
-      background: #2563eb;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+.activite {
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    color: white;
+    word-wrap: break-word;
+}
 
-    .bouton-imprimer {
-      background: #64748b;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+.activite strong {
+    display: block;
+}
 
-    /* CALENDRIER */
+.activite button {
+    border: none;
+    background: rgba(255,255,255,0.25);
+    color: white;
+    padding: 5px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 6px;
+}
 
+.premium-fonctionnalites {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.fonctionnalite {
+    background: white;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+}
+
+.fonctionnalite h3 {
+    margin-top: 0;
+}
+
+.badge {
+    display: inline-block;
+    background: #f59e0b;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+}
+
+@media (max-width: 800px) {
     .calendrier {
-      background: white;
-      border-radius: 15px;
-      overflow-x: auto;
-
-      box-shadow: 0 3px 15px rgba(0,0,0,0.08);
-    }
-
-    .semaine {
-      display: grid;
-      grid-template-columns: repeat(7, minmax(160px, 1fr));
-
-      min-width: 1120px;
+        grid-template-columns: 1fr;
     }
 
     .jour {
-      min-height: 500px;
-      border-right: 1px solid #e2e8f0;
+        min-height: 150px;
     }
-
-    .jour:last-child {
-      border-right: none;
-    }
-
-    /* EN-TÊTE DES JOURS */
-
-    .entete-jour {
-      text-align: center;
-      padding: 15px;
-
-      background: #e2e8f0;
-
-      border-bottom: 1px solid #cbd5e1;
-    }
-
-    .nom-jour {
-      font-weight: bold;
-      font-size: 15px;
-    }
-
-    .date-jour {
-      font-size: 25px;
-      font-weight: bold;
-      margin-top: 5px;
-    }
-
-    .mois {
-      font-size: 13px;
-      color: #64748b;
-    }
-
-    /* JOUR ACTUEL */
-
-    .aujourd-hui .entete-jour {
-      background: #2563eb;
-      color: white;
-    }
-
-    .aujourd-hui .mois {
-      color: white;
-    }
-
-    /* ACTIVITÉS */
-
-    .activites {
-      padding: 10px;
-    }
-
-    .aucune-activite {
-      text-align: center;
-      color: #94a3b8;
-      padding: 30px 5px;
-      font-size: 13px;
-    }
-
-    .activite {
-      padding: 12px;
-      margin-bottom: 10px;
-
-      border-radius: 9px;
-
-      border-left: 5px solid #2563eb;
-
-      background: #eff6ff;
-    }
-
-    .activite-nom {
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-
-    .activite-heure {
-      font-size: 13px;
-      color: #475569;
-    }
-
-    .actions {
-      display: flex;
-      gap: 5px;
-      margin-top: 10px;
-    }
-
-    .actions button {
-      border: none;
-      color: white;
-      padding: 7px 9px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 12px;
-    }
-
-    .modifier {
-      background: #f59e0b;
-    }
-
-    .supprimer {
-      background: #dc2626;
-    }
-
-    /* PIED DE PAGE */
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: #64748b;
-    }
-
-    /* MOBILE */
-
-    @media (max-width: 800px) {
-
-      header h1 {
-        font-size: 25px;
-      }
-
-      .navigation {
-        flex-direction: column;
-      }
-
-      .navigation button {
-        width: 100%;
-      }
-
-      .titre-semaine {
-        order: -1;
-      }
-
-      .champs {
-        grid-template-columns: 1fr;
-      }
-
-      .boutons-formulaire {
-        flex-direction: column;
-      }
-
-      .bouton-principal,
-      .bouton-imprimer {
-        width: 100%;
-      }
-
-    }
-
-    /* IMPRESSION */
-
-    @media print {
-
-      body {
-        background: white;
-      }
-
-      header {
-        background: white;
-        color: black;
-      }
-
-      .navigation,
-      .formulaire,
-      footer,
-      .actions {
-        display: none;
-      }
-
-      .calendrier {
-        box-shadow: none;
-      }
-
-    }
-
-  </style>
+}
+</style>
 </head>
 
 <body>
 
 <header>
-
-  <h1>📅 Mon Créateur de Planning</h1>
-
-  <p>
-    Organisez facilement votre semaine
-  </p>
-
+    <h1>📅 Mon Créateur de Planning</h1>
+    <p>Organise facilement tes journées et tes semaines</p>
 </header>
 
+<div class="container">
 
-<div class="conteneur">
+    <!-- ESPACE PREMIUM -->
+    <section class="premium">
+        <h2>⭐ Passe à la version Premium</h2>
 
+        <p>
+            Débloque des fonctionnalités supplémentaires pour créer
+            des plannings encore plus personnalisés.
+        </p>
 
-  <!-- NAVIGATION DU CALENDRIER -->
+        <ul>
+            <li>📅 Vue mensuelle</li>
+            <li>🎨 Thèmes supplémentaires</li>
+            <li>📋 Modèles de planning</li>
+            <li>📄 Export PDF</li>
+            <li>🔄 Activités récurrentes</li>
+            <li>🗂️ Plusieurs plannings</li>
+        </ul>
 
-  <div class="navigation">
+        <button onclick="afficherPremium()">
+            ⭐ Découvrir Premium
+        </button>
+    </section>
 
-    <button onclick="semainePrecedente()">
-      ◀️ Semaine précédente
-    </button>
+    <!-- FORMULAIRE -->
+    <section class="formulaire">
+        <h2>➕ Ajouter une activité</h2>
 
-    <div
-      class="titre-semaine"
-      id="titreSemaine">
-    </div>
+        <div class="formulaire-grid">
 
-    <button onclick="semaineSuivante()">
-      Semaine suivante ▶️
-    </button>
+            <div>
+                <label>Activité</label>
+                <input type="text" id="nom" placeholder="Ex : Maths">
+            </div>
 
-  </div>
+            <div>
+                <label>Date</label>
+                <input type="date" id="date">
+            </div>
 
+            <div>
+                <label>Début</label>
+                <input type="time" id="debut">
+            </div>
 
-  <div style="text-align:center; margin-bottom:20px;">
+            <div>
+                <label>Fin</label>
+                <input type="time" id="fin">
+            </div>
 
-    <button
-      class="bouton-principal"
-      onclick="revenirAujourdHui()">
+            <div>
+                <label>Couleur</label>
+                <input type="color" id="couleur" value="#4f46e5">
+            </div>
 
-      📅 Aujourd'hui
+        </div>
 
-    </button>
+        <button class="btn-ajouter" onclick="ajouterActivite()">
+            ➕ Ajouter au planning
+        </button>
+    </section>
 
-  </div>
+    <!-- NAVIGATION -->
+    <div class="navigation">
 
+        <button onclick="semainePrecedente()">
+            ◀ Semaine précédente
+        </button>
 
-  <!-- FORMULAIRE -->
+        <button onclick="revenirAujourdHui()">
+            📅 Aujourd'hui
+        </button>
 
-  <section class="formulaire">
-
-    <h2>➕ Ajouter une activité</h2>
-
-
-    <div class="champs">
-
-
-      <label>
-
-        Jour
-
-        <select id="jour">
-
-          <option value="0">
-            Lundi
-          </option>
-
-          <option value="1">
-            Mardi
-          </option>
-
-          <option value="2">
-            Mercredi
-          </option>
-
-          <option value="3">
-            Jeudi
-          </option>
-
-          <option value="4">
-            Vendredi
-          </option>
-
-          <option value="5">
-            Samedi
-          </option>
-
-          <option value="6">
-            Dimanche
-          </option>
-
-        </select>
-
-      </label>
-
-
-      <label>
-
-        Activité
-
-        <input
-          type="text"
-          id="activite"
-          placeholder="Ex : Réunion">
-
-      </label>
-
-
-      <label>
-
-        Heure de début
-
-        <input
-          type="time"
-          id="debut">
-
-      </label>
-
-
-      <label>
-
-        Heure de fin
-
-        <input
-          type="time"
-          id="fin">
-
-      </label>
-
-
-      <label>
-
-        Couleur
-
-        <input
-          type="color"
-          id="couleur"
-          value="#2563eb">
-
-      </label>
-
-
-      <label>
-
-        Date
-
-        <input
-          type="date"
-          id="dateActivite">
-
-      </label>
-
+        <button onclick="semaineSuivante()">
+            Semaine suivante ▶
+        </button>
 
     </div>
 
+    <div id="periode"></div>
 
-    <div class="boutons-formulaire">
+    <br>
 
-      <button
-        class="bouton-principal"
-        onclick="ajouterActivite()">
+    <!-- CALENDRIER -->
+    <div id="calendrier" class="calendrier"></div>
 
-        Ajouter au planning
+    <!-- FONCTIONNALITES PREMIUM -->
+    <section class="premium-fonctionnalites">
 
-      </button>
+        <div class="fonctionnalite">
+            <h3>📅 Vue mensuelle</h3>
+            <span class="badge">PREMIUM</span>
+            <p>Visualise tout ton mois sur une seule page.</p>
+        </div>
 
+        <div class="fonctionnalite">
+            <h3>🎨 Designs</h3>
+            <span class="badge">PREMIUM</span>
+            <p>Personnalise l'apparence de ton planning.</p>
+        </div>
 
-      <button
-        class="bouton-imprimer"
-        onclick="window.print()">
+        <div class="fonctionnalite">
+            <h3>📄 Export PDF</h3>
+            <span class="badge">PREMIUM</span>
+            <p>Transforme ton planning en document imprimable.</p>
+        </div>
 
-        🖨️ Imprimer
+        <div class="fonctionnalite">
+            <h3>🔄 Récurrences</h3>
+            <span class="badge">PREMIUM</span>
+            <p>Ajoute automatiquement des activités répétitives.</p>
+        </div>
 
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- CALENDRIER -->
-
-  <section class="calendrier">
-
-    <div
-      class="semaine"
-      id="calendrier">
-
-    </div>
-
-  </section>
-
+    </section>
 
 </div>
 
-
 <footer>
-
-  Mon Créateur de Planning © 2026
-
+    © 2026 Mon Créateur de Planning
 </footer>
-
 
 <script>
 
-
-/* =========================
-   VARIABLES
-========================= */
-
-
 let dateActuelle = new Date();
 
-let planning =
-  JSON.parse(
+let planning = JSON.parse(
     localStorage.getItem("monPlanning")
-  ) || [];
+) || [];
 
 
-/* =========================
-   NOMS DES JOURS
-========================= */
-
-
-const nomsJours = [
-
-  "Lundi",
-  "Mardi",
-  "Mercredi",
-  "Jeudi",
-  "Vendredi",
-  "Samedi",
-  "Dimanche"
-
-];
-
-
-const nomsMois = [
-
-  "janvier",
-  "février",
-  "mars",
-  "avril",
-  "mai",
-  "juin",
-  "juillet",
-  "août",
-  "septembre",
-  "octobre",
-  "novembre",
-  "décembre"
-
-];
-
-
-/* =========================
-   OBTENIR LE LUNDI
-========================= */
-
+/* -----------------------------
+   OUTILS DATES
+----------------------------- */
 
 function obtenirLundi(date) {
 
-  const nouvelleDate =
-    new Date(date);
+    let nouvelleDate = new Date(date);
 
-  const jour =
-    nouvelleDate.getDay();
+    let jour = nouvelleDate.getDay();
 
-  const difference =
-    jour === 0
-      ? -6
-      : 1 - jour;
+    let difference = jour === 0 ? -6 : 1 - jour;
 
-  nouvelleDate.setDate(
-    nouvelleDate.getDate() + difference
-  );
+    nouvelleDate.setDate(
+        nouvelleDate.getDate() + difference
+    );
 
-  nouvelleDate.setHours(0, 0, 0, 0);
+    nouvelleDate.setHours(0,0,0,0);
 
-  return nouvelleDate;
-
+    return nouvelleDate;
 }
-
-
-/* =========================
-   FORMAT DATE
-========================= */
 
 
 function formatDate(date) {
 
-  const annee =
-    date.getFullYear();
+    let annee = date.getFullYear();
 
-  const mois =
-    String(
-      date.getMonth() + 1
+    let mois = String(
+        date.getMonth() + 1
     ).padStart(2, "0");
 
-  const jour =
-    String(
-      date.getDate()
+    let jour = String(
+        date.getDate()
     ).padStart(2, "0");
 
-  return `${annee}-${mois}-${jour}`;
-
+    return `${annee}-${mois}-${jour}`;
 }
 
 
-/* =========================
-   AFFICHER LE CALENDRIER
-========================= */
-
+/* -----------------------------
+   AFFICHER CALENDRIER
+----------------------------- */
 
 function afficherCalendrier() {
 
+    const calendrier =
+        document.getElementById("calendrier");
 
-  const lundi =
-    obtenirLundi(dateActuelle);
+    calendrier.innerHTML = "";
 
+    let lundi = obtenirLundi(dateActuelle);
 
-  const calendrier =
-    document.getElementById(
-      "calendrier"
+    let nomsJours = [
+        "Lundi",
+        "Mardi",
+        "Mercredi",
+        "Jeudi",
+        "Vendredi",
+        "Samedi",
+        "Dimanche"
+    ];
+
+    let premierJour = new Date(lundi);
+
+    let dernierJour = new Date(lundi);
+
+    dernierJour.setDate(
+        dernierJour.getDate() + 6
     );
 
-
-  calendrier.innerHTML = "";
-
-
-  const dates = [];
-
-
-  for (
-    let i = 0;
-    i < 7;
-    i++
-  ) {
-
-    const date =
-      new Date(lundi);
-
-    date.setDate(
-      lundi.getDate() + i
-    );
-
-    dates.push(date);
-
-  }
+    document.getElementById("periode").innerText =
+        premierJour.toLocaleDateString("fr-FR", {
+            day: "numeric",
+            month: "long"
+        })
+        + " → "
+        +
+        dernierJour.toLocaleDateString("fr-FR", {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        });
 
 
-  /* TITRE */
+    for (let i = 0; i < 7; i++) {
 
-  const premiereDate =
-    dates[0];
+        let dateJour = new Date(lundi);
 
-  const derniereDate =
-    dates[6];
-
-
-  document.getElementById(
-    "titreSemaine"
-  ).textContent =
-
-    `${premiereDate.getDate()} ${nomsMois[premiereDate.getMonth()]} ${premiereDate.getFullYear()} — ` +
-
-    `${derniereDate.getDate()} ${nomsMois[derniereDate.getMonth()]} ${derniereDate.getFullYear()}`;
-
-
-  /* CRÉATION DES JOURS */
-
-  dates.forEach(
-
-    function(date, index) {
-
-
-      const jour =
-        document.createElement("div");
-
-
-      jour.className = "jour";
-
-
-      const aujourdHui =
-        new Date();
-
-
-      if (
-        formatDate(date) ===
-        formatDate(aujourdHui)
-      ) {
-
-        jour.classList.add(
-          "aujourd-hui"
+        dateJour.setDate(
+            dateJour.getDate() + i
         );
 
-      }
+        let dateTexte = formatDate(dateJour);
+
+        let divJour =
+            document.createElement("div");
+
+        divJour.className = "jour";
+
+        if (
+            formatDate(new Date()) === dateTexte
+        ) {
+            divJour.classList.add("aujourd-hui");
+        }
 
 
-      /* EN-TÊTE */
-
-      const entete =
-        document.createElement("div");
-
-      entete.className =
-        "entete-jour";
-
-
-      entete.innerHTML = `
-
-        <div class="nom-jour">
-
-          ${nomsJours[index]}
-
-        </div>
-
-        <div class="date-jour">
-
-          ${date.getDate()}
-
-        </div>
-
-        <div class="mois">
-
-          ${nomsMois[date.getMonth()]}
-
-        </div>
-
-      `;
+        divJour.innerHTML = `
+            <div class="jour-titre">
+                ${nomsJours[i]}
+                <div class="date">
+                    ${dateJour.toLocaleDateString("fr-FR", {
+                        day: "numeric",
+                        month: "long"
+                    })}
+                </div>
+            </div>
+        `;
 
 
-      jour.appendChild(entete);
-
-
-      /* ACTIVITÉS */
-
-      const zone =
-        document.createElement("div");
-
-      zone.className =
-        "activites";
-
-
-      const dateTexte =
-        formatDate(date);
-
-
-      const activites =
-        planning
-          .filter(
-            function(item) {
-
-              return (
-                item.date ===
-                dateTexte
-              );
-
-            }
-          )
-          .sort(
-            function(a, b) {
-
-              return a.debut.localeCompare(
-                b.debut
-              );
-
-            }
-          );
-
-
-      if (
-        activites.length === 0
-      ) {
-
-        zone.innerHTML =
-          `<div class="aucune-activite">
-             Aucune activité
-           </div>`;
-
-      }
-
-
-      activites.forEach(
-
-        function(item) {
-
-
-          const bloc =
-            document.createElement(
-              "div"
+        let activites =
+            planning
+            .filter(item => item.date === dateTexte)
+            .sort((a,b) =>
+                a.debut.localeCompare(b.debut)
             );
 
 
-          bloc.className =
-            "activite";
+        activites.forEach(item => {
+
+            let activite =
+                document.createElement("div");
+
+            activite.className = "activite";
+
+            activite.style.background =
+                item.couleur;
+
+            activite.innerHTML = `
+                <strong>${item.nom}</strong>
+                ${item.debut} - ${item.fin}
+                <br>
+
+                <button onclick="modifierActivite(${item.id})">
+                    ✏️ Modifier
+                </button>
+
+                <button onclick="supprimerActivite(${item.id})">
+                    🗑️ Supprimer
+                </button>
+            `;
+
+            divJour.appendChild(activite);
+        });
 
 
-          bloc.style.borderLeftColor =
-            item.couleur;
-
-
-          bloc.innerHTML = `
-
-            <div class="activite-nom">
-
-              ${echapper(item.nom)}
-
-            </div>
-
-            <div class="activite-heure">
-
-              🕐 ${item.debut}
-              -
-              ${item.fin}
-
-            </div>
-
-
-            <div class="actions">
-
-              <button
-                class="modifier"
-                onclick="modifierActivite(${item.id})">
-
-                Modifier
-
-              </button>
-
-
-              <button
-                class="supprimer"
-                onclick="supprimerActivite(${item.id})">
-
-                Supprimer
-
-              </button>
-
-            </div>
-
-          `;
-
-
-          zone.appendChild(
-            bloc
-          );
-
-        }
-      );
-
-
-      jour.appendChild(
-        zone
-      );
-
-
-      calendrier.appendChild(
-        jour
-      );
-
+        calendrier.appendChild(divJour);
     }
-  );
-
 }
 
 
-/* =========================
-   AJOUTER UNE ACTIVITÉ
-========================= */
-
+/* -----------------------------
+   AJOUTER
+----------------------------- */
 
 function ajouterActivite() {
 
+    let nom =
+        document.getElementById("nom").value.trim();
 
-  const nom =
-    document.getElementById(
-      "activite"
-    ).value.trim();
+    let date =
+        document.getElementById("date").value;
 
+    let debut =
+        document.getElementById("debut").value;
 
-  const debut =
-    document.getElementById(
-      "debut"
-    ).value;
+    let fin =
+        document.getElementById("fin").value;
 
-
-  const fin =
-    document.getElementById(
-      "fin"
-    ).value;
+    let couleur =
+        document.getElementById("couleur").value;
 
 
-  const couleur =
-    document.getElementById(
-      "couleur"
-    ).value;
+    if (!nom || !date || !debut || !fin) {
+
+        alert(
+            "⚠️ Merci de remplir tous les champs."
+        );
+
+        return;
+    }
 
 
-  const dateChoisie =
-    document.getElementById(
-      "dateActivite"
-    ).value;
+    if (fin <= debut) {
+
+        alert(
+            "⚠️ L'heure de fin doit être après l'heure de début."
+        );
+
+        return;
+    }
 
 
-  if (!nom) {
+    let activite = {
 
-    alert(
-      "Veuillez entrer une activité."
-    );
+        id: Date.now(),
 
-    return;
+        nom: nom,
 
-  }
+        date: date,
 
+        debut: debut,
 
-  if (!debut || !fin) {
+        fin: fin,
 
-    alert(
-      "Veuillez choisir les horaires."
-    );
+        couleur: couleur
 
-    return;
-
-  }
+    };
 
 
-  if (debut >= fin) {
+    planning.push(activite);
 
-    alert(
-      "L'heure de fin doit être après l'heure de début."
-    );
+    sauvegarder();
 
-    return;
+    document.getElementById("nom").value = "";
 
-  }
+    document.getElementById("debut").value = "";
 
+    document.getElementById("fin").value = "";
 
-  if (!dateChoisie) {
-
-    alert(
-      "Veuillez choisir une date."
-    );
-
-    return;
-
-  }
-
-
-  const nouvelleActivite = {
-
-    id: Date.now(),
-
-    nom: nom,
-
-    debut: debut,
-
-    fin: fin,
-
-    couleur: couleur,
-
-    date: dateChoisie
-
-  };
-
-
-  planning.push(
-    nouvelleActivite
-  );
-
-
-  sauvegarder();
-
-
-  afficherCalendrier();
-
-
-  /* RÉINITIALISATION */
-
-  document.getElementById(
-    "activite"
-  ).value = "";
-
-
-  document.getElementById(
-    "debut"
-  ).value = "";
-
-
-  document.getElementById(
-    "fin"
-  ).value = "";
-
-
-  document.getElementById(
-    "dateActivite"
-  ).value = "";
-
+    afficherCalendrier();
 }
 
 
-/* =========================
+/* -----------------------------
    SUPPRIMER
-========================= */
-
+----------------------------- */
 
 function supprimerActivite(id) {
 
+    planning =
+        planning.filter(item => item.id !== id);
 
-  if (
-    !confirm(
-      "Voulez-vous vraiment supprimer cette activité ?"
-    )
-  ) {
+    sauvegarder();
 
-    return;
-
-  }
-
-
-  planning =
-    planning.filter(
-      function(item) {
-
-        return item.id !== id;
-
-      }
-    );
-
-
-  sauvegarder();
-
-  afficherCalendrier();
-
+    afficherCalendrier();
 }
 
 
-/* =========================
+/* -----------------------------
    MODIFIER
-========================= */
-
+----------------------------- */
 
 function modifierActivite(id) {
 
+    let activite =
+        planning.find(item => item.id === id);
 
-  const item =
-    planning.find(
-      function(element) {
+    if (!activite) return;
 
-        return element.id === id;
+    document.getElementById("nom").value =
+        activite.nom;
 
-      }
-    );
+    document.getElementById("date").value =
+        activite.date;
 
+    document.getElementById("debut").value =
+        activite.debut;
 
-  if (!item) {
+    document.getElementById("fin").value =
+        activite.fin;
 
-    return;
-
-  }
-
-
-  document.getElementById(
-    "activite"
-  ).value = item.nom;
+    document.getElementById("couleur").value =
+        activite.couleur;
 
 
-  document.getElementById(
-    "debut"
-  ).value = item.debut;
+    supprimerActivite(id);
 
-
-  document.getElementById(
-    "fin"
-  ).value = item.fin;
-
-
-  document.getElementById(
-    "couleur"
-  ).value = item.couleur;
-
-
-  document.getElementById(
-    "dateActivite"
-  ).value = item.date;
-
-
-  planning =
-    planning.filter(
-      function(element) {
-
-        return element.id !== id;
-
-      }
-    );
-
-
-  sauvegarder();
-
-  afficherCalendrier();
-
-
-  window.scrollTo({
-
-    top: 0,
-
-    behavior: "smooth"
-
-  });
-
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
 
-/* =========================
-   SEMAINES
-========================= */
+/* -----------------------------
+   SAUVEGARDE
+----------------------------- */
 
+function sauvegarder() {
+
+    localStorage.setItem(
+        "monPlanning",
+        JSON.stringify(planning)
+    );
+}
+
+
+/* -----------------------------
+   NAVIGATION
+----------------------------- */
 
 function semainePrecedente() {
 
+    dateActuelle.setDate(
+        dateActuelle.getDate() - 7
+    );
 
-  dateActuelle.setDate(
-    dateActuelle.getDate() - 7
-  );
-
-
-  afficherCalendrier();
-
+    afficherCalendrier();
 }
 
 
 function semaineSuivante() {
 
+    dateActuelle.setDate(
+        dateActuelle.getDate() + 7
+    );
 
-  dateActuelle.setDate(
-    dateActuelle.getDate() + 7
-  );
-
-
-  afficherCalendrier();
-
+    afficherCalendrier();
 }
 
 
 function revenirAujourdHui() {
 
+    dateActuelle = new Date();
 
-  dateActuelle =
-    new Date();
-
-
-  afficherCalendrier();
-
+    afficherCalendrier();
 }
 
 
-/* =========================
-   SAUVEGARDE
-========================= */
+/* -----------------------------
+   PREMIUM
+----------------------------- */
 
+function afficherPremium() {
 
-function sauvegarder() {
-
-  localStorage.setItem(
-
-    "monPlanning",
-
-    JSON.stringify(
-      planning
-    )
-
-  );
-
-}
-
-
-/* =========================
-   SÉCURITÉ DU TEXTE
-========================= */
-
-
-function echapper(texte) {
-
-
-  const div =
-    document.createElement(
-      "div"
+    alert(
+        "⭐ VERSION PREMIUM\n\n" +
+        "Bientôt disponible !\n\n" +
+        "Fonctionnalités prévues :\n" +
+        "📅 Vue mensuelle\n" +
+        "🎨 Designs supplémentaires\n" +
+        "📄 Export PDF\n" +
+        "🔄 Activités récurrentes\n" +
+        "🗂️ Plusieurs plannings"
     );
-
-
-  div.textContent =
-    texte;
-
-
-  return div.innerHTML;
-
 }
 
 
-/* =========================
+/* -----------------------------
    DATE PAR DÉFAUT
-========================= */
+----------------------------- */
+
+document.getElementById("date").value =
+    formatDate(new Date());
 
 
-document.getElementById(
-  "dateActivite"
-).value =
-  formatDate(
-    new Date()
-  );
-
-
-/* =========================
+/* -----------------------------
    LANCEMENT
-========================= */
-
+----------------------------- */
 
 afficherCalendrier();
-
 
 </script>
 
