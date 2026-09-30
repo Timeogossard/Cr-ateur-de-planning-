@@ -12,8 +12,6 @@
     --secondaire:#a29bfe;
     --fond:#f5f6fa;
     --texte:#2d3436;
-    --blanc:#ffffff;
-    --bordure:#dfe6e9;
 }
 
 *{
@@ -68,7 +66,7 @@ button{
 
 .btn-secondaire{
     background:#dfe6e9;
-    color:var(--texte);
+    color:#2d3436;
 }
 
 .btn-danger{
@@ -79,6 +77,7 @@ button{
 .btn-premium{
     background:#fdcb6e;
     color:#2d3436;
+    font-weight:bold;
 }
 
 .navigation{
@@ -124,7 +123,10 @@ button{
     color:var(--principal);
 }
 
-.formulaire{
+.formulaire,
+.modeles,
+.themes,
+.premium{
     background:white;
     padding:20px;
     border-radius:12px;
@@ -132,7 +134,10 @@ button{
     margin-bottom:25px;
 }
 
-.formulaire h2{
+.formulaire h2,
+.modeles h2,
+.themes h2,
+.premium h2{
     margin-top:0;
 }
 
@@ -155,7 +160,7 @@ button{
 .champ input,
 .champ select{
     padding:10px;
-    border:1px solid var(--bordure);
+    border:1px solid #dfe6e9;
     border-radius:7px;
 }
 
@@ -164,22 +169,6 @@ button{
     display:flex;
     gap:10px;
     flex-wrap:wrap;
-}
-
-.modeles,
-.themes,
-.premium{
-    background:white;
-    padding:20px;
-    border-radius:12px;
-    box-shadow:0 3px 12px rgba(0,0,0,.08);
-    margin-bottom:25px;
-}
-
-.modeles h2,
-.themes h2,
-.premium h2{
-    margin-top:0;
 }
 
 .boutons-modeles,
@@ -193,8 +182,33 @@ button{
     background:#eee;
 }
 
-.modele.premium-lock{
+.modele-premium{
     background:#ffeaa7;
+}
+
+.modele-premium.debloque{
+    background:#fdcb6e;
+}
+
+.badge-premium{
+    display:inline-block;
+    background:#fdcb6e;
+    color:#2d3436;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.statut-premium{
+    margin-top:15px;
+    padding:15px;
+    border-radius:10px;
+    background:#f1f2f6;
+}
+
+.statut-premium.actif{
+    background:#fff3cd;
 }
 
 .calendrier-container{
@@ -211,7 +225,7 @@ button{
 }
 
 .calendrier-header h2{
-    margin:0 0 15px;
+    margin:0;
 }
 
 .grille-semaine{
@@ -222,7 +236,7 @@ button{
 
 .jour{
     min-height:260px;
-    border:1px solid var(--bordure);
+    border:1px solid #dfe6e9;
     padding:8px;
 }
 
@@ -277,7 +291,7 @@ button{
 
 .case-mois{
     min-height:130px;
-    border:1px solid var(--bordure);
+    border:1px solid #dfe6e9;
     padding:7px;
 }
 
@@ -293,22 +307,6 @@ button{
 .case-mois .activite{
     font-size:12px;
     padding:6px;
-}
-
-.badge-premium{
-    display:inline-block;
-    background:#fdcb6e;
-    color:#2d3436;
-    padding:5px 9px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:bold;
-}
-
-footer{
-    text-align:center;
-    padding:25px;
-    color:#636e72;
 }
 
 .message-premium{
@@ -337,7 +335,14 @@ footer{
     z-index:999;
 }
 
+footer{
+    text-align:center;
+    padding:25px;
+    color:#636e72;
+}
+
 @media(max-width:800px){
+
     .dashboard{
         grid-template-columns:repeat(2,1fr);
     }
@@ -348,12 +353,14 @@ footer{
 }
 
 @media(max-width:500px){
+
     .dashboard{
         grid-template-columns:1fr;
     }
 }
 
 @media print{
+
     header,
     .navigation,
     .formulaire,
@@ -390,246 +397,239 @@ footer{
 
 <div class="container">
 
-    <!-- DASHBOARD -->
-    <section class="dashboard">
+<section class="dashboard">
 
-        <div class="dashboard-card">
-            <div class="icone">📅</div>
-            <span>Activités</span>
-            <strong id="nombreActivites">0</strong>
+    <div class="dashboard-card">
+        <div class="icone">📅</div>
+        <span>Activités</span>
+        <strong id="nombreActivites">0</strong>
+    </div>
+
+    <div class="dashboard-card">
+        <div class="icone">⏰</div>
+        <span>Temps planifié</span>
+        <strong id="tempsPlanifie">0h</strong>
+    </div>
+
+    <div class="dashboard-card">
+        <div class="icone">🗓️</div>
+        <span>Jours occupés</span>
+        <strong id="joursOccupes">0</strong>
+    </div>
+
+    <div class="dashboard-card">
+        <div class="icone">⭐</div>
+        <span>Compte</span>
+        <strong id="statutCompte">FREE</strong>
+    </div>
+
+</section>
+
+<div class="navigation">
+
+    <button id="btnSemaine" onclick="changerMode('semaine')">
+        📆 Vue semaine
+    </button>
+
+    <button id="btnMois" onclick="changerMode('mois')">
+        ⭐ Vue mois
+    </button>
+
+    <button onclick="precedent()">⬅️ Précédent</button>
+
+    <button onclick="aujourdHui()">Aujourd'hui</button>
+
+    <button onclick="suivant()">Suivant ➡️</button>
+
+    <button onclick="exporterPDF()">📄 Exporter en PDF</button>
+
+</div>
+
+<section class="formulaire">
+
+    <h2>➕ Ajouter une activité</h2>
+
+    <div class="form-grid">
+
+        <div class="champ">
+            <label for="nom">Activité</label>
+            <input id="nom" type="text" placeholder="Ex : Mathématiques">
         </div>
 
-        <div class="dashboard-card">
-            <div class="icone">⏰</div>
-            <span>Temps planifié</span>
-            <strong id="tempsPlanifie">0h</strong>
+        <div class="champ">
+            <label for="date">Date</label>
+            <input id="date" type="date">
         </div>
 
-        <div class="dashboard-card">
-            <div class="icone">🗓️</div>
-            <span>Jours occupés</span>
-            <strong id="joursOccupes">0</strong>
+        <div class="champ">
+            <label for="debut">Heure de début</label>
+            <input id="debut" type="time">
         </div>
 
-        <div class="dashboard-card">
-            <div class="icone">⭐</div>
-            <span>Compte</span>
-            <strong>FREE</strong>
+        <div class="champ">
+            <label for="fin">Heure de fin</label>
+            <input id="fin" type="time">
         </div>
 
-    </section>
+        <div class="champ">
+            <label for="couleur">Couleur</label>
+            <input id="couleur" type="color" value="#6c5ce7">
+        </div>
 
-    <!-- NAVIGATION -->
-    <div class="navigation">
+        <div class="champ">
+            <label for="repetition">Répétition</label>
 
-        <button id="btnSemaine" onclick="changerMode('semaine')">
-            📆 Vue semaine
-        </button>
+            <select id="repetition">
+                <option value="aucune">Aucune</option>
+                <option value="quotidienne">Tous les jours</option>
+                <option value="hebdomadaire">Toutes les semaines</option>
+                <option value="mensuelle">Tous les mois</option>
+            </select>
+        </div>
 
-        <button id="btnMois" onclick="changerMode('mois')">
-            ⭐ Vue mois
-        </button>
+        <div class="champ">
+            <label for="nombreRepetitions">
+                Nombre d'occurrences
+            </label>
 
-        <button onclick="precedent()">⬅️ Précédent</button>
-
-        <button onclick="aujourdHui()">Aujourd'hui</button>
-
-        <button onclick="suivant()">Suivant ➡️</button>
-
-        <button onclick="exporterPDF()">📄 Exporter en PDF</button>
+            <select id="nombreRepetitions">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+        </div>
 
     </div>
 
-    <!-- FORMULAIRE -->
-    <section class="formulaire">
+    <div class="form-actions">
 
-        <h2>➕ Ajouter une activité</h2>
+        <button class="btn-principal" onclick="ajouterActivite()">
+            ➕ Ajouter
+        </button>
 
-        <div class="form-grid">
+        <button class="btn-secondaire" onclick="viderFormulaire()">
+            Effacer
+        </button>
 
-            <div class="champ">
-                <label for="nom">Activité</label>
-                <input id="nom" type="text" placeholder="Ex : Mathématiques">
-            </div>
+    </div>
 
-            <div class="champ">
-                <label for="date">Date</label>
-                <input id="date" type="date">
-            </div>
+</section>
 
-            <div class="champ">
-                <label for="debut">Heure de début</label>
-                <input id="debut" type="time">
-            </div>
+<section class="modeles">
 
-            <div class="champ">
-                <label for="fin">Heure de fin</label>
-                <input id="fin" type="time">
-            </div>
+    <h2>📋 Modèles de planning</h2>
 
-            <div class="champ">
-                <label for="couleur">Couleur</label>
-                <input id="couleur" type="color" value="#6c5ce7">
-            </div>
+    <p>Choisis un modèle pour remplir automatiquement ton planning.</p>
 
-            <div class="champ">
-                <label for="repetition">Répétition</label>
+    <div class="boutons-modeles">
 
-                <select id="repetition">
-                    <option value="aucune">Aucune</option>
-                    <option value="quotidienne">Tous les jours</option>
-                    <option value="hebdomadaire">Toutes les semaines</option>
-                    <option value="mensuelle">Tous les mois</option>
-                </select>
-            </div>
+        <button class="modele" onclick="chargerModele('etudiant')">
+            🎓 Étudiant
+        </button>
 
-            <div class="champ">
-                <label for="nombreRepetitions">
-                    Nombre d'occurrences
-                </label>
+        <button class="modele" onclick="chargerModele('revision')">
+            📚 Révisions
+        </button>
 
-                <select id="nombreRepetitions">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                </select>
-            </div>
+        <button class="modele" onclick="chargerModele('sport')">
+            🏋️ Sport
+        </button>
 
-        </div>
+        <button class="modele" onclick="chargerModele('vacances')">
+            🏖️ Vacances
+        </button>
 
-        <div class="form-actions">
+        <button class="modele" onclick="chargerModele('organisation')">
+            💼 Organisation
+        </button>
 
-            <button class="btn-principal" onclick="ajouterActivite()">
-                ➕ Ajouter
-            </button>
+        <button class="modele modele-premium" onclick="utiliserModelePremium('examens')">
+            🔒 📝 Examens
+        </button>
 
-            <button class="btn-secondaire" onclick="viderFormulaire()">
-                Effacer
-            </button>
+        <button class="modele modele-premium" onclick="utiliserModelePremium('productivite')">
+            🔒 🧠 Productivité
+        </button>
 
-        </div>
+        <button class="modele modele-premium" onclick="utiliserModelePremium('objectifs')">
+            🔒 🎯 Objectifs
+        </button>
 
-    </section>
+        <button class="modele modele-premium" onclick="utiliserModelePremium('personnalise')">
+            🔒 ✨ Personnalisé
+        </button>
 
-    <!-- MODÈLES -->
-    <section class="modeles">
+    </div>
 
-        <h2>📋 Modèles de planning</h2>
+</section>
 
-        <p>Choisis un modèle pour remplir automatiquement ton planning.</p>
+<section class="themes">
 
-        <div class="boutons-modeles">
+    <h2>🎨 Thèmes</h2>
 
-            <button class="modele" onclick="chargerModele('etudiant')">
-                🎓 Étudiant
-            </button>
+    <div class="boutons-themes">
 
-            <button class="modele" onclick="chargerModele('revision')">
-                📚 Révisions
-            </button>
+        <button onclick="changerTheme('violet')">💜 Violet</button>
 
-            <button class="modele" onclick="chargerModele('sport')">
-                🏋️ Sport
-            </button>
+        <button onclick="changerTheme('bleu')">💙 Bleu</button>
 
-            <button class="modele" onclick="chargerModele('vacances')">
-                🏖️ Vacances
-            </button>
+        <button onclick="changerTheme('vert')">💚 Vert</button>
 
-            <button class="modele" onclick="chargerModele('organisation')">
-                💼 Organisation
-            </button>
+        <button onclick="changerTheme('orange')">🧡 Orange</button>
 
-            <button class="modele premium-lock" onclick="modelePremium('examens')">
-                🔒 📝 Examens
-            </button>
+        <button onclick="changerTheme('rose')">💗 Rose</button>
 
-            <button class="modele premium-lock" onclick="modelePremium('productivite')">
-                🔒 🧠 Productivité
-            </button>
+        <button onclick="changerTheme('sombre')">🌙 Sombre</button>
 
-            <button class="modele premium-lock" onclick="modelePremium('objectifs')">
-                🔒 🎯 Objectifs
-            </button>
+    </div>
 
-            <button class="modele premium-lock" onclick="modelePremium('personnalise')">
-                🔒 ✨ Personnalisé
-            </button>
+</section>
 
-        </div>
+<section class="premium">
 
-    </section>
+    <h2>⭐ Planify Premium</h2>
 
-    <!-- THEMES -->
-    <section class="themes">
+    <p>
+        Teste gratuitement le fonctionnement des fonctionnalités
+        Premium grâce au mode démo.
+    </p>
 
-        <h2>🎨 Thèmes</h2>
+    <div id="statutPremium" class="statut-premium">
+        🔒 <strong>Mode Premium désactivé</strong>
+        <br><br>
+        Les modèles Premium sont verrouillés.
+    </div>
 
-        <div class="boutons-themes">
+    <br>
 
-            <button onclick="changerTheme('violet')">
-                💜 Violet
-            </button>
+    <button
+        id="boutonPremium"
+        class="btn-premium"
+        onclick="activerPremiumDemo()"
+    >
+        ⭐ Activer le mode Premium (démo)
+    </button>
 
-            <button onclick="changerTheme('bleu')">
-                💙 Bleu
-            </button>
+</section>
 
-            <button onclick="changerTheme('vert')">
-                💚 Vert
-            </button>
+<section class="calendrier-container">
 
-            <button onclick="changerTheme('orange')">
-                🧡 Orange
-            </button>
+    <div class="calendrier-header">
+        <h2 id="titreCalendrier"></h2>
+    </div>
 
-            <button onclick="changerTheme('rose')">
-                💗 Rose
-            </button>
+    <div id="calendrier"></div>
 
-            <button onclick="changerTheme('sombre')">
-                🌙 Sombre
-            </button>
-
-        </div>
-
-    </section>
-
-    <!-- PREMIUM -->
-    <section class="premium">
-
-        <h2>⭐ Planify Premium</h2>
-
-        <p>
-            Débloque des modèles supplémentaires et de futures
-            fonctionnalités avancées.
-        </p>
-
-        <span class="badge-premium">PREMIUM</span>
-
-    </section>
-
-    <!-- CALENDRIER -->
-    <section class="calendrier-container">
-
-        <div class="calendrier-header">
-
-            <h2 id="titreCalendrier"></h2>
-
-        </div>
-
-        <div id="calendrier"></div>
-
-    </section>
+</section>
 
 </div>
 
@@ -639,24 +639,31 @@ footer{
 
 <script>
 
-let activites = JSON.parse(localStorage.getItem("monPlanning")) || [];
+let activites =
+    JSON.parse(localStorage.getItem("monPlanning")) || [];
 
 let dateActuelle = new Date();
 
 let mode = "semaine";
 
+let premiumActif =
+    localStorage.getItem("premiumDemo") === "true";
+
 
 /* =========================
-   OUTILS DATES
+   DATES
 ========================= */
 
 function formatDate(date){
 
-    const annee = date.getFullYear();
+    const annee =
+        date.getFullYear();
 
-    const mois = String(date.getMonth()+1).padStart(2,"0");
+    const mois =
+        String(date.getMonth()+1).padStart(2,"0");
 
-    const jour = String(date.getDate()).padStart(2,"0");
+    const jour =
+        String(date.getDate()).padStart(2,"0");
 
     return `${annee}-${mois}-${jour}`;
 }
@@ -668,9 +675,12 @@ function obtenirLundi(date){
 
     const jour = d.getDay();
 
-    const difference = jour === 0 ? -6 : 1 - jour;
+    const difference =
+        jour === 0 ? -6 : 1 - jour;
 
-    d.setDate(d.getDate() + difference);
+    d.setDate(
+        d.getDate() + difference
+    );
 
     d.setHours(0,0,0,0);
 
@@ -711,19 +721,24 @@ function mettreAJourDashboard(){
 
         if(a.debut && a.fin){
 
-            const debut = a.debut.split(":");
+            const debut =
+                a.debut.split(":");
 
-            const fin = a.fin.split(":");
+            const fin =
+                a.fin.split(":");
 
             const debutMinutes =
-                Number(debut[0]) * 60 + Number(debut[1]);
+                Number(debut[0]) * 60 +
+                Number(debut[1]);
 
             const finMinutes =
-                Number(fin[0]) * 60 + Number(fin[1]);
+                Number(fin[0]) * 60 +
+                Number(fin[1]);
 
             if(finMinutes > debutMinutes){
 
-                minutesTotal += finMinutes - debutMinutes;
+                minutesTotal +=
+                    finMinutes - debutMinutes;
 
             }
 
@@ -731,15 +746,20 @@ function mettreAJourDashboard(){
 
     });
 
-    const heures = Math.floor(minutesTotal / 60);
+    const heures =
+        Math.floor(minutesTotal / 60);
 
-    const minutes = minutesTotal % 60;
+    const minutes =
+        minutesTotal % 60;
 
     document.getElementById("tempsPlanifie").textContent =
         `${heures}h${minutes > 0 ? minutes : ""}`;
 
     document.getElementById("joursOccupes").textContent =
         dates.size;
+
+    document.getElementById("statutCompte").textContent =
+        premiumActif ? "PREMIUM" : "FREE";
 
 }
 
@@ -750,35 +770,48 @@ function mettreAJourDashboard(){
 
 function ajouterActivite(){
 
-    const nom = document.getElementById("nom").value.trim();
+    const nom =
+        document.getElementById("nom").value.trim();
 
-    const dateDepart = document.getElementById("date").value;
+    const dateDepart =
+        document.getElementById("date").value;
 
-    const debut = document.getElementById("debut").value;
+    const debut =
+        document.getElementById("debut").value;
 
-    const fin = document.getElementById("fin").value;
+    const fin =
+        document.getElementById("fin").value;
 
-    const couleur = document.getElementById("couleur").value;
+    const couleur =
+        document.getElementById("couleur").value;
 
     const repetition =
         document.getElementById("repetition").value;
 
     const nombre =
-        Number(document.getElementById("nombreRepetitions").value);
+        Number(
+            document.getElementById(
+                "nombreRepetitions"
+            ).value
+        );
 
     if(!nom || !dateDepart){
 
-        alert("Merci de renseigner au minimum l'activité et la date.");
+        alert(
+            "Merci de renseigner au minimum l'activité et la date."
+        );
 
         return;
 
     }
 
-    let dateBase = new Date(dateDepart + "T00:00:00");
+    let dateBase =
+        new Date(dateDepart + "T00:00:00");
 
-    for(let i = 0; i < nombre; i++){
+    for(let i=0;i<nombre;i++){
 
-        const nouvelleDate = new Date(dateBase);
+        const nouvelleDate =
+            new Date(dateBase);
 
         if(repetition === "quotidienne"){
 
@@ -806,19 +839,23 @@ function ajouterActivite(){
 
         activites.push({
 
-            id: Date.now() + i + Math.random(),
+            id:
+                Date.now() +
+                i +
+                Math.random(),
 
-            nom: nom,
+            nom:nom,
 
-            date: formatDate(nouvelleDate),
+            date:
+                formatDate(nouvelleDate),
 
-            debut: debut,
+            debut:debut,
 
-            fin: fin,
+            fin:fin,
 
-            couleur: couleur,
+            couleur:couleur,
 
-            repetition: repetition
+            repetition:repetition
 
         });
 
@@ -834,7 +871,7 @@ function ajouterActivite(){
 
 
 /* =========================
-   SUPPRIMER
+   SUPPRESSION
 ========================= */
 
 function supprimerActivite(id){
@@ -842,7 +879,9 @@ function supprimerActivite(id){
     if(confirm("Supprimer cette activité ?")){
 
         activites =
-            activites.filter(a => a.id !== id);
+            activites.filter(
+                a => a.id !== id
+            );
 
         sauvegarder();
 
@@ -854,13 +893,15 @@ function supprimerActivite(id){
 
 
 /* =========================
-   MODIFIER
+   MODIFICATION
 ========================= */
 
 function modifierActivite(id){
 
     const activite =
-        activites.find(a => a.id === id);
+        activites.find(
+            a => a.id === id
+        );
 
     if(!activite) return;
 
@@ -878,12 +919,6 @@ function modifierActivite(id){
 
     document.getElementById("couleur").value =
         activite.couleur;
-
-    document.getElementById("repetition").value =
-        "aucune";
-
-    document.getElementById("nombreRepetitions").value =
-        "1";
 
     supprimerActivite(id);
 
@@ -917,7 +952,7 @@ function viderFormulaire(){
 
 
 /* =========================
-   AFFICHER ACTIVITÉ
+   ACTIVITÉ
 ========================= */
 
 function afficherActivite(activite){
@@ -983,12 +1018,13 @@ function escapeHTML(texte){
 
 
 /* =========================
-   VUE SEMAINE
+   SEMAINE
 ========================= */
 
 function afficherSemaine(){
 
-    const lundi = obtenirLundi(dateActuelle);
+    const lundi =
+        obtenirLundi(dateActuelle);
 
     const jours = [
         "Lundi",
@@ -1022,14 +1058,18 @@ function afficherSemaine(){
         dimanche.getDate() + 6
     );
 
-    document.getElementById("titreCalendrier").textContent =
+    document.getElementById(
+        "titreCalendrier"
+    ).textContent =
         `Semaine du ${lundi.getDate()} ${mois[lundi.getMonth()]} au ${dimanche.getDate()} ${mois[dimanche.getMonth()]} ${dimanche.getFullYear()}`;
 
-    let html = `<div class="grille-semaine">`;
+    let html =
+        `<div class="grille-semaine">`;
 
     for(let i=0;i<7;i++){
 
-        const date = new Date(lundi);
+        const date =
+            new Date(lundi);
 
         date.setDate(
             date.getDate() + i
@@ -1039,7 +1079,8 @@ function afficherSemaine(){
             formatDate(date);
 
         const aujourd =
-            dateString === formatDate(new Date());
+            dateString ===
+            formatDate(new Date());
 
         html += `
 
@@ -1074,14 +1115,15 @@ function afficherSemaine(){
 
     html += `</div>`;
 
-    document.getElementById("calendrier").innerHTML =
-        html;
+    document.getElementById(
+        "calendrier"
+    ).innerHTML = html;
 
 }
 
 
 /* =========================
-   VUE MOIS
+   MOIS
 ========================= */
 
 function afficherMois(){
@@ -1107,7 +1149,9 @@ function afficherMois(){
         "Décembre"
     ];
 
-    document.getElementById("titreCalendrier").textContent =
+    document.getElementById(
+        "titreCalendrier"
+    ).textContent =
         `${nomsMois[mois]} ${annee}`;
 
     const premierJour =
@@ -1142,7 +1186,8 @@ function afficherMois(){
 
     for(let i=0;i<debut;i++){
 
-        html += `<div class="case-mois"></div>`;
+        html +=
+            `<div class="case-mois"></div>`;
 
     }
 
@@ -1159,7 +1204,8 @@ function afficherMois(){
             formatDate(date);
 
         const aujourd =
-            dateString === formatDate(new Date());
+            dateString ===
+            formatDate(new Date());
 
         html += `
 
@@ -1188,8 +1234,9 @@ function afficherMois(){
 
     html += `</div>`;
 
-    document.getElementById("calendrier").innerHTML =
-        html;
+    document.getElementById(
+        "calendrier"
+    ).innerHTML = html;
 
 }
 
@@ -1212,23 +1259,27 @@ function afficher(){
 
     mettreAJourDashboard();
 
-    document.getElementById("btnSemaine")
-        .classList.toggle(
-            "actif",
-            mode === "semaine"
-        );
+    document.getElementById(
+        "btnSemaine"
+    ).classList.toggle(
+        "actif",
+        mode === "semaine"
+    );
 
-    document.getElementById("btnMois")
-        .classList.toggle(
-            "actif",
-            mode === "mois"
-        );
+    document.getElementById(
+        "btnMois"
+    ).classList.toggle(
+        "actif",
+        mode === "mois"
+    );
+
+    mettreAJourPremium();
 
 }
 
 
 /* =========================
-   CHANGER MODE
+   MODES
 ========================= */
 
 function changerMode(nouveauMode){
@@ -1288,7 +1339,8 @@ function suivant(){
 
 function aujourdHui(){
 
-    dateActuelle = new Date();
+    dateActuelle =
+        new Date();
 
     afficher();
 
@@ -1358,7 +1410,8 @@ function changerTheme(theme){
 
     };
 
-    const t = themes[theme];
+    const t =
+        themes[theme];
 
     document.documentElement.style.setProperty(
         "--principal",
@@ -1391,7 +1444,9 @@ function changerTheme(theme){
 function chargerTheme(){
 
     const theme =
-        localStorage.getItem("themePlanning");
+        localStorage.getItem(
+            "themePlanning"
+        );
 
     if(theme){
 
@@ -1408,11 +1463,8 @@ function chargerTheme(){
 
 function chargerModele(type){
 
-    const aujourd =
-        new Date();
-
     const date =
-        formatDate(aujourd);
+        formatDate(new Date());
 
     let modele = [];
 
@@ -1421,99 +1473,78 @@ function chargerModele(type){
         modele = [
 
             ["Cours","08:00","10:00","#6c5ce7"],
-
             ["Pause","10:00","10:30","#00b894"],
-
             ["Cours","10:30","12:00","#0984e3"],
-
             ["Déjeuner","12:00","13:00","#e17055"],
-
             ["Travail personnel","14:00","16:00","#6c5ce7"]
 
         ];
 
     }
 
-
     if(type === "revision"){
 
         modele = [
 
             ["Révisions maths","09:00","10:00","#6c5ce7"],
-
             ["Pause","10:00","10:30","#00b894"],
-
             ["Révisions français","10:30","11:30","#0984e3"],
-
             ["Exercices","14:00","15:30","#e17055"],
-
             ["Relecture","16:00","17:00","#e84393"]
 
         ];
 
     }
 
-
     if(type === "sport"){
 
         modele = [
 
             ["Course","08:00","09:00","#00b894"],
-
             ["Musculation","14:00","15:00","#e17055"],
-
             ["Étirements","17:00","17:30","#0984e3"]
 
         ];
 
     }
 
-
     if(type === "vacances"){
 
         modele = [
 
             ["Réveil","08:00","09:00","#6c5ce7"],
-
             ["Petit-déjeuner","09:00","09:30","#e17055"],
-
             ["Activité / sortie","10:00","12:00","#00b894"],
-
             ["Déjeuner","12:00","13:30","#fab1a0"],
-
             ["Temps libre","14:00","17:00","#0984e3"],
-
             ["Soirée","19:00","21:00","#e84393"]
 
         ];
 
     }
 
-
     if(type === "organisation"){
 
         modele = [
 
             ["Organisation","08:00","08:30","#6c5ce7"],
-
             ["Travail","09:00","12:00","#0984e3"],
-
             ["Pause","12:00","13:00","#00b894"],
-
             ["Travail","13:00","16:00","#0984e3"],
-
             ["Bilan de la journée","17:00","17:30","#e17055"]
 
         ];
 
     }
 
-
     modele.forEach((element,index)=>{
 
         activites.push({
 
-            id:Date.now()+index+Math.random(),
+            id:
+                Date.now() +
+                index +
+                Math.random(),
 
             nom:element[0],
 
@@ -1535,7 +1566,9 @@ function chargerModele(type){
 
     afficher();
 
-    alert("✅ Modèle ajouté à ton planning !");
+    alert(
+        "✅ Modèle ajouté à ton planning !"
+    );
 
 }
 
@@ -1544,34 +1577,262 @@ function chargerModele(type){
    MODÈLES PREMIUM
 ========================= */
 
-function modelePremium(type){
+function utiliserModelePremium(type){
 
-    const noms = {
+    if(!premiumActif){
 
-        examens:"📝 Planning examens",
+        afficherMessagePremium();
 
-        productivite:"🧠 Planning productivité",
+        return;
 
-        objectifs:"🎯 Planning objectifs",
+    }
 
-        personnalise:"✨ Planning personnalisé"
-
-    };
-
-    const nom =
-        noms[type] || "Ce modèle";
-
-    afficherMessagePremium(nom);
+    chargerModelePremium(type);
 
 }
 
 
-function afficherMessagePremium(nom){
+function chargerModelePremium(type){
+
+    const date =
+        formatDate(new Date());
+
+    let modele = [];
+
+    if(type === "examens"){
+
+        modele = [
+
+            ["Révisions chapitre 1","08:00","09:30","#6c5ce7"],
+            ["Pause","09:30","10:00","#00b894"],
+            ["Révisions chapitre 2","10:00","11:30","#0984e3"],
+            ["Déjeuner","12:00","13:00","#e17055"],
+            ["Exercices d'examen","14:00","16:00","#e84393"],
+            ["Correction","16:30","17:30","#6c5ce7"]
+
+        ];
+
+    }
+
+    if(type === "productivite"){
+
+        modele = [
+
+            ["Objectifs du jour","08:00","08:30","#6c5ce7"],
+            ["Travail concentré","08:30","10:30","#0984e3"],
+            ["Pause","10:30","11:00","#00b894"],
+            ["Travail concentré","11:00","12:30","#0984e3"],
+            ["Tâches importantes","14:00","16:00","#e17055"],
+            ["Bilan","17:00","17:30","#e84393"]
+
+        ];
+
+    }
+
+    if(type === "objectifs"){
+
+        modele = [
+
+            ["Objectif principal","08:00","09:00","#6c5ce7"],
+            ["Action 1","09:00","10:00","#0984e3"],
+            ["Action 2","10:30","11:30","#00b894"],
+            ["Pause","12:00","13:00","#e17055"],
+            ["Action 3","14:00","15:30","#e84393"],
+            ["Bilan des objectifs","17:00","17:30","#6c5ce7"]
+
+        ];
+
+    }
+
+    if(type === "personnalise"){
+
+        modele = [
+
+            ["Planification personnalisée","09:00","10:00","#6c5ce7"],
+            ["Projet personnel","10:30","12:00","#0984e3"],
+            ["Pause","12:00","13:00","#00b894"],
+            ["Projet personnel","14:00","16:00","#e17055"],
+            ["Bilan personnalisé","17:00","18:00","#e84393"]
+
+        ];
+
+    }
+
+    modele.forEach((element,index)=>{
+
+        activites.push({
+
+            id:
+                Date.now() +
+                index +
+                Math.random(),
+
+            nom:element[0],
+
+            date:date,
+
+            debut:element[1],
+
+            fin:element[2],
+
+            couleur:element[3],
+
+            repetition:"aucune"
+
+        });
+
+    });
+
+    sauvegarder();
+
+    afficher();
+
+    alert(
+        "⭐ Modèle Premium ajouté à ton planning !"
+    );
+
+}
+
+
+/* =========================
+   PREMIUM DÉMO
+========================= */
+
+function activerPremiumDemo(){
+
+    if(premiumActif){
+
+        premiumActif = false;
+
+        localStorage.setItem(
+            "premiumDemo",
+            "false"
+        );
+
+        alert(
+            "Le mode Premium démo est désactivé."
+        );
+
+    }else{
+
+        premiumActif = true;
+
+        localStorage.setItem(
+            "premiumDemo",
+            "true"
+        );
+
+        alert(
+            "⭐ Mode Premium démo activé !"
+        );
+
+    }
+
+    mettreAJourPremium();
+
+    afficher();
+
+}
+
+
+function mettreAJourPremium(){
+
+    const statut =
+        document.getElementById(
+            "statutPremium"
+        );
+
+    const bouton =
+        document.getElementById(
+            "boutonPremium"
+        );
+
+    if(!statut || !bouton) return;
+
+    if(premiumActif){
+
+        statut.className =
+            "statut-premium actif";
+
+        statut.innerHTML = `
+            🔓 <strong>Mode Premium démo activé</strong>
+            <br><br>
+            Tous les modèles Premium sont maintenant accessibles.
+        `;
+
+        bouton.textContent =
+            "🔴 Désactiver le mode Premium démo";
+
+        bouton.className =
+            "btn-danger";
+
+        document.querySelectorAll(
+            ".modele-premium"
+        ).forEach(button => {
+
+            button.classList.add("debloque");
+
+            button.textContent =
+                button.textContent.replace(
+                    "🔒 ",
+                    "⭐ "
+                );
+
+        });
+
+    }else{
+
+        statut.className =
+            "statut-premium";
+
+        statut.innerHTML = `
+            🔒 <strong>Mode Premium désactivé</strong>
+            <br><br>
+            Les modèles Premium sont verrouillés.
+        `;
+
+        bouton.textContent =
+            "⭐ Activer le mode Premium (démo)";
+
+        bouton.className =
+            "btn-premium";
+
+        document.querySelectorAll(
+            ".modele-premium"
+        ).forEach(button => {
+
+            button.classList.remove(
+                "debloque"
+            );
+
+        });
+
+    }
+
+    document.getElementById(
+        "statutCompte"
+    ).textContent =
+        premiumActif
+        ? "PREMIUM"
+        : "FREE";
+
+}
+
+
+/* =========================
+   MESSAGE PREMIUM
+========================= */
+
+function afficherMessagePremium(){
 
     const overlay =
         document.createElement("div");
 
-    overlay.className = "overlay";
+    overlay.className =
+        "overlay";
+
+    overlay.id =
+        "overlayPremium";
 
     const message =
         document.createElement("div");
@@ -1579,18 +1840,21 @@ function afficherMessagePremium(nom){
     message.className =
         "message-premium";
 
+    message.id =
+        "messagePremium";
+
     message.innerHTML = `
 
-        <h2>⭐ Planify Premium</h2>
+        <h2>🔒 Fonction Premium</h2>
 
         <p>
-            <strong>${nom}</strong>
-            est réservé aux membres Premium.
+            Ce modèle est réservé à Planify Premium.
         </p>
 
         <p>
-            Ce modèle fera partie des fonctionnalités
-            Premium de Planify.
+            Pour tester les fonctionnalités Premium,
+            active le mode démo dans la section
+            <strong>⭐ Planify Premium</strong>.
         </p>
 
         <button
@@ -1606,20 +1870,20 @@ function afficherMessagePremium(nom){
 
     document.body.appendChild(message);
 
-    overlay.id = "overlayPremium";
-
-    message.id = "messagePremium";
-
 }
 
 
 function fermerMessagePremium(){
 
     const overlay =
-        document.getElementById("overlayPremium");
+        document.getElementById(
+            "overlayPremium"
+        );
 
     const message =
-        document.getElementById("messagePremium");
+        document.getElementById(
+            "messagePremium"
+        );
 
     if(overlay){
 
