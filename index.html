@@ -647,6 +647,12 @@ footer{
 }
 
 </style>
+
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#6c5ce7">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
 </head>
 
 <body>
@@ -723,29 +729,41 @@ Visiteur
 Connecte-toi pour synchroniser ton planning.
 </p>
 
-<br>
+<div class="form-buttons">
 
-<span class="premium-status status-free">
-🆓 Gratuit
-</span>
-
-<button class="btn btn-primary" onclick="ouvrirCompte()">
-Gérer mon compte
+<button
+id="loginButton"
+class="btn btn-primary"
+onclick="ouvrirCompte()"
+>
+Se connecter
 </button>
+
+<button
+id="logoutButton"
+class="btn btn-danger hidden"
+onclick="seDeconnecter()"
+>
+Se déconnecter
+</button>
+
+</div>
 
 </div>
 
 </section>
 
-<section>
 
-<h2>📊 Tableau de bord</h2>
+<section>
 
 <div class="dashboard">
 
 <div class="stat">
 
-<div class="stat-number" id="statActivities">
+<div
+class="stat-number"
+id="statActivities"
+>
 0
 </div>
 
@@ -757,8 +775,11 @@ Activités
 
 <div class="stat">
 
-<div class="stat-number" id="statHours">
-0h
+<div
+class="stat-number"
+id="statHours"
+>
+0h 0m
 </div>
 
 <div class="stat-label">
@@ -769,7 +790,10 @@ Temps planifié
 
 <div class="stat">
 
-<div class="stat-number" id="statDays">
+<div
+class="stat-number"
+id="statDays"
+>
 0
 </div>
 
@@ -783,29 +807,36 @@ Jours occupés
 
 </section>
 
+
 <section id="formSection">
 
 <div class="card">
 
-<h2>➕ Ajouter une activité</h2>
+<h2>
+➕ Ajouter une activité
+</h2>
 
 <div class="form-grid">
 
 <div class="field">
 
-<label>Nom</label>
+<label for="activityName">
+Nom
+</label>
 
 <input
 id="activityName"
 type="text"
-placeholder="Ex : Mathématiques"
+placeholder="Ex : Révisions"
 >
 
 </div>
 
 <div class="field">
 
-<label>Date</label>
+<label for="activityDate">
+Date
+</label>
 
 <input
 id="activityDate"
@@ -816,7 +847,9 @@ type="date"
 
 <div class="field">
 
-<label>Début</label>
+<label for="activityStart">
+Début
+</label>
 
 <input
 id="activityStart"
@@ -827,7 +860,9 @@ type="time"
 
 <div class="field">
 
-<label>Fin</label>
+<label for="activityEnd">
+Fin
+</label>
 
 <input
 id="activityEnd"
@@ -838,63 +873,136 @@ type="time"
 
 </div>
 
-<div class="form-grid" style="margin-top:12px;">
+
+<div
+class="form-grid"
+style="margin-top:12px;"
+>
 
 <div class="field">
 
-<label>Couleur</label>
+<label for="activityColor">
+Couleur
+</label>
 
 <select id="activityColor">
 
-<option value="#7c3aed">Violet</option>
-<option value="#2563eb">Bleu</option>
-<option value="#16a34a">Vert</option>
-<option value="#ea580c">Orange</option>
-<option value="#db2777">Rose</option>
+<option value="#7c3aed">
+Violet
+</option>
+
+<option value="#2563eb">
+Bleu
+</option>
+
+<option value="#16a34a">
+Vert
+</option>
+
+<option value="#ea580c">
+Orange
+</option>
+
+<option value="#db2777">
+Rose
+</option>
 
 </select>
 
 </div>
 
+
 <div class="field">
 
-<label>Répétition</label>
+<label for="activityRepeat">
+Répétition
+</label>
 
 <select id="activityRepeat">
 
-<option value="aucune">Aucune</option>
-<option value="quotidienne">Tous les jours</option>
-<option value="hebdomadaire">Toutes les semaines</option>
-<option value="mensuelle">Tous les mois</option>
+<option value="aucune">
+Aucune
+</option>
+
+<option value="quotidienne">
+Tous les jours
+</option>
+
+<option value="hebdomadaire">
+Toutes les semaines
+</option>
+
+<option value="mensuelle">
+Tous les mois
+</option>
 
 </select>
 
 </div>
+
 
 <div class="field">
 
-<label>Occurrences</label>
+<label for="activityOccurrences">
+Occurrences
+</label>
 
 <select id="activityOccurrences">
 
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
-<option value="6">6</option>
-<option value="7">7</option>
-<option value="8">8</option>
-<option value="9">9</option>
-<option value="10">10</option>
-<option value="11">11</option>
-<option value="12">12</option>
+<option value="1">
+1
+</option>
+
+<option value="2">
+2
+</option>
+
+<option value="3">
+3
+</option>
+
+<option value="4">
+4
+</option>
+
+<option value="5">
+5
+</option>
+
+<option value="6">
+6
+</option>
+
+<option value="7">
+7
+</option>
+
+<option value="8">
+8
+</option>
+
+<option value="9">
+9
+</option>
+
+<option value="10">
+10
+</option>
+
+<option value="11">
+11
+</option>
+
+<option value="12">
+12
+</option>
 
 </select>
 
 </div>
 
 </div>
+
 
 <div class="form-buttons">
 
@@ -907,9 +1015,11 @@ Ajouter
 
 <button
 class="btn btn-secondary"
-onclick="viderFormulaire()"
+onclick="annulerModification()"
+id="cancelEditButton"
+style="display:none;"
 >
-Réinitialiser
+Annuler
 </button>
 
 </div>
@@ -917,6 +1027,7 @@ Réinitialiser
 </div>
 
 </section>
+
 
 <section id="planningSection">
 
@@ -926,31 +1037,21 @@ Réinitialiser
 
 <div>
 
-<h2>📅 Mon planning</h2>
+<h2>
+📅 Mon planning
+</h2>
 
-<p class="muted" id="periodTitle">
+<p
+class="muted"
+id="planningTitle"
+>
 Cette semaine
 </p>
 
 </div>
 
+
 <div class="view-buttons">
-
-<button
-id="weekButton"
-class="btn btn-secondary active"
-onclick="afficherSemaine()"
->
-Semaine
-</button>
-
-<button
-id="monthButton"
-class="btn btn-secondary"
-onclick="afficherMois()"
->
-Mois
-</button>
 
 <button
 class="btn btn-secondary"
@@ -961,9 +1062,32 @@ onclick="changerSemaine(-1)"
 
 <button
 class="btn btn-secondary"
+onclick="allerAujourdhui()"
+>
+Aujourd'hui
+</button>
+
+<button
+class="btn btn-secondary"
 onclick="changerSemaine(1)"
 >
 →
+</button>
+
+<button
+id="weekButton"
+class="btn btn-secondary active"
+onclick="changerVue('semaine')"
+>
+Semaine
+</button>
+
+<button
+id="monthButton"
+class="btn btn-secondary"
+onclick="changerVue('mois')"
+>
+Mois
 </button>
 
 <button
@@ -977,35 +1101,49 @@ onclick="imprimerPlanning()"
 
 </div>
 
+
 <div id="weekView"></div>
 
-<div id="monthView" class="hidden"></div>
+<div
+id="monthView"
+style="display:none;"
+></div>
 
 </div>
 
 </section>
 
+
 <section id="templatesSection">
 
 <div class="card">
 
-<h2>📚 Modèles gratuits</h2>
+<h2>
+📚 Modèles gratuits
+</h2>
+
+<p class="muted">
+Utilise rapidement un planning déjà préparé.
+</p>
 
 <div class="template-grid">
+
 
 <div class="template">
 
 <div class="template-icon">
-📚
+🎓
 </div>
 
-<h3>Étudiant</h3>
+<h3>
+Étudiant
+</h3>
 
 <p class="muted">
-Cours, devoirs et révisions.
+Cours et révisions.
 </p>
 
-<br>
+<div class="form-buttons">
 
 <button
 class="btn btn-primary"
@@ -1016,19 +1154,24 @@ Utiliser
 
 </div>
 
+</div>
+
+
 <div class="template">
 
 <div class="template-icon">
 💼
 </div>
 
-<h3>Travail</h3>
+<h3>
+Travail
+</h3>
 
 <p class="muted">
-Organisation professionnelle.
+Organisation d'une journée de travail.
 </p>
 
-<br>
+<div class="form-buttons">
 
 <button
 class="btn btn-primary"
@@ -1039,19 +1182,24 @@ Utiliser
 
 </div>
 
+</div>
+
+
 <div class="template">
 
 <div class="template-icon">
 🏃
 </div>
 
-<h3>Sport</h3>
+<h3>
+Sport
+</h3>
 
 <p class="muted">
-Planning d'entraînement.
+Planifie ta séance.
 </p>
 
-<br>
+<div class="form-buttons">
 
 <button
 class="btn btn-primary"
@@ -1062,19 +1210,24 @@ Utiliser
 
 </div>
 
+</div>
+
+
 <div class="template">
 
 <div class="template-icon">
 🎯
 </div>
 
-<h3>Objectifs</h3>
+<h3>
+Objectifs
+</h3>
 
 <p class="muted">
-Organisation autour de tes objectifs.
+Organise tes priorités.
 </p>
 
-<br>
+<div class="form-buttons">
 
 <button
 class="btn btn-primary"
@@ -1085,19 +1238,24 @@ Utiliser
 
 </div>
 
+</div>
+
+
 <div class="template">
 
 <div class="template-icon">
 🧠
 </div>
 
-<h3>Focus</h3>
+<h3>
+Focus
+</h3>
 
 <p class="muted">
-Planning dédié à la concentration.
+Travail concentré et pauses.
 </p>
 
-<br>
+<div class="form-buttons">
 
 <button
 class="btn btn-primary"
@@ -1108,19 +1266,24 @@ Utiliser
 
 </div>
 
+</div>
+
+
 <div class="template">
 
 <div class="template-icon">
-⭐
+⚡
 </div>
 
-<h3>Productivité</h3>
+<h3>
+Productivité
+</h3>
 
 <p class="muted">
-Organisation complète de ta journée.
+Une journée organisée.
 </p>
 
-<br>
+<div class="form-buttons">
 
 <button
 class="btn btn-primary"
@@ -1133,75 +1296,69 @@ Utiliser
 
 </div>
 
+
+</div>
+
 </div>
 
 </section>
 
-<section id="accountSection">
 
-<div class="account-grid">
+<section id="accountSection">
 
 <div class="card">
 
-<h2>👤 Mon compte</h2>
+<h2>
+👤 Compte
+</h2>
 
-<p id="accountInfo" class="muted">
+<div class="account-grid">
+
+<div>
+
+<h3>
+État du compte
+</h3>
+
+<p
+class="muted"
+id="accountInfo"
+>
 Tu n'es pas connecté.
 </p>
 
-<br>
+<div class="form-buttons">
 
 <button
-id="loginButton"
 class="btn btn-primary"
 onclick="ouvrirCompte()"
 >
-Connexion / Inscription
+Connexion / inscription
 </button>
 
 <button
-id="logoutButton"
 class="btn btn-danger hidden"
-onclick="deconnecterCompte()"
+id="logoutButton2"
+onclick="seDeconnecter()"
 >
 Se déconnecter
 </button>
 
 </div>
 
-<div class="card">
+</div>
 
-<h2>💾 Sauvegarde</h2>
+
+<div>
+
+<h3>
+☁️ Synchronisation
+</h3>
 
 <p class="muted">
-Exporte ton planning ou restaure une sauvegarde.
+Connecte-toi pour sauvegarder ton planning
+dans ton compte et le retrouver sur tes appareils.
 </p>
-
-<br>
-
-<div class="form-buttons">
-
-<button
-class="btn btn-secondary"
-onclick="exporterBackup()"
->
-Exporter
-</button>
-
-<button
-class="btn btn-secondary"
-onclick="document.getElementById('importFile').click()"
->
-Importer
-</button>
-
-<input
-id="importFile"
-type="file"
-accept=".json"
-class="hidden"
-onchange="importerBackup(event)"
->
 
 </div>
 
@@ -1210,43 +1367,105 @@ onchange="importerBackup(event)"
 </div>
 
 </section>
+
 
 <section>
 
 <div class="card">
 
-<h2>🎨 Apparence</h2>
+<h2>
+💾 Sauvegarde
+</h2>
 
 <p class="muted">
-Choisis le thème de Planify.
+Sauvegarde ton planning sur ton appareil ou importe une sauvegarde.
 </p>
-
-<br>
 
 <div class="form-buttons">
 
-<button class="btn btn-secondary" onclick="changerTheme('violet')">
-Violet
+<button
+class="btn btn-primary"
+onclick="exporterBackup()"
+>
+⬇️ Exporter
 </button>
 
-<button class="btn btn-secondary" onclick="changerTheme('blue')">
-Bleu
+<label
+class="btn btn-secondary"
+style="display:inline-flex;align-items:center;"
+>
+⬆️ Importer
+
+<input
+type="file"
+accept=".json,application/json"
+onchange="importerBackup(event)"
+style="display:none;"
+>
+
+</label>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section>
+
+<div class="card">
+
+<h2>
+🎨 Thème
+</h2>
+
+<p class="muted">
+Choisis l'apparence de Planify.
+</p>
+
+<div class="form-buttons">
+
+<button
+class="btn btn-secondary"
+onclick="changerTheme('violet')"
+>
+🟣 Violet
 </button>
 
-<button class="btn btn-secondary" onclick="changerTheme('green')">
-Vert
+<button
+class="btn btn-secondary"
+onclick="changerTheme('blue')"
+>
+🔵 Bleu
 </button>
 
-<button class="btn btn-secondary" onclick="changerTheme('orange')">
-Orange
+<button
+class="btn btn-secondary"
+onclick="changerTheme('green')"
+>
+🟢 Vert
 </button>
 
-<button class="btn btn-secondary" onclick="changerTheme('pink')">
-Rose
+<button
+class="btn btn-secondary"
+onclick="changerTheme('orange')"
+>
+🟠 Orange
 </button>
 
-<button class="btn btn-secondary" onclick="changerTheme('dark')">
-Sombre
+<button
+class="btn btn-secondary"
+onclick="changerTheme('pink')"
+>
+🌸 Rose
+</button>
+
+<button
+class="btn btn-secondary"
+onclick="changerTheme('dark')"
+>
+🌙 Sombre
 </button>
 
 </div>
@@ -1255,11 +1474,16 @@ Sombre
 
 </section>
 
+
 </main>
 
+
 <footer>
-Planify © 2026 — Ton planning, simplement.
+
+Planify — Ton planning, simplement.
+
 </footer>
+
 
 <div
 id="authModal"
@@ -1275,6 +1499,10 @@ onclick="fermerCompte()"
 ×
 </button>
 
+<h2>
+👤 Mon compte
+</h2>
+
 <div class="auth-tabs">
 
 <button
@@ -1286,40 +1514,65 @@ Connexion
 </button>
 
 <button
-id="registerTab"
-onclick="changerAuthMode('register')"
+id="signupTab"
+onclick="changerAuthMode('signup')"
 >
 Inscription
 </button>
 
 </div>
 
-<div class="auth-form">
+
+<div
+id="loginForm"
+class="auth-form"
+>
 
 <input
-id="authEmail"
+id="loginEmail"
 type="email"
 placeholder="Adresse e-mail"
 >
 
 <input
-id="authPassword"
+id="loginPassword"
 type="password"
 placeholder="Mot de passe"
 >
 
 <button
-id="authSubmit"
 class="btn btn-primary"
-onclick="authAction()"
+onclick="seConnecter()"
 >
 Se connecter
 </button>
 
-<p
-id="authMessage"
-class="muted"
-></p>
+</div>
+
+
+<div
+id="signupForm"
+class="auth-form hidden"
+>
+
+<input
+id="signupEmail"
+type="email"
+placeholder="Adresse e-mail"
+>
+
+<input
+id="signupPassword"
+type="password"
+placeholder="Mot de passe"
+>
+
+<button
+class="btn btn-primary"
+onclick="sInscrire()"
+>
+Créer mon compte
+</button>
 
 </div>
 
@@ -1327,9 +1580,14 @@ class="muted"
 
 </div>
 
-<div id="toast" class="toast">
-Notification
+
+<div
+id="toast"
+class="toast"
+>
+Message
 </div>
+
 
 <script>
 
@@ -1343,6 +1601,7 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_nUbVDTEUQ49X180VmwbQtQ_YVOp3FJe";
 
+
 const supabaseClient =
 window.supabase.createClient(
   SUPABASE_URL,
@@ -1354,203 +1613,93 @@ window.supabase.createClient(
    VARIABLES
 ===================================================== */
 
-let activites =
-JSON.parse(localStorage.getItem("planify_activites") || "[]");
+let activites = [];
 
 let utilisateurConnecte = null;
 
-let authMode = "login";
+let modeAuth = "login";
+
+let modePlanning = "semaine";
 
 let datePlanning = new Date();
 
-let modePlanning = "semaine";
+let activiteEnModification = null;
 
 
 /* =====================================================
    INITIALISATION
 ===================================================== */
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener(
+  "DOMContentLoaded",
+  async () => {
 
-  chargerTheme();
+    chargerTheme();
 
-  const today =
-  new Date().toISOString().split("T")[0];
+    const dateInput =
+    document.getElementById(
+      "activityDate"
+    );
 
-  document.getElementById("activityDate").value = today;
+    if(dateInput){
 
-  afficherPlanning();
+      dateInput.value =
+      new Date()
+      .toISOString()
+      .split("T")[0];
 
-  mettreAJourDashboard();
-
-  const {
-    data
-  } =
-  await supabaseClient.auth.getSession();
-
-  utilisateurConnecte =
-  data.session?.user || null;
-
-  if(utilisateurConnecte){
-    await chargerActivitesCloud();
-  }
-
-  mettreAJourCompte();
-
-});
-
-
-/* =====================================================
-   AUTH SUPABASE
-===================================================== */
-
-async function authAction(){
-
-  const email =
-  document.getElementById("authEmail").value.trim();
-
-  const password =
-  document.getElementById("authPassword").value;
-
-  const message =
-  document.getElementById("authMessage");
-
-  if(!email || !password){
-
-    message.textContent =
-    "Remplis tous les champs.";
-
-    return;
-  }
-
-  message.textContent =
-  "Chargement...";
-
-
-  if(authMode === "login"){
-
-    const {
-      data,
-      error
-    } =
-    await supabaseClient.auth.signInWithPassword({
-      email,
-      password
-    });
-
-    if(error){
-
-      message.textContent =
-      error.message;
-
-      return;
     }
 
-    utilisateurConnecte =
-    data.user;
 
-    await chargerActivitesCloud();
+    activites =
+    JSON.parse(
+      localStorage.getItem(
+        "planify_activites"
+      ) || "[]"
+    );
 
-    fermerCompte();
 
-    afficherToast("Connexion réussie.");
+    afficherPlanning();
 
-  }else{
+    mettreAJourDashboard();
+
+    mettreAJourCompte();
+
 
     const {
-      data,
-      error
+      data
     } =
-    await supabaseClient.auth.signUp({
-      email,
-      password
-    });
+    await supabaseClient.auth.getSession();
 
-    if(error){
-
-      message.textContent =
-      error.message;
-
-      return;
-    }
 
     utilisateurConnecte =
-    data.user;
+    data?.session?.user || null;
+
 
     if(utilisateurConnecte){
 
       await chargerActivitesCloud();
 
-      fermerCompte();
-
-      afficherToast("Compte créé.");
-
-    }else{
-
-      message.textContent =
-      "Compte créé. Connecte-toi.";
-
     }
 
-  }
 
-  mettreAJourCompte();
+    mettreAJourCompte();
 
-}
-
-
-function changerAuthMode(mode){
-
-  authMode = mode;
-
-  const loginTab =
-  document.getElementById("loginTab");
-
-  const registerTab =
-  document.getElementById("registerTab");
-
-  const submit =
-  document.getElementById("authSubmit");
-
-  const message =
-  document.getElementById("authMessage");
-
-  message.textContent = "";
-
-  if(mode === "login"){
-
-    loginTab.classList.add("active");
-    registerTab.classList.remove("active");
-
-    submit.textContent =
-    "Se connecter";
-
-  }else{
-
-    registerTab.classList.add("active");
-    loginTab.classList.remove("active");
-
-    submit.textContent =
-    "Créer mon compte";
+    mettreAJourDashboard();
 
   }
+);
 
-}
 
+/* =====================================================
+   AUTH
+===================================================== */
 
 function ouvrirCompte(){
 
   document
   .getElementById("authModal")
   .classList.remove("hidden");
-
-  if(utilisateurConnecte){
-
-    afficherToast(
-      "Tu es déjà connecté."
-    );
-
-  }
 
 }
 
@@ -1564,36 +1713,228 @@ function fermerCompte(){
 }
 
 
-async function deconnecterCompte(){
+function changerAuthMode(mode){
 
-  await supabaseClient.auth.signOut();
+  modeAuth =
+  mode;
 
-  utilisateurConnecte = null;
 
-  activites = [];
+  const loginTab =
+  document.getElementById(
+    "loginTab"
+  );
 
-  sauvegarderLocal();
+  const signupTab =
+  document.getElementById(
+    "signupTab"
+  );
 
-  afficherPlanning();
+  const loginForm =
+  document.getElementById(
+    "loginForm"
+  );
 
-  mettreAJourDashboard();
+  const signupForm =
+  document.getElementById(
+    "signupForm"
+  );
+
+
+  if(mode === "login"){
+
+    loginTab.classList.add("active");
+
+    signupTab.classList.remove("active");
+
+    loginForm.classList.remove("hidden");
+
+    signupForm.classList.add("hidden");
+
+  }else{
+
+    loginTab.classList.remove("active");
+
+    signupTab.classList.add("active");
+
+    loginForm.classList.add("hidden");
+
+    signupForm.classList.remove("hidden");
+
+  }
+
+}
+
+
+async function seConnecter(){
+
+  const email =
+  document
+  .getElementById("loginEmail")
+  .value
+  .trim();
+
+  const password =
+  document
+  .getElementById("loginPassword")
+  .value;
+
+
+  if(!email || !password){
+
+    afficherToast(
+      "Remplis tous les champs."
+    );
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient.auth.signInWithPassword({
+    email,
+    password
+  });
+
+
+  if(error){
+
+    afficherToast(
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  utilisateurConnecte =
+  data.user;
+
+
+  await chargerActivitesCloud();
 
   mettreAJourCompte();
 
-  afficherToast("Déconnexion réussie.");
+  fermerCompte();
+
+  afficherToast(
+    "Connexion réussie."
+  );
+
+}
+
+
+async function sInscrire(){
+
+  const email =
+  document
+  .getElementById("signupEmail")
+  .value
+  .trim();
+
+  const password =
+  document
+  .getElementById("signupPassword")
+  .value;
+
+
+  if(!email || !password){
+
+    afficherToast(
+      "Remplis tous les champs."
+    );
+
+    return;
+
+  }
+
+
+  if(password.length < 6){
+
+    afficherToast(
+      "Le mot de passe doit contenir au moins 6 caractères."
+    );
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient.auth.signUp({
+    email,
+    password
+  });
+
+
+  if(error){
+
+    afficherToast(
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  utilisateurConnecte =
+  data.user || null;
+
+
+  if(utilisateurConnecte){
+
+    await chargerActivitesCloud();
+
+  }
+
+
+  mettreAJourCompte();
+
+  fermerCompte();
+
+  afficherToast(
+    "Compte créé."
+  );
+
+}
+
+
+async function seDeconnecter(){
+
+  await supabaseClient.auth.signOut();
+
+  utilisateurConnecte =
+  null;
+
+  mettreAJourCompte();
+
+  afficherToast(
+    "Déconnexion réussie."
+  );
 
 }
 
 
 /* =====================================================
-   ACTIVITES CLOUD
+   CLOUD
 ===================================================== */
 
 async function chargerActivitesCloud(){
 
   if(!utilisateurConnecte){
+
     return;
+
   }
+
 
   const {
     data,
@@ -1602,24 +1943,33 @@ async function chargerActivitesCloud(){
   await supabaseClient
   .from("activites")
   .select("*")
-  .eq("user_id", utilisateurConnecte.id)
-  .order("date", {
-    ascending:true
-  });
+  .eq(
+    "user_id",
+    utilisateurConnecte.id
+  )
+  .order(
+    "date",
+    {
+      ascending:true
+    }
+  );
+
 
   if(error){
 
-    console.log(error);
+    console.error(error);
 
     afficherToast(
-      "Erreur de synchronisation."
+      "Impossible de charger les activités."
     );
 
     return;
+
   }
 
+
   activites =
-  (data || []).map(a => ({
+  data.map(a => ({
 
     id:a.id,
 
@@ -1637,6 +1987,7 @@ async function chargerActivitesCloud(){
 
   }));
 
+
   sauvegarderLocal();
 
   afficherPlanning();
@@ -1650,12 +2001,10 @@ async function synchroniser(){
 
   if(!utilisateurConnecte){
 
-    afficherToast(
-      "Connecte-toi pour synchroniser."
-    );
-
     return;
+
   }
+
 
   const {
     error:deleteError
@@ -1663,59 +2012,64 @@ async function synchroniser(){
   await supabaseClient
   .from("activites")
   .delete()
-  .eq("user_id", utilisateurConnecte.id);
+  .eq(
+    "user_id",
+    utilisateurConnecte.id
+  );
+
 
   if(deleteError){
 
-    console.log(deleteError);
+    console.error(deleteError);
+
+    return;
+
+  }
+
+
+  if(!activites.length){
+
+    return;
+
+  }
+
+
+  const lignes =
+  activites.map(a => ({
+
+    user_id:
+    utilisateurConnecte.id,
+
+    nom:a.nom,
+
+    date:a.date,
+
+    debut:a.debut || null,
+
+    fin:a.fin || null,
+
+    couleur:a.couleur || "#7c3aed",
+
+    repetition:a.repetition || "aucune"
+
+  }));
+
+
+  const {
+    error
+  } =
+  await supabaseClient
+  .from("activites")
+  .insert(lignes);
+
+
+  if(error){
+
+    console.error(error);
 
     afficherToast(
       "Erreur de synchronisation."
     );
-
-    return;
-  }
-
-
-  if(activites.length > 0){
-
-    const lignes =
-    activites.map(a => ({
-
-      user_id:
-      utilisateurConnecte.id,
-
-      nom:a.nom,
-
-      date:a.date,
-
-      debut:a.debut || null,
-
-      fin:a.fin || null,
-
-      couleur:a.couleur || "#7c3aed",
-
-      repetition:a.repetition || "aucune"
-
-    }));
-
-    const {
-      error
-    } =
-    await supabaseClient
-    .from("activites")
-    .insert(lignes);
-
-    if(error){
-
-      console.log(error);
-
-      afficherToast(
-        "Erreur lors de la sauvegarde."
-      );
-
-      return;
-    }
 
   }
 
@@ -1723,7 +2077,7 @@ async function synchroniser(){
 
 
 /* =====================================================
-   AJOUT ACTIVITE
+   ACTIVITES
 ===================================================== */
 
 async function ajouterActivite(){
@@ -1731,7 +2085,8 @@ async function ajouterActivite(){
   const nom =
   document
   .getElementById("activityName")
-  .value.trim();
+  .value
+  .trim();
 
   const date =
   document
@@ -1762,7 +2117,8 @@ async function ajouterActivite(){
   parseInt(
     document
     .getElementById("activityOccurrences")
-    .value
+    .value,
+    10
   );
 
 
@@ -1773,22 +2129,160 @@ async function ajouterActivite(){
     );
 
     return;
+
   }
 
 
-  const nouvelles = [];
+  if(debut && fin && fin <= debut){
 
-
-  for(let i=0;i<occurrences;i++){
-
-    const nouvelleDate =
-    calculerDateRepetition(
-      date,
-      repetition,
-      i
+    afficherToast(
+      "L'heure de fin doit être après l'heure de début."
     );
 
-    nouvelles.push({
+    return;
+
+  }
+
+
+  if(activiteEnModification !== null){
+
+    const activite =
+    activites.find(
+      a =>
+      String(a.id) ===
+      String(activiteEnModification)
+    );
+
+
+    if(activite){
+
+      activite.nom =
+      nom;
+
+      activite.date =
+      date;
+
+      activite.debut =
+      debut;
+
+      activite.fin =
+      fin;
+
+      activite.couleur =
+      couleur;
+
+      activite.repetition =
+      repetition;
+
+    }
+
+
+    activiteEnModification =
+    null;
+
+
+    document
+    .getElementById(
+      "cancelEditButton"
+    )
+    .style.display =
+    "none";
+
+
+    document
+    .getElementById(
+      "activityName"
+    )
+    .value =
+    "";
+
+
+    sauvegarderLocal();
+
+    if(utilisateurConnecte){
+
+      await synchroniser();
+
+      await chargerActivitesCloud();
+
+    }
+
+    afficherPlanning();
+
+    mettreAJourDashboard();
+
+    afficherToast(
+      "Activité modifiée."
+    );
+
+    return;
+
+  }
+
+
+  const baseDate =
+  new Date(
+    date + "T00:00:00"
+  );
+
+
+  const totalOccurrences =
+  repetition === "aucune"
+  ? 1
+  : Math.min(
+      Math.max(
+        occurrences,
+        1
+      ),
+      12
+    );
+
+
+  for(
+    let i = 0;
+    i < totalOccurrences;
+    i++
+  ){
+
+    const nouvelleDate =
+    new Date(baseDate);
+
+
+    if(repetition === "quotidienne"){
+
+      nouvelleDate.setDate(
+        nouvelleDate.getDate() + i
+      );
+
+    }
+
+
+    if(repetition === "hebdomadaire"){
+
+      nouvelleDate.setDate(
+        nouvelleDate.getDate() +
+        i * 7
+      );
+
+    }
+
+
+    if(repetition === "mensuelle"){
+
+      nouvelleDate.setMonth(
+        nouvelleDate.getMonth() + i
+      );
+
+    }
+
+
+    const dateString =
+    nouvelleDate
+    .toISOString()
+    .split("T")[0];
+
+
+    activites.push({
 
       id:
       Date.now() +
@@ -1796,7 +2290,8 @@ async function ajouterActivite(){
 
       nom,
 
-      date:nouvelleDate,
+      date:
+      dateString,
 
       debut,
 
@@ -1811,9 +2306,8 @@ async function ajouterActivite(){
   }
 
 
-  activites.push(...nouvelles);
-
   sauvegarderLocal();
+
 
   if(utilisateurConnecte){
 
@@ -1823,7 +2317,14 @@ async function ajouterActivite(){
 
   }
 
-  viderFormulaire();
+
+  document
+  .getElementById(
+    "activityName"
+  )
+  .value =
+  "";
+
 
   afficherPlanning();
 
@@ -1836,141 +2337,27 @@ async function ajouterActivite(){
 }
 
 
-function calculerDateRepetition(
-  date,
-  repetition,
-  index
-){
-
-  const d =
-  new Date(date + "T12:00:00");
-
-  if(repetition === "quotidienne"){
-
-    d.setDate(
-      d.getDate() + index
-    );
-
-  }
-
-  if(repetition === "hebdomadaire"){
-
-    d.setDate(
-      d.getDate() + index * 7
-    );
-
-  }
-
-  if(repetition === "mensuelle"){
-
-    d.setMonth(
-      d.getMonth() + index
-    );
-
-  }
-
-  return d
-  .toISOString()
-  .split("T")[0];
-
-}
-
-
-function viderFormulaire(){
-
-  document
-  .getElementById("activityName")
-  .value = "";
-
-  document
-  .getElementById("activityStart")
-  .value = "";
-
-  document
-  .getElementById("activityEnd")
-  .value = "";
-
-  document
-  .getElementById("activityRepeat")
-  .value = "aucune";
-
-  document
-  .getElementById("activityOccurrences")
-  .value = "1";
-
-}
-
-
-/* =====================================================
-   MODIFIER ACTIVITE
-===================================================== */
-
-async function modifierActivite(id){
-
-  const activite =
-  activites.find(a =>
-    String(a.id) === String(id)
-  );
-
-  if(!activite){
-    return;
-  }
-
-  const nom =
-  prompt(
-    "Nouveau nom :",
-    activite.nom
-  );
-
-  if(nom === null){
-    return;
-  }
-
-  activite.nom =
-  nom.trim() || activite.nom;
-
-  sauvegarderLocal();
-
-  if(utilisateurConnecte){
-
-    await synchroniser();
-
-    await chargerActivitesCloud();
-
-  }
-
-  afficherPlanning();
-
-  mettreAJourDashboard();
-
-  afficherToast(
-    "Activité modifiée."
-  );
-
-}
-
-
-/* =====================================================
-   SUPPRIMER ACTIVITE
-===================================================== */
-
 async function supprimerActivite(id){
 
-  const confirmation =
-  confirm(
+  if(!confirm(
     "Supprimer cette activité ?"
-  );
+  )){
 
-  if(!confirmation){
     return;
+
   }
 
+
   activites =
-  activites.filter(a =>
-    String(a.id) !== String(id)
+  activites.filter(
+    a =>
+    String(a.id) !==
+    String(id)
   );
 
+
   sauvegarderLocal();
+
 
   if(utilisateurConnecte){
 
@@ -1979,6 +2366,7 @@ async function supprimerActivite(id){
     await chargerActivitesCloud();
 
   }
+
 
   afficherPlanning();
 
@@ -1991,9 +2379,194 @@ async function supprimerActivite(id){
 }
 
 
+function modifierActivite(id){
+
+  const activite =
+  activites.find(
+    a =>
+    String(a.id) ===
+    String(id)
+  );
+
+
+  if(!activite){
+
+    return;
+
+  }
+
+
+  document
+  .getElementById(
+    "activityName"
+  )
+  .value =
+  activite.nom;
+
+
+  document
+  .getElementById(
+    "activityDate"
+  )
+  .value =
+  activite.date;
+
+
+  document
+  .getElementById(
+    "activityStart"
+  )
+  .value =
+  activite.debut || "";
+
+
+  document
+  .getElementById(
+    "activityEnd"
+  )
+  .value =
+  activite.fin || "";
+
+
+  document
+  .getElementById(
+    "activityColor"
+  )
+  .value =
+  activite.couleur || "#7c3aed";
+
+
+  document
+  .getElementById(
+    "activityRepeat"
+  )
+  .value =
+  activite.repetition || "aucune";
+
+
+  activiteEnModification =
+  id;
+
+
+  document
+  .getElementById(
+    "cancelEditButton"
+  )
+  .style.display =
+  "inline-block";
+
+
+  allerA(
+    "formSection"
+  );
+
+}
+
+
+function annulerModification(){
+
+  activiteEnModification =
+  null;
+
+
+  document
+  .getElementById(
+    "activityName"
+  )
+  .value =
+  "";
+
+
+  document
+  .getElementById(
+    "cancelEditButton"
+  )
+  .style.display =
+  "none";
+
+}
+
+
 /* =====================================================
-   AFFICHAGE PLANNING
+   PLANNING
 ===================================================== */
+
+function changerVue(mode){
+
+  modePlanning =
+  mode;
+
+
+  const weekView =
+  document.getElementById(
+    "weekView"
+  );
+
+  const monthView =
+  document.getElementById(
+    "monthView"
+  );
+
+  const weekButton =
+  document.getElementById(
+    "weekButton"
+  );
+
+  const monthButton =
+  document.getElementById(
+    "monthButton"
+  );
+
+
+  if(mode === "semaine"){
+
+    weekView.style.display =
+    "block";
+
+    monthView.style.display =
+    "none";
+
+    weekButton.classList.add(
+      "active"
+    );
+
+    monthButton.classList.remove(
+      "active"
+    );
+
+  }else{
+
+    weekView.style.display =
+    "none";
+
+    monthView.style.display =
+    "block";
+
+    weekButton.classList.remove(
+      "active"
+    );
+
+    monthButton.classList.add(
+      "active"
+    );
+
+  }
+
+
+  afficherPlanning();
+
+}
+
+
+function allerAujourdhui(){
+
+  datePlanning =
+  new Date();
+
+  afficherPlanning();
+
+}
+
 
 function afficherPlanning(){
 
@@ -2012,208 +2585,180 @@ function afficherPlanning(){
 
 function afficherSemaine(){
 
-  modePlanning = "semaine";
+  const debut =
+  debutSemaine(
+    datePlanning
+  );
 
-  document
-  .getElementById("weekButton")
-  .classList.add("active");
-
-  document
-  .getElementById("monthButton")
-  .classList.remove("active");
-
-  document
-  .getElementById("weekView")
-  .classList.remove("hidden");
-
-  document
-  .getElementById("monthView")
-  .classList.add("hidden");
-
-
-  const lundi =
-  debutSemaine(datePlanning);
 
   const jours = [];
 
-  for(let i=0;i<7;i++){
 
-    const d =
-    new Date(lundi);
+  for(
+    let i=0;
+    i<7;
+    i++
+  ){
 
-    d.setDate(
-      lundi.getDate() + i
+    const date =
+    new Date(debut);
+
+
+    date.setDate(
+      debut.getDate() + i
     );
 
-    jours.push(d);
+
+    jours.push(date);
 
   }
 
 
-  const nomsJours =
-  [
-    "Lundi",
-    "Mardi",
-    "Mercredi",
-    "Jeudi",
-    "Vendredi",
-    "Samedi",
-    "Dimanche"
-  ];
+  const fin =
+  new Date(jours[6]);
 
 
   document
-  .getElementById("periodTitle")
+  .getElementById(
+    "planningTitle"
+  )
   .textContent =
-  formaterDate(lundi) +
-  " → " +
-  formaterDate(jours[6]);
+  `Semaine du ${formaterDate(debut)} au ${formaterDate(fin)}`;
 
 
   let html =
   '<div class="week-grid">';
 
 
-  jours.forEach((jour,index)=>{
+  jours.forEach(
+    date => {
 
-    const dateString =
-    jour
-    .toISOString()
-    .split("T")[0];
-
-    const duJour =
-    activites.filter(a =>
-      a.date === dateString
-    );
+      const dateString =
+      date.toISOString()
+      .split("T")[0];
 
 
-    html += `
-      <div class="day">
+      const activitesJour =
+      activites.filter(
+        a =>
+        a.date ===
+        dateString
+      );
 
-        <div class="day-title">
-          ${nomsJours[index]}
-          <br>
-          ${jour.getDate()}/${jour.getMonth()+1}
-        </div>
-    `;
-
-
-    if(duJour.length === 0){
 
       html += `
-        <p class="muted">
-          Rien de prévu
-        </p>
+
+        <div class="day">
+
+          <div class="day-title">
+            ${date.toLocaleDateString(
+              "fr-FR",
+              {
+                weekday:"long",
+                day:"numeric",
+                month:"short"
+              }
+            )}
+          </div>
+
+      `;
+
+
+      if(!activitesJour.length){
+
+        html += `
+          <p class="muted">
+            Aucune activité
+          </p>
+        `;
+
+      }
+
+
+      activitesJour.forEach(
+        activite => {
+
+          html += `
+
+            <div
+              class="activity"
+              style="border-left-color:${echapperHTML(activite.couleur || "#7c3aed")};"
+            >
+
+              <div class="activity-title">
+                ${echapperHTML(activite.nom)}
+              </div>
+
+              <div class="activity-time">
+                ${
+                  activite.debut
+                  ? echapperHTML(activite.debut)
+                  : ""
+                }
+                ${
+                  activite.debut && activite.fin
+                  ? " → "
+                  : ""
+                }
+                ${
+                  activite.fin
+                  ? echapperHTML(activite.fin)
+                  : ""
+                }
+              </div>
+
+              <div class="activity-actions">
+
+                <button
+                  onclick="modifierActivite('${activite.id}')"
+                >
+                  ✏️ Modifier
+                </button>
+
+                <button
+                  onclick="supprimerActivite('${activite.id}')"
+                >
+                  🗑️ Supprimer
+                </button>
+
+              </div>
+
+            </div>
+
+          `;
+
+        }
+      );
+
+
+      html += `
+        </div>
       `;
 
     }
+  );
 
 
-    duJour.forEach(a=>{
+  html += "</div>";
 
-      html += activiteHTML(a);
-
-    });
-
-
-    html += `
-      </div>
-    `;
-
-  });
-
-
-  html +=
-  "</div>";
 
   document
-  .getElementById("weekView")
+  .getElementById(
+    "weekView"
+  )
   .innerHTML =
   html;
 
 }
 
 
-function activiteHTML(a){
-
-  return `
-
-    <div
-      class="activity"
-      style="border-left-color:${a.couleur || "#7c3aed"}"
-    >
-
-      <div class="activity-title">
-        ${echapperHTML(a.nom)}
-      </div>
-
-      <div class="activity-time">
-        ${a.debut || "--:--"}
-        →
-        ${a.fin || "--:--"}
-      </div>
-
-      <div class="activity-actions">
-
-        <button
-          onclick="modifierActivite('${a.id}')"
-        >
-          ✏️ Modifier
-        </button>
-
-        <button
-          onclick="supprimerActivite('${a.id}')"
-        >
-          🗑️ Supprimer
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
 function afficherMois(){
-
-  modePlanning = "mois";
-
-  document
-  .getElementById("monthButton")
-  .classList.add("active");
-
-  document
-  .getElementById("weekButton")
-  .classList.remove("active");
-
-  document
-  .getElementById("weekView")
-  .classList.add("hidden");
-
-  document
-  .getElementById("monthView")
-  .classList.remove("hidden");
-
 
   const annee =
   datePlanning.getFullYear();
 
   const mois =
   datePlanning.getMonth();
-
-
-  document
-  .getElementById("periodTitle")
-  .textContent =
-  datePlanning.toLocaleDateString(
-    "fr-FR",
-    {
-      month:"long",
-      year:"numeric"
-    }
-  );
 
 
   const premier =
@@ -2232,13 +2777,28 @@ function afficherMois(){
   );
 
 
-  let debut =
-  premier.getDay();
+  const nomMois =
+  datePlanning.toLocaleDateString(
+    "fr-FR",
+    {
+      month:"long",
+      year:"numeric"
+    }
+  );
 
-  debut =
-  debut === 0
+
+  document
+  .getElementById(
+    "planningTitle"
+  )
+  .textContent =
+  nomMois;
+
+
+  const debut =
+  premier.getDay() === 0
   ? 6
-  : debut - 1;
+  : premier.getDay() - 1;
 
 
   const totalJours =
@@ -2258,15 +2818,21 @@ function afficherMois(){
     "Sam",
     "Dim"
   ].forEach(j=>{
+
     html += `
       <div class="month-day">
         <strong>${j}</strong>
       </div>
     `;
+
   });
 
 
-  for(let i=0;i<debut;i++){
+  for(
+    let i=0;
+    i<debut;
+    i++
+  ){
 
     html +=
     '<div class="month-day"></div>';
@@ -2274,7 +2840,11 @@ function afficherMois(){
   }
 
 
-  for(let jour=1;jour<=totalJours;jour++){
+  for(
+    let jour=1;
+    jour<=totalJours;
+    jour++
+  ){
 
     const d =
     new Date(
@@ -2283,12 +2853,17 @@ function afficherMois(){
       jour
     );
 
+
     const dateString =
-    d.toISOString().split("T")[0];
+    d.toISOString()
+    .split("T")[0];
+
 
     const duJour =
-    activites.filter(a =>
-      a.date === dateString
+    activites.filter(
+      a =>
+      a.date ===
+      dateString
     );
 
 
@@ -2303,15 +2878,17 @@ function afficherMois(){
     `;
 
 
-    duJour.forEach(a=>{
+    duJour.forEach(
+      a => {
 
-      html += `
-        <div class="month-event">
-          ${echapperHTML(a.nom)}
-        </div>
-      `;
+        html += `
+          <div class="month-event">
+            ${echapperHTML(a.nom)}
+          </div>
+        `;
 
-    });
+      }
+    );
 
 
     html += "</div>";
@@ -2323,7 +2900,9 @@ function afficherMois(){
 
 
   document
-  .getElementById("monthView")
+  .getElementById(
+    "monthView"
+  )
   .innerHTML =
   html;
 
@@ -2335,19 +2914,30 @@ function debutSemaine(date){
   const d =
   new Date(date);
 
+
   const jour =
   d.getDay();
+
 
   const difference =
   jour === 0
   ? -6
   : 1 - jour;
 
+
   d.setDate(
-    d.getDate() + difference
+    d.getDate() +
+    difference
   );
 
-  d.setHours(0,0,0,0);
+
+  d.setHours(
+    0,
+    0,
+    0,
+    0
+  );
+
 
   return d;
 
@@ -2371,6 +2961,7 @@ function changerSemaine(direction){
     );
 
   }
+
 
   afficherPlanning();
 
@@ -2398,18 +2989,26 @@ function formaterDate(date){
 function mettreAJourDashboard(){
 
   document
-  .getElementById("statActivities")
+  .getElementById(
+    "statActivities"
+  )
   .textContent =
   activites.length;
 
 
   const jours =
   new Set(
-    activites.map(a => a.date)
+    activites.map(
+      a =>
+      a.date
+    )
   );
 
+
   document
-  .getElementById("statDays")
+  .getElementById(
+    "statDays"
+  )
   .textContent =
   jours.size;
 
@@ -2417,45 +3016,63 @@ function mettreAJourDashboard(){
   let minutes = 0;
 
 
-  activites.forEach(a=>{
+  activites.forEach(
+    a => {
 
-    if(a.debut && a.fin){
+      if(a.debut && a.fin){
 
-      const debut =
-      new Date(
-        "2000-01-01T" + a.debut
-      );
+        const debut =
+        new Date(
+          "2000-01-01T" +
+          a.debut
+        );
 
-      const fin =
-      new Date(
-        "2000-01-01T" + a.fin
-      );
 
-      let diff =
-      (fin - debut) / 60000;
+        const fin =
+        new Date(
+          "2000-01-01T" +
+          a.fin
+        );
 
-      if(diff > 0){
 
-        minutes += diff;
+        let diff =
+        (fin - debut) /
+        60000;
+
+
+        if(diff > 0){
+
+          minutes += diff;
+
+        }
 
       }
 
     }
-
-  });
+  );
 
 
   const heures =
-  Math.floor(minutes / 60);
+  Math.floor(
+    minutes / 60
+  );
+
 
   const mins =
-  Math.round(minutes % 60);
+  Math.round(
+    minutes % 60
+  );
 
 
   document
-  .getElementById("statHours")
+  .getElementById(
+    "statHours"
+  )
   .textContent =
-  heures + "h " + mins + "m";
+  heures +
+  "h " +
+  mins +
+  "m";
 
 }
 
@@ -2467,67 +3084,130 @@ function mettreAJourDashboard(){
 function mettreAJourCompte(){
 
   const name =
-  document.getElementById("profileName");
+  document.getElementById(
+    "profileName"
+  );
+
 
   const email =
-  document.getElementById("profileEmail");
+  document.getElementById(
+    "profileEmail"
+  );
+
 
   const avatar =
-  document.getElementById("avatar");
+  document.getElementById(
+    "avatar"
+  );
+
 
   const accountInfo =
-  document.getElementById("accountInfo");
+  document.getElementById(
+    "accountInfo"
+  );
+
 
   const loginButton =
-  document.getElementById("loginButton");
+  document.getElementById(
+    "loginButton"
+  );
+
 
   const logoutButton =
-  document.getElementById("logoutButton");
+  document.getElementById(
+    "logoutButton"
+  );
+
+
+  const logoutButton2 =
+  document.getElementById(
+    "logoutButton2"
+  );
 
 
   if(utilisateurConnecte){
 
     const mail =
-    utilisateurConnecte.email || "";
+    utilisateurConnecte.email ||
+    "";
+
 
     name.textContent =
     "Mon compte";
 
+
     email.textContent =
     mail;
+
 
     avatar.textContent =
     mail
     ? mail.charAt(0).toUpperCase()
     : "?";
 
+
     accountInfo.innerHTML =
     `
       Connecté avec :
-      <strong>${echapperHTML(mail)}</strong>
+      <strong>
+        ${echapperHTML(mail)}
+      </strong>
     `;
 
-    loginButton.classList.add("hidden");
 
-    logoutButton.classList.remove("hidden");
+    loginButton.classList.add(
+      "hidden"
+    );
+
+
+    logoutButton.classList.remove(
+      "hidden"
+    );
+
+
+    if(logoutButton2){
+
+      logoutButton2.classList.remove(
+        "hidden"
+      );
+
+    }
 
   }else{
 
     name.textContent =
     "Visiteur";
 
+
     email.textContent =
     "Connecte-toi pour synchroniser ton planning.";
+
 
     avatar.textContent =
     "?";
 
+
     accountInfo.textContent =
     "Tu n'es pas connecté.";
 
-    loginButton.classList.remove("hidden");
 
-    logoutButton.classList.add("hidden");
+    loginButton.classList.remove(
+      "hidden"
+    );
+
+
+    logoutButton.classList.add(
+      "hidden"
+    );
+
+
+    if(logoutButton2){
+
+      logoutButton2.classList.add(
+        "hidden"
+      );
+
+    }
 
   }
 
@@ -2555,6 +3235,7 @@ function appliquerModele(nom){
       "10:00",
       "#7c3aed"
     );
+
 
     ajouterActiviteModele(
       "Révisions",
@@ -2603,6 +3284,7 @@ function appliquerModele(nom){
       "#7c3aed"
     );
 
+
     ajouterActiviteModele(
       "Action prioritaire",
       aujourdHui,
@@ -2623,6 +3305,7 @@ function appliquerModele(nom){
       "10:00",
       "#7c3aed"
     );
+
 
     ajouterActiviteModele(
       "Pause",
@@ -2645,6 +3328,7 @@ function appliquerModele(nom){
       "#7c3aed"
     );
 
+
     ajouterActiviteModele(
       "Tâche principale",
       aujourdHui,
@@ -2653,6 +3337,7 @@ function appliquerModele(nom){
       "#2563eb"
     );
 
+
     ajouterActiviteModele(
       "Pause",
       aujourdHui,
@@ -2660,6 +3345,7 @@ function appliquerModele(nom){
       "11:15",
       "#16a34a"
     );
+
 
     ajouterActiviteModele(
       "Tâche secondaire",
@@ -2674,12 +3360,17 @@ function appliquerModele(nom){
 
   sauvegarderLocal();
 
+
   if(utilisateurConnecte){
 
     synchroniser()
-    .then(() => chargerActivitesCloud());
+    .then(
+      () =>
+      chargerActivitesCloud()
+    );
 
   }
+
 
   afficherPlanning();
 
@@ -2716,7 +3407,8 @@ function ajouterActiviteModele(
 
     couleur,
 
-    repetition:"aucune"
+    repetition:
+    "aucune"
 
   });
 
@@ -2736,6 +3428,7 @@ function exporterBackup(){
     2
   );
 
+
   const blob =
   new Blob(
     [contenu],
@@ -2744,20 +3437,34 @@ function exporterBackup(){
     }
   );
 
+
   const url =
-  URL.createObjectURL(blob);
+  URL.createObjectURL(
+    blob
+  );
+
 
   const a =
-  document.createElement("a");
+  document.createElement(
+    "a"
+  );
 
-  a.href = url;
+
+  a.href =
+  url;
+
 
   a.download =
   "planify-sauvegarde.json";
 
+
   a.click();
 
-  URL.revokeObjectURL(url);
+
+  URL.revokeObjectURL(
+    url
+  );
+
 
   afficherToast(
     "Sauvegarde exportée."
@@ -2771,8 +3478,11 @@ function importerBackup(event){
   const fichier =
   event.target.files[0];
 
+
   if(!fichier){
+
     return;
+
   }
 
 
@@ -2791,7 +3501,9 @@ function importerBackup(event){
       );
 
 
-      if(!Array.isArray(donnees)){
+      if(!Array.isArray(
+        donnees
+      )){
 
         throw new Error(
           "Format incorrect"
@@ -2802,6 +3514,7 @@ function importerBackup(event){
 
       activites =
       donnees;
+
 
       sauvegarderLocal();
 
@@ -2834,7 +3547,9 @@ function importerBackup(event){
   };
 
 
-  lecteur.readAsText(fichier);
+  lecteur.readAsText(
+    fichier
+  );
 
 }
 
@@ -2857,7 +3572,8 @@ function changerTheme(theme){
   if(theme !== "violet"){
 
     document.body.classList.add(
-      "theme-" + theme
+      "theme-" +
+      theme
     );
 
   }
@@ -2876,9 +3592,13 @@ function chargerTheme(){
   const theme =
   localStorage.getItem(
     "planify_theme"
-  ) || "violet";
+  ) ||
+  "violet";
 
-  changerTheme(theme);
+
+  changerTheme(
+    theme
+  );
 
 }
 
@@ -2889,6 +3609,7 @@ function changerThemeRapide(){
   document.body.classList.contains(
     "theme-dark"
   );
+
 
   changerTheme(
     sombre
@@ -2907,7 +3628,9 @@ function sauvegarderLocal(){
 
   localStorage.setItem(
     "planify_activites",
-    JSON.stringify(activites)
+    JSON.stringify(
+      activites
+    )
   );
 
 }
@@ -2916,7 +3639,10 @@ function sauvegarderLocal(){
 function allerA(id){
 
   const element =
-  document.getElementById(id);
+  document.getElementById(
+    id
+  );
+
 
   if(element){
 
@@ -2936,33 +3662,66 @@ function imprimerPlanning(){
 }
 
 
-function afficherToast(message){
+function afficherToast(
+  message
+){
 
   const toast =
-  document.getElementById("toast");
+  document.getElementById(
+    "toast"
+  );
+
 
   toast.textContent =
   message;
 
-  toast.classList.add("show");
 
-  setTimeout(()=>{
+  toast.classList.add(
+    "show"
+  );
 
-    toast.classList.remove("show");
 
-  },2500);
+  setTimeout(
+    () => {
+
+      toast.classList.remove(
+        "show"
+      );
+
+    },
+    2500
+  );
 
 }
 
 
-function echapperHTML(texte){
+function echapperHTML(
+  texte
+){
 
-  return String(texte)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+  return String(
+    texte
+  )
+  .replaceAll(
+    "&",
+    "&amp;"
+  )
+  .replaceAll(
+    "<",
+    "&lt;"
+  )
+  .replaceAll(
+    ">",
+    "&gt;"
+  )
+  .replaceAll(
+    '"',
+    "&quot;"
+  )
+  .replaceAll(
+    "'",
+    "&#039;"
+  );
 
 }
 
@@ -2973,10 +3732,15 @@ function echapperHTML(texte){
 
 supabaseClient.auth
 .onAuthStateChange(
-  async (event, session)=>{
+  async (
+    event,
+    session
+  ) => {
 
     utilisateurConnecte =
-    session?.user || null;
+    session?.user ||
+    null;
+
 
     if(utilisateurConnecte){
 
@@ -2984,12 +3748,50 @@ supabaseClient.auth
 
     }
 
+
     mettreAJourCompte();
 
     mettreAJourDashboard();
 
   }
 );
+
+</script>
+
+
+<script>
+
+if(
+  "serviceWorker" in
+  navigator
+){
+
+  window.addEventListener(
+    "load",
+    () => {
+
+      navigator.serviceWorker
+      .register(
+        "./service-worker.js"
+      )
+      .then(
+        () =>
+        console.log(
+          "Service Worker Planify activé"
+        )
+      )
+      .catch(
+        error =>
+        console.error(
+          "Erreur Service Worker :",
+          error
+        )
+      );
+
+    }
+  );
+
+}
 
 </script>
 
