@@ -3,38 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Planify</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
 :root{
-  --primary:#6c5ce7;
-  --primary-light:#eeeaff;
-  --bg:#f5f6fb;
+  --primary:#7c3aed;
+  --primary-light:#ede9fe;
+  --bg:#f6f7fb;
   --card:#ffffff;
-  --text:#202124;
-  --muted:#737780;
+  --text:#171717;
+  --muted:#737373;
   --border:#e5e7eb;
-  --success:#20a464;
-  --danger:#e05252;
+  --success:#16a34a;
+  --danger:#dc2626;
   --shadow:0 10px 30px rgba(0,0,0,.07);
   --radius:18px;
 }
 
-*{
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
 body{
-  margin:0;
   font-family:Arial,Helvetica,sans-serif;
   background:var(--bg);
   color:var(--text);
+  transition:.25s;
 }
 
 button,
@@ -47,23 +47,62 @@ button{
   cursor:pointer;
 }
 
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* THEMES */
+
+body.theme-blue{
+  --primary:#2563eb;
+  --primary-light:#dbeafe;
+}
+
+body.theme-green{
+  --primary:#16a34a;
+  --primary-light:#dcfce7;
+}
+
+body.theme-orange{
+  --primary:#ea580c;
+  --primary-light:#ffedd5;
+}
+
+body.theme-pink{
+  --primary:#db2777;
+  --primary-light:#fce7f3;
+}
+
+body.theme-dark{
+  --primary:#8b5cf6;
+  --primary-light:#312e81;
+  --bg:#111827;
+  --card:#1f2937;
+  --text:#f9fafb;
+  --muted:#9ca3af;
+  --border:#374151;
+  --shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+/* NAVBAR */
+
 .navbar{
   position:sticky;
   top:0;
   z-index:50;
-  background:rgba(255,255,255,.94);
-  backdrop-filter:blur(12px);
+  background:var(--card);
   border-bottom:1px solid var(--border);
 }
 
 .navbar-inner{
   max-width:1200px;
   margin:auto;
-  padding:14px 20px;
+  padding:15px 20px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:15px;
+  gap:20px;
 }
 
 .logo{
@@ -74,142 +113,129 @@ button{
 
 .nav-links{
   display:flex;
-  gap:7px;
+  align-items:center;
+  gap:8px;
   flex-wrap:wrap;
-  justify-content:center;
 }
 
-.nav-links button,
-.quick-theme{
+.nav-links button{
   border:0;
   background:transparent;
+  color:var(--text);
   padding:9px 12px;
   border-radius:10px;
-  color:var(--text);
 }
 
-.nav-links button:hover,
-.quick-theme:hover{
+.nav-links button:hover{
   background:var(--primary-light);
-  color:var(--primary);
 }
 
-.hero{
-  max-width:1200px;
-  margin:25px auto 0;
-  padding:30px 20px;
-}
-
-.hero-box{
-  background:linear-gradient(135deg,var(--primary),#8e7dff);
+.theme-button{
+  border:0;
+  background:var(--primary);
   color:white;
-  border-radius:28px;
-  padding:38px;
-  box-shadow:var(--shadow);
+  width:40px;
+  height:40px;
+  border-radius:50%;
 }
 
-.hero h1{
-  margin:0 0 10px;
-  font-size:38px;
-}
-
-.hero p{
-  margin:0;
-  opacity:.92;
-  max-width:700px;
-}
+/* GENERAL */
 
 .container{
   max-width:1200px;
   margin:auto;
-  padding:0 20px 50px;
+  padding:25px 20px 60px;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
+section{
+  margin-top:25px;
 }
 
 .card{
   background:var(--card);
   border:1px solid var(--border);
   border-radius:var(--radius);
-  padding:20px;
+  box-shadow:var(--shadow);
+  padding:22px;
+}
+
+h1{
+  font-size:36px;
+  margin-bottom:10px;
+}
+
+h2{
+  margin-bottom:15px;
+}
+
+h3{
+  margin-bottom:8px;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.hidden{
+  display:none !important;
+}
+
+/* HERO */
+
+.hero{
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:25px;
+  align-items:stretch;
+}
+
+.hero-main{
+  padding:35px;
+  background:linear-gradient(135deg,var(--primary),#111827);
+  color:white;
+  border-radius:25px;
   box-shadow:var(--shadow);
 }
 
-.stat-number{
-  font-size:28px;
-  font-weight:800;
-  margin-top:7px;
+.hero-main p{
+  max-width:650px;
+  line-height:1.6;
+  opacity:.9;
 }
 
-.stat-label{
-  color:var(--muted);
-  font-size:14px;
-}
-
-.section{
-  margin-top:22px;
-}
-
-.section-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  margin-bottom:14px;
-}
-
-.section-title h2{
-  margin:0;
-}
-
-.form-grid{
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr 1fr;
-  gap:12px;
-}
-
-.form-group{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-}
-
-.form-group label{
-  font-size:13px;
-  font-weight:700;
-}
-
-input,
-select{
-  width:100%;
-  padding:12px;
-  border:1px solid var(--border);
-  border-radius:11px;
-  background:var(--card);
-  color:var(--text);
-  outline:none;
-}
-
-input:focus,
-select:focus{
-  border-color:var(--primary);
-}
-
-.form-actions{
+.hero-actions{
   display:flex;
   gap:10px;
-  margin-top:15px;
+  margin-top:25px;
   flex-wrap:wrap;
 }
 
+.profile-card{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.profile-avatar{
+  width:65px;
+  height:65px;
+  border-radius:50%;
+  background:var(--primary-light);
+  color:var(--primary);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+  font-weight:bold;
+  margin-bottom:15px;
+}
+
+/* BUTTONS */
+
 .btn{
   border:0;
-  border-radius:11px;
   padding:11px 16px;
+  border-radius:12px;
   font-weight:700;
 }
 
@@ -224,58 +250,104 @@ select:focus{
 }
 
 .btn-danger{
-  background:#ffe8e8;
+  background:#fee2e2;
   color:var(--danger);
 }
 
 .btn-success{
-  background:#e4f7ed;
-  color:#14824e;
+  background:#dcfce7;
+  color:var(--success);
 }
 
-.btn-dark{
-  background:#222;
-  color:white;
+.btn-white{
+  background:white;
+  color:#171717;
 }
 
-.btn:hover{
-  transform:translateY(-1px);
+/* DASHBOARD */
+
+.dashboard{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
 }
 
-.planning-header{
+.stat{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px;
+}
+
+.stat-number{
+  font-size:30px;
+  font-weight:800;
+  color:var(--primary);
+}
+
+.stat-label{
+  color:var(--muted);
+  margin-top:5px;
+}
+
+/* FORM */
+
+.form-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:12px;
+}
+
+.field{
   display:flex;
-  align-items:center;
-  justify-content:space-between;
+  flex-direction:column;
+  gap:6px;
+}
+
+.field label{
+  font-weight:700;
+  font-size:14px;
+}
+
+.field input,
+.field select{
+  padding:12px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  border-radius:10px;
+  outline:none;
+}
+
+.field input:focus,
+.field select:focus{
+  border-color:var(--primary);
+}
+
+.form-buttons{
+  margin-top:15px;
+  display:flex;
   gap:10px;
   flex-wrap:wrap;
 }
 
-.planning-controls{
+/* PLANNING */
+
+.planning-header{
   display:flex;
-  gap:8px;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:15px;
   flex-wrap:wrap;
 }
 
-.planning-title{
-  font-size:21px;
-  font-weight:800;
-}
-
-.view-switch{
+.view-buttons{
   display:flex;
-  background:var(--primary-light);
-  padding:4px;
-  border-radius:11px;
+  gap:8px;
 }
 
-.view-switch button{
-  border:0;
-  background:transparent;
-  padding:8px 12px;
-  border-radius:8px;
-}
-
-.view-switch button.active{
+.view-buttons button.active{
   background:var(--primary);
   color:white;
 }
@@ -283,348 +355,291 @@ select:focus{
 .week-grid{
   display:grid;
   grid-template-columns:repeat(7,1fr);
-  gap:8px;
-  margin-top:15px;
+  gap:10px;
 }
 
-.day-column{
-  min-height:300px;
-  background:var(--bg);
+.day{
+  min-height:190px;
+  background:var(--card);
   border:1px solid var(--border);
-  border-radius:14px;
+  border-radius:15px;
   padding:10px;
 }
 
-.day-header{
+.day-title{
   font-weight:800;
   margin-bottom:10px;
-  font-size:14px;
-}
-
-.day-date{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:3px;
+  color:var(--primary);
 }
 
 .activity{
-  background:var(--card);
-  border-left:5px solid var(--primary);
+  padding:10px;
   border-radius:10px;
-  padding:9px;
   margin-bottom:8px;
-  box-shadow:0 3px 10px rgba(0,0,0,.05);
+  border-left:5px solid var(--primary);
+  background:var(--primary-light);
 }
 
-.activity-name{
+.activity-title{
   font-weight:800;
-  font-size:13px;
+  margin-bottom:4px;
 }
 
 .activity-time{
+  font-size:13px;
   color:var(--muted);
-  font-size:11px;
-  margin-top:4px;
 }
 
 .activity-actions{
   display:flex;
   gap:5px;
-  margin-top:7px;
+  margin-top:8px;
 }
 
 .activity-actions button{
   border:0;
-  background:var(--bg);
-  border-radius:7px;
-  padding:5px 7px;
-  font-size:11px;
+  background:transparent;
+  font-size:12px;
+  padding:3px 5px;
 }
+
+/* MONTH */
 
 .month-grid{
   display:grid;
   grid-template-columns:repeat(7,1fr);
   gap:6px;
-  margin-top:15px;
 }
 
 .month-day{
   min-height:100px;
+  background:var(--card);
   border:1px solid var(--border);
   border-radius:10px;
-  background:var(--card);
-  padding:7px;
+  padding:8px;
 }
 
-.month-day.today{
-  border:2px solid var(--primary);
-}
-
-.month-number{
-  font-weight:800;
-  font-size:13px;
+.month-day-number{
+  font-weight:bold;
   margin-bottom:5px;
 }
 
-.month-activity{
-  font-size:10px;
+.month-event{
+  font-size:11px;
   padding:4px;
-  margin-top:3px;
   border-radius:5px;
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
+  background:var(--primary-light);
+  color:var(--primary);
+  margin-top:4px;
 }
+
+/* TEMPLATES */
 
 .template-grid{
   display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:12px;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
 }
 
 .template{
-  padding:18px;
   border:1px solid var(--border);
   border-radius:15px;
+  padding:18px;
   background:var(--card);
 }
 
-.template h3{
-  margin-top:0;
+.template-icon{
+  font-size:30px;
+  margin-bottom:10px;
 }
 
-.premium-card{
-  background:linear-gradient(135deg,#29223f,#6c5ce7);
-  color:white;
-  border:0;
+.premium-template{
+  position:relative;
+  overflow:hidden;
 }
 
-.premium-card .muted{
-  color:#ddd;
-}
-
-.locked{
-  opacity:.75;
-}
-
-.profile{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  flex-wrap:wrap;
-}
-
-.profile-info{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.avatar{
-  width:48px;
-  height:48px;
-  border-radius:50%;
-  background:var(--primary-light);
-  color:var(--primary);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:800;
-}
-
-.status{
+.premium-lock{
   display:inline-block;
-  padding:6px 10px;
-  border-radius:999px;
+  margin-top:10px;
+  padding:5px 9px;
+  border-radius:8px;
+  background:#fef3c7;
+  color:#92400e;
   font-size:12px;
-  font-weight:700;
+  font-weight:bold;
 }
 
-.status.free{
-  background:#eee;
-  color:#555;
-}
+/* PREMIUM */
 
-.status.premium{
-  background:#fff0b8;
-  color:#765900;
-}
-
-.theme-grid{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:10px;
-}
-
-.theme-btn{
-  height:45px;
-  border-radius:10px;
-  border:2px solid transparent;
-  font-weight:700;
-}
-
-.theme-btn:hover{
-  border-color:var(--text);
-}
-
-.empty{
-  text-align:center;
-  color:var(--muted);
+.premium-box{
+  background:linear-gradient(135deg,#7c3aed,#4c1d95);
+  color:white;
+  border-radius:22px;
   padding:30px;
 }
 
-.notification{
-  position:fixed;
-  right:20px;
-  bottom:20px;
-  z-index:100;
-  background:#222;
-  color:white;
-  padding:13px 17px;
-  border-radius:12px;
-  box-shadow:var(--shadow);
-  display:none;
-  max-width:350px;
+.premium-list{
+  margin:20px 0;
+  line-height:2;
 }
+
+.premium-status{
+  display:inline-block;
+  padding:7px 12px;
+  border-radius:999px;
+  font-weight:bold;
+  margin-bottom:15px;
+}
+
+.status-free{
+  background:#f3f4f6;
+  color:#4b5563;
+}
+
+.status-premium{
+  background:#dcfce7;
+  color:#166534;
+}
+
+/* ACCOUNT */
+
+.account-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+/* AUTH MODAL */
 
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.5);
-  display:none;
+  z-index:100;
+  background:rgba(0,0,0,.6);
+  display:flex;
   align-items:center;
   justify-content:center;
-  z-index:200;
   padding:20px;
 }
 
-.modal-box{
+.modal-card{
   width:100%;
-  max-width:440px;
+  max-width:430px;
   background:var(--card);
+  color:var(--text);
   border-radius:20px;
   padding:25px;
-  box-shadow:var(--shadow);
-}
-
-.modal-box h2{
-  margin-top:0;
-}
-
-.close{
-  float:right;
-  border:0;
-  background:transparent;
-  font-size:22px;
 }
 
 .auth-tabs{
   display:flex;
-  gap:5px;
-  background:var(--bg);
-  padding:5px;
-  border-radius:10px;
-  margin-bottom:15px;
+  margin-bottom:20px;
+  border-bottom:1px solid var(--border);
 }
 
 .auth-tabs button{
   flex:1;
+  padding:12px;
   border:0;
-  padding:9px;
   background:transparent;
-  border-radius:8px;
+  color:var(--muted);
 }
 
 .auth-tabs button.active{
-  background:var(--primary);
-  color:white;
+  color:var(--primary);
+  border-bottom:3px solid var(--primary);
 }
 
-.auth-message{
-  padding:10px;
-  background:var(--primary-light);
+.auth-form{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.auth-form input{
+  padding:13px;
+  border:1px solid var(--border);
   border-radius:10px;
-  margin-top:12px;
-  display:none;
-  font-size:13px;
+  background:var(--card);
+  color:var(--text);
 }
 
-.footer{
+.auth-close{
+  float:right;
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  font-size:22px;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:200;
+  background:#171717;
+  color:white;
+  padding:14px 18px;
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  opacity:0;
+  transform:translateY(15px);
+  pointer-events:none;
+  transition:.25s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* FOOTER */
+
+footer{
   text-align:center;
   color:var(--muted);
   padding:30px 10px;
 }
 
-.dark{
-  --bg:#111318;
-  --card:#191c22;
-  --text:#f4f4f5;
-  --muted:#a0a4ad;
-  --border:#2c3038;
-  --primary-light:#292445;
-  --shadow:0 10px 30px rgba(0,0,0,.25);
-}
+/* MOBILE */
 
-body.theme-blue{
-  --primary:#2774e6;
-  --primary-light:#e8f0ff;
-}
+@media(max-width:900px){
 
-body.theme-green{
-  --primary:#159957;
-  --primary-light:#e4f7ed;
-}
+  .hero{
+    grid-template-columns:1fr;
+  }
 
-body.theme-orange{
-  --primary:#ef7d24;
-  --primary-light:#fff0e2;
-}
-
-body.theme-pink{
-  --primary:#df4f91;
-  --primary-light:#ffe8f3;
-}
-
-@media(max-width:1000px){
-  .grid{
+  .dashboard{
     grid-template-columns:repeat(2,1fr);
   }
 
   .form-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .template-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .theme-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-}
-
-@media(max-width:750px){
-  .hero h1{
-    font-size:30px;
+    grid-template-columns:1fr 1fr;
   }
 
   .week-grid{
     overflow-x:auto;
-    grid-template-columns:repeat(7,150px);
-  }
-
-  .month-grid{
-    overflow-x:auto;
-    grid-template-columns:repeat(7,100px);
+    grid-template-columns:repeat(7,minmax(160px,1fr));
   }
 
   .template-grid{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:1fr 1fr;
   }
+
+  .account-grid{
+    grid-template-columns:1fr;
+  }
+
 }
 
-@media(max-width:520px){
+@media(max-width:600px){
+
+  h1{
+    font-size:28px;
+  }
+
   .navbar-inner{
     align-items:flex-start;
     flex-direction:column;
@@ -632,1475 +647,1269 @@ body.theme-pink{
 
   .nav-links{
     width:100%;
-    justify-content:flex-start;
     overflow-x:auto;
+    flex-wrap:nowrap;
   }
 
-  .grid,
-  .form-grid,
+  .dashboard{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
   .template-grid{
     grid-template-columns:1fr;
   }
 
-  .hero-box{
+  .hero-main{
     padding:25px;
   }
 
-  .theme-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
 }
 
 @media print{
+
   .navbar,
-  .hero,
-  .no-print,
-  .footer,
-  .form-section,
-  .templates-section,
-  .account-section,
-  .theme-section{
-    display:none!important;
+  .hero-actions,
+  .planning-header button,
+  .form-buttons,
+  footer,
+  .activity-actions,
+  #formSection,
+  #templatesSection,
+  #premiumSection,
+  #accountSection{
+    display:none !important;
   }
 
   body{
     background:white;
   }
 
-  .card{
+  .card,
+  .day{
     box-shadow:none;
   }
+
 }
+
 </style>
 </head>
 
 <body>
 
-<nav class="navbar">
-  <div class="navbar-inner">
-    <div class="logo">Planify</div>
+<!-- NAVBAR -->
 
-    <div class="nav-links">
-      <button onclick="allerA('planning')">Planning</button>
-      <button onclick="allerA('modeles')">Modèles</button>
-      <button onclick="allerA('premium')">Premium</button>
-      <button onclick="ouvrirCompte()">Compte</button>
-      <button class="quick-theme" onclick="changerThemeRapide()">🌓</button>
-    </div>
-  </div>
+<nav class="navbar">
+
+<div class="navbar-inner">
+
+<div class="logo">Planify</div>
+
+<div class="nav-links">
+
+<button onclick="allerA('planningSection')">
+Planning
+</button>
+
+<button onclick="allerA('templatesSection')">
+Modèles
+</button>
+
+<button onclick="allerA('premiumSection')">
+Premium
+</button>
+
+<button onclick="ouvrirCompte()">
+Compte
+</button>
+
+<button class="theme-button" onclick="changerThemeRapide()">
+🌙
+</button>
+
+</div>
+
+</div>
+
 </nav>
 
-<header class="hero">
-  <div class="hero-box">
-    <h1>Organise ta vie avec Planify 📅</h1>
-    <p>
-      Ton planning simple, moderne et maintenant synchronisé avec ton compte.
-    </p>
-  </div>
-</header>
 
 <main class="container">
 
-  <section class="section">
-    <div class="card profile">
-      <div class="profile-info">
-        <div class="avatar" id="avatar">P</div>
-        <div>
-          <strong id="profilNom">Visiteur</strong>
-          <div id="profilEmail" style="color:var(--muted);font-size:13px;">
-            Connecte-toi pour synchroniser ton planning
-          </div>
-        </div>
-      </div>
+<!-- HERO -->
 
-      <div>
-        <span id="premiumStatus" class="status free">Compte gratuit</span>
-        <button class="btn btn-primary" onclick="ouvrirCompte()">
-          Compte
-        </button>
-      </div>
-    </div>
-  </section>
+<section class="hero">
 
-  <section class="section">
-    <div class="grid">
-      <div class="card">
-        <div class="stat-label">Activités</div>
-        <div class="stat-number" id="statActivites">0</div>
-      </div>
+<div class="hero-main">
 
-      <div class="card">
-        <div class="stat-label">Temps planifié</div>
-        <div class="stat-number" id="statTemps">0h</div>
-      </div>
+<h1>Organise ta vie avec Planify.</h1>
 
-      <div class="card">
-        <div class="stat-label">Jours occupés</div>
-        <div class="stat-number" id="statJours">0</div>
-      </div>
+<p>
+Crée ton planning, organise tes activités,
+synchronise-les avec ton compte et retrouve
+ton organisation partout.
+</p>
 
-      <div class="card">
-        <div class="stat-label">Statut</div>
-        <div class="stat-number" id="statCompte">Invité</div>
-      </div>
-    </div>
-  </section>
+<div class="hero-actions">
 
-  <section class="section form-section" id="ajouter">
-    <div class="section-title">
-      <h2>➕ Ajouter une activité</h2>
-    </div>
+<button class="btn btn-white" onclick="allerA('formSection')">
+➕ Ajouter une activité
+</button>
 
-    <div class="card">
-      <div class="form-grid">
+<button class="btn btn-secondary" onclick="ouvrirCompte()">
+👤 Mon compte
+</button>
 
-        <div class="form-group">
-          <label>Nom</label>
-          <input id="nom" type="text" placeholder="Ex : Révisions">
-        </div>
+</div>
 
-        <div class="form-group">
-          <label>Date</label>
-          <input id="date" type="date">
-        </div>
+</div>
 
-        <div class="form-group">
-          <label>Début</label>
-          <input id="debut" type="time">
-        </div>
 
-        <div class="form-group">
-          <label>Fin</label>
-          <input id="fin" type="time">
-        </div>
+<div class="card profile-card">
 
-        <div class="form-group">
-          <label>Couleur</label>
-          <input id="couleur" type="color" value="#6c5ce7">
-        </div>
+<div class="profile-avatar" id="avatar">
+?
+</div>
 
-        <div class="form-group">
-          <label>Répétition</label>
-          <select id="repetition">
-            <option value="aucune">Aucune</option>
-            <option value="quotidienne">Tous les jours</option>
-            <option value="hebdomadaire">Toutes les semaines</option>
-            <option value="mensuelle">Tous les mois</option>
-          </select>
-        </div>
-      </div>
+<h3 id="profileName">
+Visiteur
+</h3>
 
-      <div class="form-actions">
-        <button class="btn btn-primary" onclick="ajouterActivite()">
-          Ajouter
-        </button>
+<p class="muted" id="profileEmail">
+Connecte-toi pour synchroniser ton planning.
+</p>
 
-        <button class="btn btn-secondary" onclick="viderFormulaire()">
-          Effacer
-        </button>
-      </div>
-    </div>
-  </section>
+<br>
 
-  <section class="section" id="planning">
-    <div class="section-title">
-      <h2>📅 Mon planning</h2>
+<span id="profileStatus" class="premium-status status-free">
+Compte gratuit
+</span>
 
-      <div class="planning-controls">
-        <button class="btn btn-secondary" onclick="precedent()">←</button>
-        <button class="btn btn-secondary" onclick="aujourdHui()">Aujourd'hui</button>
-        <button class="btn btn-secondary" onclick="suivant()">→</button>
+<button class="btn btn-primary" onclick="ouvrirCompte()">
+Gérer mon compte
+</button>
 
-        <div class="view-switch">
-          <button id="btnSemaine" class="active" onclick="changerMode('semaine')">
-            Semaine
-          </button>
-          <button id="btnMois" onclick="changerMode('mois')">
-            Mois
-          </button>
-        </div>
-      </div>
-    </div>
+</div>
 
-    <div class="card">
-      <div class="planning-header">
-        <div class="planning-title" id="planningTitre"></div>
+</section>
 
-        <button class="btn btn-secondary no-print" onclick="exporterPDF()">
-          🖨️ Exporter
-        </button>
-      </div>
 
-      <div id="planningContainer"></div>
-    </div>
-  </section>
+<!-- DASHBOARD -->
 
-  <section class="section templates-section" id="modeles">
-    <div class="section-title">
-      <h2>📚 Modèles gratuits</h2>
-    </div>
+<section>
 
-    <div class="template-grid">
+<h2>📊 Tableau de bord</h2>
 
-      <div class="template">
-        <h3>🎓 Étudiant</h3>
-        <p>Un planning pour organiser cours et devoirs.</p>
-        <button class="btn btn-secondary" onclick="chargerModele('etudiant')">
-          Utiliser
-        </button>
-      </div>
+<div class="dashboard">
 
-      <div class="template">
-        <h3>📖 Révisions</h3>
-        <p>Structure tes sessions de révision.</p>
-        <button class="btn btn-secondary" onclick="chargerModele('revision')">
-          Utiliser
-        </button>
-      </div>
+<div class="stat">
 
-      <div class="template">
-        <h3>🏃 Sport</h3>
-        <p>Planifie tes séances sportives.</p>
-        <button class="btn btn-secondary" onclick="chargerModele('sport')">
-          Utiliser
-        </button>
-      </div>
+<div class="stat-number" id="statActivities">
+0
+</div>
 
-      <div class="template">
-        <h3>🌴 Vacances</h3>
-        <p>Organise tes activités pendant les vacances.</p>
-        <button class="btn btn-secondary" onclick="chargerModele('vacances')">
-          Utiliser
-        </button>
-      </div>
+<div class="stat-label">
+Activités
+</div>
 
-      <div class="template">
-        <h3>✅ Organisation</h3>
-        <p>Un modèle simple pour tes tâches.</p>
-        <button class="btn btn-secondary" onclick="chargerModele('organisation')">
-          Utiliser
-        </button>
-      </div>
+</div>
 
-    </div>
-  </section>
 
-  <section class="section" id="premium">
-    <div class="section-title">
-      <h2>⭐ Planify Premium</h2>
-    </div>
+<div class="stat">
 
-    <div class="grid">
+<div class="stat-number" id="statHours">
+0h
+</div>
 
-      <div class="card premium-card">
-        <h3>🚀 Premium</h3>
-        <p>
-          Débloque des modèles supplémentaires et prépare les futures
-          fonctionnalités Premium de Planify.
-        </p>
+<div class="stat-label">
+Temps planifié
+</div>
 
-        <button class="btn" style="background:white;color:#6c5ce7;"
-                onclick="activerPremiumDemo()">
-          Activer le mode démo
-        </button>
-      </div>
+</div>
 
-      <div class="card locked">
-        <h3>📝 Examens</h3>
-        <p>Organisation intensive des périodes d'examens.</p>
-        <button class="btn btn-secondary" onclick="utiliserModelePremium('examens')">
-          Débloquer
-        </button>
-      </div>
 
-      <div class="card locked">
-        <h3>🎯 Objectifs</h3>
-        <p>Planifie tes objectifs et tes habitudes.</p>
-        <button class="btn btn-secondary" onclick="utiliserModelePremium('objectifs')">
-          Débloquer
-        </button>
-      </div>
+<div class="stat">
 
-      <div class="card locked">
-        <h3>⚡ Productivité</h3>
-        <p>Structure tes journées de manière efficace.</p>
-        <button class="btn btn-secondary" onclick="utiliserModelePremium('productivite')">
-          Débloquer
-        </button>
-      </div>
+<div class="stat-number" id="statDays">
+0
+</div>
 
-    </div>
-  </section>
+<div class="stat-label">
+Jours occupés
+</div>
 
-  <section class="section account-section" id="compte">
-    <div class="section-title">
-      <h2>👤 Mon compte</h2>
-    </div>
+</div>
 
-    <div class="card">
-      <p id="compteMessage">
-        Connecte-toi pour sauvegarder ton planning dans le cloud.
-      </p>
 
-      <div class="form-actions">
-        <button class="btn btn-primary" onclick="ouvrirCompte()">
-          Se connecter / s'inscrire
-        </button>
+<div class="stat">
 
-        <button class="btn btn-secondary" onclick="synchroniser()">
-          🔄 Synchroniser
-        </button>
+<div class="stat-number" id="statPremium">
+Gratuit
+</div>
 
-        <button class="btn btn-danger" onclick="deconnecterCompte()">
-          Déconnexion
-        </button>
-      </div>
-    </div>
-  </section>
+<div class="stat-label">
+Statut
+</div>
 
-  <section class="section">
-    <div class="section-title">
-      <h2>💾 Sauvegarde</h2>
-    </div>
+</div>
 
-    <div class="card">
-      <p>
-        Tu peux également sauvegarder ou restaurer ton planning sous forme
-        de fichier JSON.
-      </p>
+</div>
 
-      <div class="form-actions">
-        <button class="btn btn-secondary" onclick="exporterDonnees()">
-          Exporter mes données
-        </button>
+</section>
 
-        <label class="btn btn-secondary">
-          Importer
-          <input type="file" id="importFile" accept=".json"
-                 onchange="importerDonnees(event)" hidden>
-        </label>
-      </div>
-    </div>
-  </section>
 
-  <section class="section theme-section">
-    <div class="section-title">
-      <h2>🎨 Thèmes</h2>
-    </div>
+<!-- FORMULAIRE -->
 
-    <div class="card">
-      <div class="theme-grid">
-        <button class="theme-btn" onclick="changerTheme('violet')">Violet</button>
-        <button class="theme-btn" onclick="changerTheme('blue')">Bleu</button>
-        <button class="theme-btn" onclick="changerTheme('green')">Vert</button>
-        <button class="theme-btn" onclick="changerTheme('orange')">Orange</button>
-        <button class="theme-btn" onclick="changerTheme('pink')">Rose</button>
-        <button class="theme-btn" onclick="changerTheme('dark')">Sombre</button>
-      </div>
-    </div>
-  </section>
+<section id="formSection">
+
+<div class="card">
+
+<h2>➕ Ajouter une activité</h2>
+
+<div class="form-grid">
+
+<div class="field">
+
+<label>Nom</label>
+
+<input
+id="activityName"
+type="text"
+placeholder="Ex : Mathématiques"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>Date</label>
+
+<input
+id="activityDate"
+type="date"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>Début</label>
+
+<input
+id="activityStart"
+type="time"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>Fin</label>
+
+<input
+id="activityEnd"
+type="time"
+>
+
+</div>
+
+</div>
+
+
+<div class="form-grid" style="margin-top:12px;">
+
+<div class="field">
+
+<label>Couleur</label>
+
+<select id="activityColor">
+
+<option value="#7c3aed">Violet</option>
+<option value="#2563eb">Bleu</option>
+<option value="#16a34a">Vert</option>
+<option value="#ea580c">Orange</option>
+<option value="#db2777">Rose</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>Répétition</label>
+
+<select id="activityRepeat">
+
+<option value="aucune">Aucune</option>
+<option value="quotidienne">Tous les jours</option>
+<option value="hebdomadaire">Toutes les semaines</option>
+<option value="mensuelle">Tous les mois</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>Occurrences</label>
+
+<select id="activityOccurrences">
+
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="form-buttons">
+
+<button
+class="btn btn-primary"
+onclick="ajouterActivite()"
+>
+Ajouter
+</button>
+
+<button
+class="btn btn-secondary"
+onclick="viderFormulaire()"
+>
+Réinitialiser
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PLANNING -->
+
+<section id="planningSection">
+
+<div class="card">
+
+<div class="planning-header">
+
+<div>
+
+<h2>📅 Mon planning</h2>
+
+<p class="muted" id="periodTitle">
+Cette semaine
+</p>
+
+</div>
+
+<div class="view-buttons">
+
+<button
+id="weekButton"
+class="btn btn-secondary active"
+onclick="afficherSemaine()"
+>
+Semaine
+</button>
+
+<button
+id="monthButton"
+class="btn btn-secondary"
+onclick="afficherMois()"
+>
+Mois
+</button>
+
+<button
+class="btn btn-secondary"
+onclick="changerSemaine(-1)"
+>
+←
+</button>
+
+<button
+class="btn btn-secondary"
+onclick="changerSemaine(1)"
+>
+→
+</button>
+
+<button
+class="btn btn-primary"
+onclick="imprimerPlanning()"
+>
+🖨️ PDF
+</button>
+
+</div>
+
+</div>
+
+
+<div id="weekView"></div>
+
+<div id="monthView" class="hidden"></div>
+
+</div>
+
+</section>
+
+
+<!-- MODELES -->
+
+<section id="templatesSection">
+
+<div class="card">
+
+<h2>📚 Modèles gratuits</h2>
+
+<div class="template-grid">
+
+
+<div class="template">
+
+<div class="template-icon">
+📚
+</div>
+
+<h3>Étudiant</h3>
+
+<p class="muted">
+Cours, devoirs et révisions.
+</p>
+
+<br>
+
+<button
+class="btn btn-primary"
+onclick="appliquerModele('Étudiant')"
+>
+Utiliser
+</button>
+
+</div>
+
+
+<div class="template">
+
+<div class="template-icon">
+💼
+</div>
+
+<h3>Travail</h3>
+
+<p class="muted">
+Organisation professionnelle.
+</p>
+
+<br>
+
+<button
+class="btn btn-primary"
+onclick="appliquerModele('Travail')"
+>
+Utiliser
+</button>
+
+</div>
+
+
+<div class="template">
+
+<div class="template-icon">
+🏃
+</div>
+
+<h3>Sport</h3>
+
+<p class="muted">
+Planning d'entraînement.
+</p>
+
+<br>
+
+<button
+class="btn btn-primary"
+onclick="appliquerModele('Sport')"
+>
+Utiliser
+</button>
+
+</div>
+
+
+<div class="template premium-template">
+
+<div class="template-icon">
+⭐
+</div>
+
+<h3>Productivité Premium</h3>
+
+<p class="muted">
+Un modèle avancé.
+</p>
+
+<span class="premium-lock">
+🔒 PREMIUM
+</span>
+
+<br><br>
+
+<button
+class="btn btn-primary"
+onclick="utiliserPremium('Productivité')"
+>
+Utiliser
+</button>
+
+</div>
+
+
+<div class="template premium-template">
+
+<div class="template-icon">
+🎯
+</div>
+
+<h3>Objectifs Premium</h3>
+
+<p class="muted">
+Organisation autour de tes objectifs.
+</p>
+
+<span class="premium-lock">
+🔒 PREMIUM
+</span>
+
+<br><br>
+
+<button
+class="btn btn-primary"
+onclick="utiliserPremium('Objectifs')"
+>
+Utiliser
+</button>
+
+</div>
+
+
+<div class="template premium-template">
+
+<div class="template-icon">
+🧠
+</div>
+
+<h3>Focus Premium</h3>
+
+<p class="muted">
+Planning dédié à la concentration.
+</p>
+
+<span class="premium-lock">
+🔒 PREMIUM
+</span>
+
+<br><br>
+
+<button
+class="btn btn-primary"
+onclick="utiliserPremium('Focus')"
+>
+Utiliser
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PREMIUM -->
+
+<section id="premiumSection">
+
+<div class="premium-box">
+
+<span id="premiumBadge" class="premium-status status-free">
+Compte gratuit
+</span>
+
+<h2>⭐ Planify Premium</h2>
+
+<p>
+Débloque les fonctionnalités Premium
+de ton compte.
+</p>
+
+<div class="premium-list">
+
+<div>✅ Modèles Premium</div>
+<div>✅ Fonctions avancées</div>
+<div>✅ Organisation améliorée</div>
+<div>✅ Fonctionnalités exclusives</div>
+
+</div>
+
+<div id="premiumMessage">
+
+<p>
+Ton compte utilise actuellement la version gratuite.
+</p>
+
+<br>
+
+<button
+class="btn btn-white"
+onclick="ouvrirCompte()"
+>
+Se connecter
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- COMPTE -->
+
+<section id="accountSection">
+
+<div class="account-grid">
+
+<div class="card">
+
+<h2>👤 Mon compte</h2>
+
+<p id="accountInfo" class="muted">
+Tu n'es pas connecté.
+</p>
+
+<br>
+
+<button
+id="loginButton"
+class="btn btn-primary"
+onclick="ouvrirCompte()"
+>
+Connexion / Inscription
+</button>
+
+<button
+id="logoutButton"
+class="btn btn-danger hidden"
+onclick="deconnecterCompte()"
+>
+Se déconnecter
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>💾 Sauvegarde</h2>
+
+<p class="muted">
+Exporte ton planning ou restaure une sauvegarde.
+</p>
+
+<br>
+
+<div class="form-buttons">
+
+<button
+class="btn btn-secondary"
+onclick="exporterBackup()"
+>
+Exporter
+</button>
+
+<button
+class="btn btn-secondary"
+onclick="document.getElementById('importFile').click()"
+>
+Importer
+</button>
+
+<input
+id="importFile"
+type="file"
+accept=".json"
+class="hidden"
+onchange="importerBackup(event)"
+>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- THEME -->
+
+<section>
+
+<div class="card">
+
+<h2>🎨 Apparence</h2>
+
+<p class="muted">
+Choisis le thème de Planify.
+</p>
+
+<br>
+
+<div class="form-buttons">
+
+<button class="btn btn-secondary" onclick="changerTheme('violet')">
+Violet
+</button>
+
+<button class="btn btn-secondary" onclick="changerTheme('blue')">
+Bleu
+</button>
+
+<button class="btn btn-secondary" onclick="changerTheme('green')">
+Vert
+</button>
+
+<button class="btn btn-secondary" onclick="changerTheme('orange')">
+Orange
+</button>
+
+<button class="btn btn-secondary" onclick="changerTheme('pink')">
+Rose
+</button>
+
+<button class="btn btn-secondary" onclick="changerTheme('dark')">
+Sombre
+</button>
+
+</div>
+
+</div>
+
+</section>
 
 </main>
 
-<footer class="footer">
-  Planify — Ton organisation, simplement.
+
+<footer>
+
+Planify © 2026 — Ton planning, simplement.
+
 </footer>
 
-<div class="notification" id="notification"></div>
 
-<div class="modal" id="modalCompte">
-  <div class="modal-box">
+<!-- AUTH MODAL -->
 
-    <button class="close" onclick="fermerModal()">×</button>
+<div
+id="authModal"
+class="modal hidden"
+>
 
-    <h2>👤 Compte Planify</h2>
+<div class="modal-card">
 
-    <div class="auth-tabs">
-      <button id="tabConnexion" class="active" onclick="changerAuthMode('connexion')">
-        Connexion
-      </button>
+<button
+class="auth-close"
+onclick="fermerCompte()"
+>
+×
+</button>
 
-      <button id="tabInscription" onclick="changerAuthMode('inscription')">
-        Inscription
-      </button>
-    </div>
+<div class="auth-tabs">
 
-    <div class="form-group">
-      <label>Email</label>
-      <input id="authEmail" type="email" placeholder="ton@email.com">
-    </div>
+<button
+id="loginTab"
+class="active"
+onclick="changerAuthMode('login')"
+>
+Connexion
+</button>
 
-    <br>
+<button
+id="registerTab"
+onclick="changerAuthMode('register')"
+>
+Inscription
+</button>
 
-    <div class="form-group">
-      <label>Mot de passe</label>
-      <input id="authPassword" type="password" placeholder="••••••••">
-    </div>
-
-    <div class="form-actions">
-      <button id="authButton" class="btn btn-primary" onclick="authAction()">
-        Se connecter
-      </button>
-    </div>
-
-    <div class="auth-message" id="authMessage"></div>
-
-  </div>
 </div>
 
+
+<div class="auth-form">
+
+<input
+id="authEmail"
+type="email"
+placeholder="Adresse e-mail"
+>
+
+<input
+id="authPassword"
+type="password"
+placeholder="Mot de passe"
+>
+
+<button
+id="authSubmit"
+class="btn btn-primary"
+onclick="authAction()"
+>
+Se connecter
+</button>
+
+<p
+id="authMessage"
+class="muted"
+></p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div id="toast" class="toast">
+Notification
+</div>
+
+
 <script>
-/* =========================================================
+
+/* =====================================================
    SUPABASE
-========================================================= */
+===================================================== */
 
 const SUPABASE_URL =
-  "https://xpkyfmnfcajnsmszhiwx.supabase.co";
+"https://xpkyfmnfcajnsmszhiwx.supabase.co";
 
 const SUPABASE_KEY =
-  "sb_publishable_nUbVDTEUQ49X180VmwbQtQ_YVOp3FJe";
+"sb_publishable_nUbVDTEUQ49X180VmwbQtQ_YVOp3FJe";
 
 const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
 
-/* =========================================================
+/* =====================================================
    VARIABLES
-========================================================= */
+===================================================== */
 
 let activites =
-  JSON.parse(localStorage.getItem("monPlanning") || "[]");
-
-let dateActuelle = new Date();
-
-let mode = "semaine";
+JSON.parse(localStorage.getItem("planify_activites") || "[]");
 
 let utilisateurConnecte = null;
 
-let authMode = "connexion";
+let profilPremium = {
+  is_premium:false,
+  premium_until:null
+};
 
-let premiumActif =
-  localStorage.getItem("premiumDemo") === "true";
+let authMode = "login";
 
+let datePlanning = new Date();
 
-/* =========================================================
-   OUTILS
-========================================================= */
+let modePlanning = "semaine";
 
-function formatDate(date){
-  return date.toISOString().split("T")[0];
-}
 
-function dateLocale(date){
-  return date.toLocaleDateString("fr-FR", {
-    day:"2-digit",
-    month:"2-digit",
-    year:"numeric"
-  });
-}
+/* =====================================================
+   INITIALISATION
+===================================================== */
 
-function obtenirLundi(date){
-  const d = new Date(date);
-  const jour = d.getDay();
-  const difference = jour === 0 ? -6 : 1 - jour;
+document.addEventListener("DOMContentLoaded", async () => {
 
-  d.setDate(d.getDate() + difference);
-  d.setHours(0,0,0,0);
+  chargerTheme();
 
-  return d;
-}
+  const today =
+  new Date().toISOString().split("T")[0];
 
-function escapeHTML(str){
-  return String(str)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
+  document.getElementById("activityDate").value = today;
 
-function sauvegarderLocal(){
-  localStorage.setItem(
-    "monPlanning",
-    JSON.stringify(activites)
-  );
-}
-
-function afficherNotification(message){
-  const box =
-    document.getElementById("notification");
-
-  box.textContent = message;
-  box.style.display = "block";
-
-  clearTimeout(window.notificationTimer);
-
-  window.notificationTimer =
-    setTimeout(() => {
-      box.style.display = "none";
-    }, 3000);
-}
-
-
-/* =========================================================
-   DASHBOARD
-========================================================= */
-
-function mettreAJourDashboard(){
-
-  document.getElementById("statActivites").textContent =
-    activites.length;
-
-  const jours =
-    new Set(activites.map(a => a.date));
-
-  document.getElementById("statJours").textContent =
-    jours.size;
-
-  let minutes = 0;
-
-  activites.forEach(a => {
-
-    if(!a.debut || !a.fin) return;
-
-    const [h1,m1] =
-      a.debut.split(":").map(Number);
-
-    const [h2,m2] =
-      a.fin.split(":").map(Number);
-
-    let diff =
-      (h2 * 60 + m2) -
-      (h1 * 60 + m1);
-
-    if(diff > 0){
-      minutes += diff;
-    }
-  });
-
-  const heures =
-    Math.floor(minutes / 60);
-
-  const mins =
-    minutes % 60;
-
-  document.getElementById("statTemps").textContent =
-    `${heures}h${mins ? mins : ""}`;
-
-  document.getElementById("statCompte").textContent =
-    utilisateurConnecte ? "Connecté" : "Invité";
-}
-
-
-/* =========================================================
-   ACTIVITÉS
-========================================================= */
-
-async function ajouterActivite(){
-
-  const nom =
-    document.getElementById("nom").value.trim();
-
-  const date =
-    document.getElementById("date").value;
-
-  const debut =
-    document.getElementById("debut").value;
-
-  const fin =
-    document.getElementById("fin").value;
-
-  const couleur =
-    document.getElementById("couleur").value;
-
-  const repetition =
-    document.getElementById("repetition").value;
-
-  if(!nom || !date){
-    afficherNotification(
-      "⚠️ Indique au minimum un nom et une date."
-    );
-    return;
-  }
-
-  const activite = {
-    id: Date.now(),
-    nom,
-    date,
-    debut,
-    fin,
-    couleur,
-    repetition
-  };
-
-  activites.push(activite);
-
-  sauvegarderLocal();
-
-  viderFormulaire();
-
-  afficher();
-
-  afficherNotification("✅ Activité ajoutée.");
-
-  if(utilisateurConnecte){
-    await synchroniser();
-  }
-}
-
-async function supprimerActivite(id){
-
-  if(!confirm("Supprimer cette activité ?")){
-    return;
-  }
-
-  activites =
-    activites.filter(a => String(a.id) !== String(id));
-
-  sauvegarderLocal();
-
-  afficher();
-
-  afficherNotification("🗑️ Activité supprimée.");
-
-  if(utilisateurConnecte){
-    await synchroniser();
-  }
-}
-
-async function modifierActivite(id){
-
-  const a =
-    activites.find(x => String(x.id) === String(id));
-
-  if(!a) return;
-
-  document.getElementById("nom").value = a.nom;
-  document.getElementById("date").value = a.date;
-  document.getElementById("debut").value = a.debut || "";
-  document.getElementById("fin").value = a.fin || "";
-  document.getElementById("couleur").value = a.couleur || "#6c5ce7";
-  document.getElementById("repetition").value =
-    a.repetition || "aucune";
-
-  activites =
-    activites.filter(x => String(x.id) !== String(id));
-
-  sauvegarderLocal();
-
-  afficher();
-
-  document
-    .getElementById("ajouter")
-    .scrollIntoView({behavior:"smooth"});
-
-  afficherNotification(
-    "✏️ Modifie l'activité puis clique sur Ajouter."
-  );
-}
-
-function viderFormulaire(){
-
-  document.getElementById("nom").value = "";
-
-  document.getElementById("date").value =
-    formatDate(new Date());
-
-  document.getElementById("debut").value = "";
-
-  document.getElementById("fin").value = "";
-
-  document.getElementById("couleur").value =
-    "#6c5ce7";
-
-  document.getElementById("repetition").value =
-    "aucune";
-}
-
-
-/* =========================================================
-   AFFICHAGE ACTIVITÉ
-========================================================= */
-
-function afficherActivite(a, compact=false){
-
-  const heure =
-    a.debut || a.fin
-      ? `${a.debut || "--:--"} → ${a.fin || "--:--"}`
-      : "Toute la journée";
-
-  if(compact){
-
-    return `
-      <div
-        class="month-activity"
-        style="background:${a.couleur || "#6c5ce7"};color:white;"
-      >
-        ${escapeHTML(a.nom)}
-      </div>
-    `;
-  }
-
-  return `
-    <div
-      class="activity"
-      style="border-left-color:${a.couleur || "#6c5ce7"}"
-    >
-
-      <div class="activity-name">
-        ${escapeHTML(a.nom)}
-      </div>
-
-      <div class="activity-time">
-        ${heure}
-      </div>
-
-      <div class="activity-actions">
-
-        <button onclick="modifierActivite('${a.id}')">
-          ✏️
-        </button>
-
-        <button onclick="supprimerActivite('${a.id}')">
-          🗑️
-        </button>
-
-      </div>
-
-    </div>
-  `;
-}
-
-
-/* =========================================================
-   SEMAINE
-========================================================= */
-
-function afficherSemaine(){
-
-  const lundi =
-    obtenirLundi(dateActuelle);
-
-  const jours =
-    ["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"];
-
-  const fin =
-    new Date(lundi);
-
-  fin.setDate(fin.getDate() + 6);
-
-  document.getElementById("planningTitre").textContent =
-    `${dateLocale(lundi)} → ${dateLocale(fin)}`;
-
-  let html =
-    `<div class="week-grid">`;
-
-  for(let i=0;i<7;i++){
-
-    const jour =
-      new Date(lundi);
-
-    jour.setDate(
-      jour.getDate() + i
-    );
-
-    const date =
-      formatDate(jour);
-
-    const liste =
-      activites.filter(a => a.date === date);
-
-    html += `
-      <div class="day-column">
-
-        <div class="day-header">
-          ${jours[i]}
-          <div class="day-date">
-            ${jour.getDate()}/${jour.getMonth()+1}
-          </div>
-        </div>
-    `;
-
-    if(liste.length === 0){
-
-      html += `
-        <div class="empty">
-          Rien prévu
-        </div>
-      `;
-
-    }else{
-
-      liste.forEach(a => {
-        html += afficherActivite(a);
-      });
-
-    }
-
-    html += `</div>`;
-  }
-
-  html += `</div>`;
-
-  document.getElementById(
-    "planningContainer"
-  ).innerHTML = html;
-}
-
-
-/* =========================================================
-   MOIS
-========================================================= */
-
-function afficherMois(){
-
-  const annee =
-    dateActuelle.getFullYear();
-
-  const mois =
-    dateActuelle.getMonth();
-
-  const premier =
-    new Date(annee, mois, 1);
-
-  const dernier =
-    new Date(annee, mois + 1, 0);
-
-  document.getElementById("planningTitre").textContent =
-    premier.toLocaleDateString("fr-FR", {
-      month:"long",
-      year:"numeric"
-    });
-
-  let debutSemaine =
-    premier.getDay();
-
-  debutSemaine =
-    debutSemaine === 0
-      ? 6
-      : debutSemaine - 1;
-
-  let html = `
-    <div class="month-grid">
-  `;
-
-  for(let i=0;i<debutSemaine;i++){
-
-    html += `
-      <div class="month-day"></div>
-    `;
-  }
-
-  for(let jour=1;jour<=dernier.getDate();jour++){
-
-    const date =
-      formatDate(
-        new Date(annee, mois, jour)
-      );
-
-    const liste =
-      activites.filter(a => a.date === date);
-
-    const aujourd =
-      formatDate(new Date()) === date;
-
-    html += `
-      <div class="month-day ${aujourd ? "today" : ""}">
-
-        <div class="month-number">
-          ${jour}
-        </div>
-    `;
-
-    liste.forEach(a => {
-      html += afficherActivite(a,true);
-    });
-
-    html += `
-      </div>
-    `;
-  }
-
-  html += `</div>`;
-
-  document.getElementById(
-    "planningContainer"
-  ).innerHTML = html;
-}
-
-
-/* =========================================================
-   AFFICHAGE
-========================================================= */
-
-function afficher(){
-
-  if(mode === "semaine"){
-    afficherSemaine();
-  }else{
-    afficherMois();
-  }
+  afficherPlanning();
 
   mettreAJourDashboard();
-}
 
-function changerMode(nouveauMode){
+  const {
+    data
+  } =
+  await supabaseClient.auth.getSession();
 
-  mode = nouveauMode;
+  utilisateurConnecte =
+  data.session?.user || null;
 
-  document
-    .getElementById("btnSemaine")
-    .classList.toggle(
-      "active",
-      mode === "semaine"
-    );
+  if(utilisateurConnecte){
 
-  document
-    .getElementById("btnMois")
-    .classList.toggle(
-      "active",
-      mode === "mois"
-    );
+    await chargerProfilPremium();
 
-  afficher();
-}
+    await chargerActivitesCloud();
 
-function precedent(){
-
-  if(mode === "semaine"){
-    dateActuelle.setDate(
-      dateActuelle.getDate() - 7
-    );
-  }else{
-    dateActuelle.setMonth(
-      dateActuelle.getMonth() - 1
-    );
   }
 
-  afficher();
-}
+  mettreAJourCompte();
 
-function suivant(){
+});
 
-  if(mode === "semaine"){
-    dateActuelle.setDate(
-      dateActuelle.getDate() + 7
-    );
-  }else{
-    dateActuelle.setMonth(
-      dateActuelle.getMonth() + 1
-    );
-  }
 
-  afficher();
-}
-
-function aujourdHui(){
-
-  dateActuelle = new Date();
-
-  afficher();
-}
-
-
-/* =========================================================
-   PDF
-========================================================= */
-
-function exporterPDF(){
-
-  window.print();
-}
-
-
-/* =========================================================
-   THÈMES
-========================================================= */
-
-function changerTheme(theme){
-
-  document.body.classList.remove(
-    "theme-blue",
-    "theme-green",
-    "theme-orange",
-    "theme-pink",
-    "dark"
-  );
-
-  if(theme === "blue"){
-    document.body.classList.add("theme-blue");
-  }
-
-  if(theme === "green"){
-    document.body.classList.add("theme-green");
-  }
-
-  if(theme === "orange"){
-    document.body.classList.add("theme-orange");
-  }
-
-  if(theme === "pink"){
-    document.body.classList.add("theme-pink");
-  }
-
-  if(theme === "dark"){
-    document.body.classList.add("dark");
-  }
-
-  localStorage.setItem(
-    "themePlanning",
-    theme
-  );
-}
-
-function chargerTheme(){
-
-  const theme =
-    localStorage.getItem("themePlanning") ||
-    "violet";
-
-  changerTheme(theme);
-}
-
-function changerThemeRapide(){
-
-  const sombre =
-    document.body.classList.contains("dark");
-
-  changerTheme(
-    sombre ? "violet" : "dark"
-  );
-}
-
-
-/* =========================================================
-   MODÈLES
-========================================================= */
-
-function chargerModele(type){
-
-  const aujourd =
-    formatDate(new Date());
-
-  const modeles = {
-
-    etudiant:{
-      nom:"Cours",
-      debut:"08:00",
-      fin:"10:00",
-      couleur:"#6c5ce7"
-    },
-
-    revision:{
-      nom:"Révisions",
-      debut:"17:00",
-      fin:"18:30",
-      couleur:"#2774e6"
-    },
-
-    sport:{
-      nom:"Sport",
-      debut:"18:00",
-      fin:"19:00",
-      couleur:"#159957"
-    },
-
-    vacances:{
-      nom:"Activité vacances",
-      debut:"14:00",
-      fin:"16:00",
-      couleur:"#ef7d24"
-    },
-
-    organisation:{
-      nom:"Organisation",
-      debut:"09:00",
-      fin:"09:30",
-      couleur:"#df4f91"
-    }
-
-  };
-
-  const m = modeles[type];
-
-  if(!m) return;
-
-  document.getElementById("nom").value =
-    m.nom;
-
-  document.getElementById("date").value =
-    aujourd;
-
-  document.getElementById("debut").value =
-    m.debut;
-
-  document.getElementById("fin").value =
-    m.fin;
-
-  document.getElementById("couleur").value =
-    m.couleur;
-
-  afficherNotification(
-    "📚 Modèle chargé."
-  );
-
-  document
-    .getElementById("ajouter")
-    .scrollIntoView({behavior:"smooth"});
-}
-
-function utiliserModelePremium(type){
-
-  if(!premiumActif){
-
-    afficherNotification(
-      "⭐ Active le mode Premium démo pour essayer ce modèle."
-    );
-
-    return;
-  }
-
-  const modeles = {
-
-    examens:{
-      nom:"Session d'examens",
-      debut:"09:00",
-      fin:"11:00",
-      couleur:"#6c5ce7"
-    },
-
-    objectifs:{
-      nom:"Objectif du jour",
-      debut:"10:00",
-      fin:"11:00",
-      couleur:"#159957"
-    },
-
-    productivite:{
-      nom:"Session productivité",
-      debut:"09:00",
-      fin:"10:30",
-      couleur:"#2774e6"
-    }
-
-  };
-
-  const m = modeles[type];
-
-  document.getElementById("nom").value =
-    m.nom;
-
-  document.getElementById("date").value =
-    formatDate(new Date());
-
-  document.getElementById("debut").value =
-    m.debut;
-
-  document.getElementById("fin").value =
-    m.fin;
-
-  document.getElementById("couleur").value =
-    m.couleur;
-
-  afficherNotification(
-    "⭐ Modèle Premium chargé."
-  );
-
-  document
-    .getElementById("ajouter")
-    .scrollIntoView({behavior:"smooth"});
-}
-
-function activerPremiumDemo(){
-
-  premiumActif = !premiumActif;
-
-  localStorage.setItem(
-    "premiumDemo",
-    premiumActif
-  );
-
-  mettreAJourPremium();
-
-  afficherNotification(
-    premiumActif
-      ? "⭐ Premium démo activé !"
-      : "Premium démo désactivé."
-  );
-}
-
-function mettreAJourPremium(){
-
-  const status =
-    document.getElementById("premiumStatus");
-
-  if(premiumActif){
-
-    status.textContent =
-      "⭐ Premium démo";
-
-    status.className =
-      "status premium";
-
-  }else{
-
-    status.textContent =
-      "Compte gratuit";
-
-    status.className =
-      "status free";
-  }
-}
-
-
-/* =========================================================
-   AUTHENTIFICATION
-========================================================= */
-
-function ouvrirCompte(){
-
-  document.getElementById(
-    "modalCompte"
-  ).style.display = "flex";
-
-  afficherAuthMessage("");
-}
-
-function fermerModal(){
-
-  document.getElementById(
-    "modalCompte"
-  ).style.display = "none";
-}
-
-function changerAuthMode(modeAuth){
-
-  authMode = modeAuth;
-
-  document
-    .getElementById("tabConnexion")
-    .classList.toggle(
-      "active",
-      authMode === "connexion"
-    );
-
-  document
-    .getElementById("tabInscription")
-    .classList.toggle(
-      "active",
-      authMode === "inscription"
-    );
-
-  document.getElementById(
-    "authButton"
-  ).textContent =
-    authMode === "connexion"
-      ? "Se connecter"
-      : "Créer mon compte";
-
-  afficherAuthMessage("");
-}
-
-function afficherAuthMessage(message){
-
-  const box =
-    document.getElementById("authMessage");
-
-  box.textContent = message;
-
-  box.style.display =
-    message ? "block" : "none";
-}
+/* =====================================================
+   AUTH SUPABASE
+===================================================== */
 
 async function authAction(){
 
   const email =
-    document.getElementById("authEmail")
-      .value.trim();
+  document.getElementById("authEmail").value.trim();
 
   const password =
-    document.getElementById("authPassword")
-      .value;
+  document.getElementById("authPassword").value;
+
+  const message =
+  document.getElementById("authMessage");
 
   if(!email || !password){
 
-    afficherAuthMessage(
-      "⚠️ Entre ton email et ton mot de passe."
-    );
+    message.textContent =
+    "Remplis tous les champs.";
 
     return;
+
   }
 
-  if(password.length < 6){
+  message.textContent =
+  "Chargement...";
 
-    afficherAuthMessage(
-      "⚠️ Le mot de passe doit contenir au moins 6 caractères."
-    );
 
-    return;
-  }
+  if(authMode === "login"){
 
-  afficherAuthMessage(
-    "Connexion en cours..."
-  );
+    const {
+      data,
+      error
+    } =
+    await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
 
-  try{
+    if(error){
 
-    if(authMode === "inscription"){
+      message.textContent =
+      error.message;
 
-      const {
-        data,
-        error
-      } =
-      await supabaseClient.auth.signUp({
-        email,
-        password
-      });
+      return;
 
-      if(error) throw error;
-
-      if(data.session){
-
-        afficherAuthMessage(
-          "✅ Compte créé et connecté."
-        );
-
-      }else{
-
-        afficherAuthMessage(
-          "✅ Compte créé. Vérifie ton email si Supabase demande une confirmation."
-        );
-      }
-
-    }else{
-
-      const {
-        data,
-        error
-      } =
-      await supabaseClient.auth.signInWithPassword({
-        email,
-        password
-      });
-
-      if(error) throw error;
-
-      afficherAuthMessage(
-        "✅ Connexion réussie !"
-      );
-
-      setTimeout(
-        fermerModal,
-        700
-      );
     }
 
-  }catch(error){
+    utilisateurConnecte =
+    data.user;
 
-    afficherAuthMessage(
-      "❌ " + (
-        error.message ||
-        "Une erreur est survenue."
-      )
-    );
-  }
-}
+    await chargerProfilPremium();
 
-async function deconnecterCompte(){
+    await chargerActivitesCloud();
 
-  if(!utilisateurConnecte){
+    fermerCompte();
 
-    afficherNotification(
-      "Tu n'es pas connecté."
-    );
-
-    return;
-  }
-
-  const { error } =
-    await supabaseClient.auth.signOut();
-
-  if(error){
-
-    afficherNotification(
-      "❌ Impossible de se déconnecter."
-    );
-
-    return;
-  }
-
-  utilisateurConnecte = null;
-
-  mettreAJourProfil();
-
-  afficherNotification(
-    "👋 Déconnexion réussie."
-  );
-}
-
-
-/* =========================================================
-   PROFIL
-========================================================= */
-
-function mettreAJourProfil(){
-
-  const nom =
-    document.getElementById("profilNom");
-
-  const email =
-    document.getElementById("profilEmail");
-
-  const avatar =
-    document.getElementById("avatar");
-
-  const message =
-    document.getElementById("compteMessage");
-
-  if(utilisateurConnecte){
-
-    const emailUser =
-      utilisateurConnecte.email || "";
-
-    const lettre =
-      emailUser.charAt(0).toUpperCase();
-
-    avatar.textContent =
-      lettre || "P";
-
-    nom.textContent =
-      "Mon compte";
-
-    email.textContent =
-      emailUser;
-
-    message.textContent =
-      "☁️ Ton planning est connecté à Supabase.";
+    afficherToast("Connexion réussie.");
 
   }else{
 
-    avatar.textContent = "P";
+    const {
+      data,
+      error
+    } =
+    await supabaseClient.auth.signUp({
+      email,
+      password
+    });
 
-    nom.textContent =
-      "Visiteur";
+    if(error){
 
-    email.textContent =
-      "Connecte-toi pour synchroniser ton planning";
+      message.textContent =
+      error.message;
 
-    message.textContent =
-      "Connecte-toi pour sauvegarder ton planning dans le cloud.";
+      return;
+
+    }
+
+    utilisateurConnecte =
+    data.user;
+
+    if(utilisateurConnecte){
+
+      await chargerProfilPremium();
+
+      await chargerActivitesCloud();
+
+      fermerCompte();
+
+      afficherToast("Compte créé.");
+
+    }else{
+
+      message.textContent =
+      "Compte créé. Connecte-toi.";
+
+    }
+
   }
 
-  mettreAJourDashboard();
-  mettreAJourPremium();
+  mettreAJourCompte();
+
 }
 
 
-/* =========================================================
-   SYNCHRONISATION SUPABASE
-========================================================= */
+function changerAuthMode(mode){
+
+  authMode = mode;
+
+  const loginTab =
+  document.getElementById("loginTab");
+
+  const registerTab =
+  document.getElementById("registerTab");
+
+  const submit =
+  document.getElementById("authSubmit");
+
+  const message =
+  document.getElementById("authMessage");
+
+  message.textContent = "";
+
+  if(mode === "login"){
+
+    loginTab.classList.add("active");
+    registerTab.classList.remove("active");
+
+    submit.textContent =
+    "Se connecter";
+
+  }else{
+
+    registerTab.classList.add("active");
+    loginTab.classList.remove("active");
+
+    submit.textContent =
+    "Créer mon compte";
+
+  }
+
+}
+
+
+function ouvrirCompte(){
+
+  document
+  .getElementById("authModal")
+  .classList.remove("hidden");
+
+  if(utilisateurConnecte){
+
+    afficherToast(
+      "Tu es déjà connecté."
+    );
+
+  }
+
+}
+
+
+function fermerCompte(){
+
+  document
+  .getElementById("authModal")
+  .classList.add("hidden");
+
+}
+
+
+async function deconnecterCompte(){
+
+  await supabaseClient.auth.signOut();
+
+  utilisateurConnecte = null;
+
+  profilPremium = {
+    is_premium:false,
+    premium_until:null
+  };
+
+  activites = [];
+
+  sauvegarderLocal();
+
+  afficherPlanning();
+
+  mettreAJourDashboard();
+
+  mettreAJourCompte();
+
+  afficherToast("Déconnexion réussie.");
+
+}
+
+
+/* =====================================================
+   PROFIL PREMIUM
+===================================================== */
+
+async function chargerProfilPremium(){
+
+  if(!utilisateurConnecte){
+
+    profilPremium = {
+      is_premium:false,
+      premium_until:null
+    };
+
+    return;
+
+  }
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .from("profiles")
+  .select("is_premium,premium_until")
+  .eq("id", utilisateurConnecte.id)
+  .single();
+
+  if(error){
+
+    console.log(error);
+
+    profilPremium = {
+      is_premium:false,
+      premium_until:null
+    };
+
+    return;
+
+  }
+
+  profilPremium = data || {
+    is_premium:false,
+    premium_until:null
+  };
+
+  mettreAJourPremium();
+
+}
+
+
+function estPremium(){
+
+  if(!profilPremium.is_premium){
+    return false;
+  }
+
+  if(
+    profilPremium.premium_until &&
+    new Date(profilPremium.premium_until) < new Date()
+  ){
+
+    return false;
+
+  }
+
+  return true;
+
+}
+
+
+function mettreAJourPremium(){
+
+  const premium =
+  estPremium();
+
+  const status =
+  document.getElementById("profileStatus");
+
+  const badge =
+  document.getElementById("premiumBadge");
+
+  const stat =
+  document.getElementById("statPremium");
+
+  if(premium){
+
+    status.textContent =
+    "⭐ Planify Premium";
+
+    status.className =
+    "premium-status status-premium";
+
+    badge.textContent =
+    "⭐ Planify Premium";
+
+    badge.className =
+    "premium-status status-premium";
+
+    stat.textContent =
+    "Premium";
+
+  }else{
+
+    status.textContent =
+    "Compte gratuit";
+
+    status.className =
+    "premium-status status-free";
+
+    badge.textContent =
+    "Compte gratuit";
+
+    badge.className =
+    "premium-status status-free";
+
+    stat.textContent =
+    "Gratuit";
+
+  }
+
+}
+
+
+/* =====================================================
+   ACTIVITES CLOUD
+===================================================== */
 
 async function chargerActivitesCloud(){
 
@@ -2113,286 +1922,1373 @@ async function chargerActivitesCloud(){
     error
   } =
   await supabaseClient
-    .from("activites")
-    .select("*")
-    .eq("user_id", utilisateurConnecte.id)
-    .order("date", {ascending:true});
+  .from("activites")
+  .select("*")
+  .eq("user_id", utilisateurConnecte.id)
+  .order("date", {
+    ascending:true
+  });
 
   if(error){
 
-    console.error(error);
+    console.log(error);
 
-    afficherNotification(
-      "❌ Impossible de charger le planning cloud."
+    afficherToast(
+      "Erreur de synchronisation."
     );
 
     return;
+
   }
 
   activites =
-    data.map(a => ({
-      id:a.id,
-      nom:a.nom,
-      date:a.date,
-      debut:a.debut || "",
-      fin:a.fin || "",
-      couleur:a.couleur || "#6c5ce7",
-      repetition:a.repetition || "aucune"
-    }));
+  (data || []).map(a => ({
+
+    id:a.id,
+
+    nom:a.nom,
+
+    date:a.date,
+
+    debut:a.debut || "",
+
+    fin:a.fin || "",
+
+    couleur:a.couleur || "#7c3aed",
+
+    repetition:a.repetition || "aucune"
+
+  }));
 
   sauvegarderLocal();
 
-  afficher();
+  afficherPlanning();
 
-  afficherNotification(
-    "☁️ Planning synchronisé."
-  );
+  mettreAJourDashboard();
+
 }
+
 
 async function synchroniser(){
 
   if(!utilisateurConnecte){
 
-    afficherNotification(
-      "🔐 Connecte-toi pour synchroniser."
+    afficherToast(
+      "Connecte-toi pour synchroniser."
     );
 
     return;
+
   }
 
-  try{
+  const {
+    error:deleteError
+  } =
+  await supabaseClient
+  .from("activites")
+  .delete()
+  .eq("user_id", utilisateurConnecte.id);
+
+  if(deleteError){
+
+    console.log(deleteError);
+
+    afficherToast(
+      "Erreur de synchronisation."
+    );
+
+    return;
+
+  }
+
+
+  if(activites.length > 0){
+
+    const lignes =
+    activites.map(a => ({
+
+      user_id:
+      utilisateurConnecte.id,
+
+      nom:a.nom,
+
+      date:a.date,
+
+      debut:a.debut || null,
+
+      fin:a.fin || null,
+
+      couleur:a.couleur || "#7c3aed",
+
+      repetition:a.repetition || "aucune"
+
+    }));
+
 
     const {
-      error:deleteError
+      error
     } =
     await supabaseClient
-      .from("activites")
-      .delete()
-      .eq(
-        "user_id",
-        utilisateurConnecte.id
+    .from("activites")
+    .insert(lignes);
+
+    if(error){
+
+      console.log(error);
+
+      afficherToast(
+        "Erreur lors de la sauvegarde."
       );
 
-    if(deleteError){
-      throw deleteError;
+      return;
+
     }
 
-    if(activites.length > 0){
-
-      const lignes =
-        activites.map(a => ({
-          user_id:
-            utilisateurConnecte.id,
-
-          nom:a.nom,
-
-          date:a.date,
-
-          debut:a.debut || null,
-
-          fin:a.fin || null,
-
-          couleur:a.couleur || "#6c5ce7",
-
-          repetition:
-            a.repetition || "aucune"
-        }));
-
-      const {
-        error:insertError
-      } =
-      await supabaseClient
-        .from("activites")
-        .insert(lignes);
-
-      if(insertError){
-        throw insertError;
-      }
-    }
-
-    afficherNotification(
-      "☁️ Planning enregistré dans le cloud."
-    );
-
-  }catch(error){
-
-    console.error(error);
-
-    afficherNotification(
-      "❌ Erreur de synchronisation."
-    );
   }
+
 }
 
 
-/* =========================================================
-   BACKUP
-========================================================= */
+/* =====================================================
+   AJOUT ACTIVITE
+===================================================== */
 
-function exporterDonnees(){
+async function ajouterActivite(){
 
-  const donnees = {
-    activites,
-    theme:
-      localStorage.getItem("themePlanning") ||
-      "violet",
-    premiumDemo:premiumActif
-  };
+  const nom =
+  document
+  .getElementById("activityName")
+  .value.trim();
 
-  const blob =
-    new Blob(
-      [JSON.stringify(donnees,null,2)],
-      {type:"application/json"}
+  const date =
+  document
+  .getElementById("activityDate")
+  .value;
+
+  const debut =
+  document
+  .getElementById("activityStart")
+  .value;
+
+  const fin =
+  document
+  .getElementById("activityEnd")
+  .value;
+
+  const couleur =
+  document
+  .getElementById("activityColor")
+  .value;
+
+  const repetition =
+  document
+  .getElementById("activityRepeat")
+  .value;
+
+  const occurrences =
+  parseInt(
+    document
+    .getElementById("activityOccurrences")
+    .value
+  );
+
+
+  if(!nom || !date){
+
+    afficherToast(
+      "Indique au minimum un nom et une date."
     );
 
+    return;
+
+  }
+
+
+  const nouvelles = [];
+
+
+  for(let i=0;i<occurrences;i++){
+
+    const nouvelleDate =
+    calculerDateRepetition(
+      date,
+      repetition,
+      i
+    );
+
+    nouvelles.push({
+
+      id:
+      Date.now() +
+      Math.random(),
+
+      nom,
+
+      date:nouvelleDate,
+
+      debut,
+
+      fin,
+
+      couleur,
+
+      repetition
+
+    });
+
+  }
+
+
+  activites.push(...nouvelles);
+
+  sauvegarderLocal();
+
+  if(utilisateurConnecte){
+
+    await synchroniser();
+
+    await chargerActivitesCloud();
+
+  }
+
+  viderFormulaire();
+
+  afficherPlanning();
+
+  mettreAJourDashboard();
+
+  afficherToast(
+    "Activité ajoutée."
+  );
+
+}
+
+
+function calculerDateRepetition(
+  date,
+  repetition,
+  index
+){
+
+  const d =
+  new Date(date + "T12:00:00");
+
+  if(repetition === "quotidienne"){
+
+    d.setDate(
+      d.getDate() + index
+    );
+
+  }
+
+  if(repetition === "hebdomadaire"){
+
+    d.setDate(
+      d.getDate() + index * 7
+    );
+
+  }
+
+  if(repetition === "mensuelle"){
+
+    d.setMonth(
+      d.getMonth() + index
+    );
+
+  }
+
+  return d
+  .toISOString()
+  .split("T")[0];
+
+}
+
+
+function viderFormulaire(){
+
+  document
+  .getElementById("activityName")
+  .value = "";
+
+  document
+  .getElementById("activityStart")
+  .value = "";
+
+  document
+  .getElementById("activityEnd")
+  .value = "";
+
+  document
+  .getElementById("activityRepeat")
+  .value = "aucune";
+
+  document
+  .getElementById("activityOccurrences")
+  .value = "1";
+
+}
+
+
+/* =====================================================
+   MODIFIER ACTIVITE
+===================================================== */
+
+async function modifierActivite(id){
+
+  const activite =
+  activites.find(a =>
+    String(a.id) === String(id)
+  );
+
+  if(!activite){
+    return;
+  }
+
+  const nom =
+  prompt(
+    "Nouveau nom :",
+    activite.nom
+  );
+
+  if(nom === null){
+    return;
+  }
+
+  activite.nom =
+  nom.trim() || activite.nom;
+
+  sauvegarderLocal();
+
+  if(utilisateurConnecte){
+
+    await synchroniser();
+
+    await chargerActivitesCloud();
+
+  }
+
+  afficherPlanning();
+
+  mettreAJourDashboard();
+
+  afficherToast(
+    "Activité modifiée."
+  );
+
+}
+
+
+/* =====================================================
+   SUPPRIMER ACTIVITE
+===================================================== */
+
+async function supprimerActivite(id){
+
+  const confirmation =
+  confirm(
+    "Supprimer cette activité ?"
+  );
+
+  if(!confirmation){
+    return;
+  }
+
+  activites =
+  activites.filter(a =>
+    String(a.id) !== String(id)
+  );
+
+  sauvegarderLocal();
+
+  if(utilisateurConnecte){
+
+    await synchroniser();
+
+    await chargerActivitesCloud();
+
+  }
+
+  afficherPlanning();
+
+  mettreAJourDashboard();
+
+  afficherToast(
+    "Activité supprimée."
+  );
+
+}
+
+
+/* =====================================================
+   AFFICHAGE PLANNING
+===================================================== */
+
+function afficherPlanning(){
+
+  if(modePlanning === "semaine"){
+
+    afficherSemaine();
+
+  }else{
+
+    afficherMois();
+
+  }
+
+}
+
+
+function afficherSemaine(){
+
+  modePlanning = "semaine";
+
+  document
+  .getElementById("weekButton")
+  .classList.add("active");
+
+  document
+  .getElementById("monthButton")
+  .classList.remove("active");
+
+  document
+  .getElementById("weekView")
+  .classList.remove("hidden");
+
+  document
+  .getElementById("monthView")
+  .classList.add("hidden");
+
+
+  const lundi =
+  debutSemaine(datePlanning);
+
+  const jours = [];
+
+  for(let i=0;i<7;i++){
+
+    const d =
+    new Date(lundi);
+
+    d.setDate(
+      lundi.getDate() + i
+    );
+
+    jours.push(d);
+
+  }
+
+
+  const nomsJours =
+  [
+    "Lundi",
+    "Mardi",
+    "Mercredi",
+    "Jeudi",
+    "Vendredi",
+    "Samedi",
+    "Dimanche"
+  ];
+
+
+  document
+  .getElementById("periodTitle")
+  .textContent =
+  formaterDate(lundi) +
+  " → " +
+  formaterDate(jours[6]);
+
+
+  let html =
+  '<div class="week-grid">';
+
+
+  jours.forEach((jour,index)=>{
+
+    const dateString =
+    jour
+    .toISOString()
+    .split("T")[0];
+
+    const duJour =
+    activites.filter(a =>
+      a.date === dateString
+    );
+
+
+    html += `
+      <div class="day">
+
+        <div class="day-title">
+          ${nomsJours[index]}
+          <br>
+          ${jour.getDate()}/${jour.getMonth()+1}
+        </div>
+    `;
+
+
+    if(duJour.length === 0){
+
+      html += `
+        <p class="muted">
+          Rien de prévu
+        </p>
+      `;
+
+    }
+
+
+    duJour.forEach(a=>{
+
+      html += activiteHTML(a);
+
+    });
+
+
+    html += `
+      </div>
+    `;
+
+  });
+
+
+  html +=
+  "</div>";
+
+  document
+  .getElementById("weekView")
+  .innerHTML =
+  html;
+
+}
+
+
+function activiteHTML(a){
+
+  return `
+
+    <div
+      class="activity"
+      style="border-left-color:${a.couleur || "#7c3aed"}"
+    >
+
+      <div class="activity-title">
+        ${echapperHTML(a.nom)}
+      </div>
+
+      <div class="activity-time">
+        ${a.debut || "--:--"}
+        →
+        ${a.fin || "--:--"}
+      </div>
+
+      <div class="activity-actions">
+
+        <button
+          onclick="modifierActivite('${a.id}')"
+        >
+          ✏️ Modifier
+        </button>
+
+        <button
+          onclick="supprimerActivite('${a.id}')"
+        >
+          🗑️ Supprimer
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function afficherMois(){
+
+  modePlanning = "mois";
+
+  document
+  .getElementById("monthButton")
+  .classList.add("active");
+
+  document
+  .getElementById("weekButton")
+  .classList.remove("active");
+
+  document
+  .getElementById("weekView")
+  .classList.add("hidden");
+
+  document
+  .getElementById("monthView")
+  .classList.remove("hidden");
+
+
+  const annee =
+  datePlanning.getFullYear();
+
+  const mois =
+  datePlanning.getMonth();
+
+
+  document
+  .getElementById("periodTitle")
+  .textContent =
+  datePlanning.toLocaleDateString(
+    "fr-FR",
+    {
+      month:"long",
+      year:"numeric"
+    }
+  );
+
+
+  const premier =
+  new Date(
+    annee,
+    mois,
+    1
+  );
+
+
+  const dernier =
+  new Date(
+    annee,
+    mois + 1,
+    0
+  );
+
+
+  let debut =
+  premier.getDay();
+
+  debut =
+  debut === 0
+  ? 6
+  : debut - 1;
+
+
+  const totalJours =
+  dernier.getDate();
+
+
+  let html =
+  '<div class="month-grid">';
+
+
+  [
+    "Lun",
+    "Mar",
+    "Mer",
+    "Jeu",
+    "Ven",
+    "Sam",
+    "Dim"
+  ].forEach(j=>{
+    html += `
+      <div class="month-day">
+        <strong>${j}</strong>
+      </div>
+    `;
+  });
+
+
+  for(let i=0;i<debut;i++){
+
+    html +=
+    '<div class="month-day"></div>';
+
+  }
+
+
+  for(let jour=1;jour<=totalJours;jour++){
+
+    const d =
+    new Date(
+      annee,
+      mois,
+      jour
+    );
+
+    const dateString =
+    d.toISOString().split("T")[0];
+
+    const duJour =
+    activites.filter(a =>
+      a.date === dateString
+    );
+
+
+    html += `
+
+      <div class="month-day">
+
+        <div class="month-day-number">
+          ${jour}
+        </div>
+
+    `;
+
+
+    duJour.forEach(a=>{
+
+      html += `
+        <div class="month-event">
+          ${echapperHTML(a.nom)}
+        </div>
+      `;
+
+    });
+
+
+    html += "</div>";
+
+  }
+
+
+  html += "</div>";
+
+
+  document
+  .getElementById("monthView")
+  .innerHTML =
+  html;
+
+}
+
+
+function debutSemaine(date){
+
+  const d =
+  new Date(date);
+
+  const jour =
+  d.getDay();
+
+  const difference =
+  jour === 0
+  ? -6
+  : 1 - jour;
+
+  d.setDate(
+    d.getDate() + difference
+  );
+
+  d.setHours(0,0,0,0);
+
+  return d;
+
+}
+
+
+function changerSemaine(direction){
+
+  if(modePlanning === "semaine"){
+
+    datePlanning.setDate(
+      datePlanning.getDate() +
+      direction * 7
+    );
+
+  }else{
+
+    datePlanning.setMonth(
+      datePlanning.getMonth() +
+      direction
+    );
+
+  }
+
+  afficherPlanning();
+
+}
+
+
+function formaterDate(date){
+
+  return date.toLocaleDateString(
+    "fr-FR",
+    {
+      day:"2-digit",
+      month:"2-digit",
+      year:"numeric"
+    }
+  );
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+function mettreAJourDashboard(){
+
+  document
+  .getElementById("statActivities")
+  .textContent =
+  activites.length;
+
+
+  const jours =
+  new Set(
+    activites.map(a => a.date)
+  );
+
+  document
+  .getElementById("statDays")
+  .textContent =
+  jours.size;
+
+
+  let minutes = 0;
+
+
+  activites.forEach(a=>{
+
+    if(a.debut && a.fin){
+
+      const debut =
+      new Date(
+        "2000-01-01T" + a.debut
+      );
+
+      const fin =
+      new Date(
+        "2000-01-01T" + a.fin
+      );
+
+      let diff =
+      (fin - debut) / 60000;
+
+      if(diff > 0){
+
+        minutes += diff;
+
+      }
+
+    }
+
+  });
+
+
+  const heures =
+  Math.floor(minutes / 60);
+
+  const mins =
+  Math.round(minutes % 60);
+
+
+  document
+  .getElementById("statHours")
+  .textContent =
+  heures + "h " + mins + "m";
+
+
+  mettreAJourPremium();
+
+}
+
+
+/* =====================================================
+   COMPTE
+===================================================== */
+
+function mettreAJourCompte(){
+
+  const name =
+  document.getElementById("profileName");
+
+  const email =
+  document.getElementById("profileEmail");
+
+  const avatar =
+  document.getElementById("avatar");
+
+  const accountInfo =
+  document.getElementById("accountInfo");
+
+  const loginButton =
+  document.getElementById("loginButton");
+
+  const logoutButton =
+  document.getElementById("logoutButton");
+
+
+  if(utilisateurConnecte){
+
+    const mail =
+    utilisateurConnecte.email || "";
+
+    name.textContent =
+    "Mon compte";
+
+    email.textContent =
+    mail;
+
+    avatar.textContent =
+    mail
+    ? mail.charAt(0).toUpperCase()
+    : "?";
+
+    accountInfo.innerHTML =
+    `
+      Connecté avec :
+      <strong>${echapperHTML(mail)}</strong>
+    `;
+
+    loginButton.classList.add("hidden");
+
+    logoutButton.classList.remove("hidden");
+
+  }else{
+
+    name.textContent =
+    "Visiteur";
+
+    email.textContent =
+    "Connecte-toi pour synchroniser ton planning.";
+
+    avatar.textContent =
+    "?";
+
+    accountInfo.textContent =
+    "Tu n'es pas connecté.";
+
+    loginButton.classList.remove("hidden");
+
+    logoutButton.classList.add("hidden");
+
+  }
+
+  mettreAJourPremium();
+
+}
+
+
+/* =====================================================
+   PREMIUM
+===================================================== */
+
+function utiliserPremium(nom){
+
+  if(!utilisateurConnecte){
+
+    afficherToast(
+      "Connecte-toi pour utiliser Premium."
+    );
+
+    ouvrirCompte();
+
+    return;
+
+  }
+
+  if(!estPremium()){
+
+    afficherToast(
+      "Cette fonction nécessite Planify Premium."
+    );
+
+    allerA("premiumSection");
+
+    return;
+
+  }
+
+  afficherToast(
+    "Modèle Premium « " +
+    nom +
+    " » activé."
+  );
+
+}
+
+
+function appliquerModele(nom){
+
+  const aujourdHui =
+  new Date()
+  .toISOString()
+  .split("T")[0];
+
+
+  if(nom === "Étudiant"){
+
+    ajouterActiviteModele(
+      "Cours",
+      aujourdHui,
+      "08:00",
+      "10:00",
+      "#7c3aed"
+    );
+
+    ajouterActiviteModele(
+      "Révisions",
+      aujourdHui,
+      "17:00",
+      "18:00",
+      "#2563eb"
+    );
+
+  }
+
+
+  if(nom === "Travail"){
+
+    ajouterActiviteModele(
+      "Travail",
+      aujourdHui,
+      "09:00",
+      "17:00",
+      "#2563eb"
+    );
+
+  }
+
+
+  if(nom === "Sport"){
+
+    ajouterActiviteModele(
+      "Sport",
+      aujourdHui,
+      "18:00",
+      "19:00",
+      "#16a34a"
+    );
+
+  }
+
+
+  sauvegarderLocal();
+
+  if(utilisateurConnecte){
+
+    synchroniser()
+    .then(() => chargerActivitesCloud());
+
+  }
+
+  afficherPlanning();
+
+  mettreAJourDashboard();
+
+  afficherToast(
+    "Modèle ajouté."
+  );
+
+}
+
+
+function ajouterActiviteModele(
+  nom,
+  date,
+  debut,
+  fin,
+  couleur
+){
+
+  activites.push({
+
+    id:
+    Date.now() +
+    Math.random(),
+
+    nom,
+
+    date,
+
+    debut,
+
+    fin,
+
+    couleur,
+
+    repetition:"aucune"
+
+  });
+
+}
+
+
+/* =====================================================
+   BACKUP
+===================================================== */
+
+function exporterBackup(){
+
+  const contenu =
+  JSON.stringify(
+    activites,
+    null,
+    2
+  );
+
+  const blob =
+  new Blob(
+    [contenu],
+    {
+      type:"application/json"
+    }
+  );
+
   const url =
-    URL.createObjectURL(blob);
+  URL.createObjectURL(blob);
 
   const a =
-    document.createElement("a");
+  document.createElement("a");
 
   a.href = url;
 
   a.download =
-    "planify-sauvegarde.json";
+  "planify-sauvegarde.json";
 
   a.click();
 
   URL.revokeObjectURL(url);
 
-  afficherNotification(
-    "💾 Sauvegarde exportée."
+  afficherToast(
+    "Sauvegarde exportée."
   );
+
 }
 
-function importerDonnees(event){
 
-  const file =
-    event.target.files[0];
+function importerBackup(event){
 
-  if(!file) return;
+  const fichier =
+  event.target.files[0];
 
-  const reader =
-    new FileReader();
+  if(!fichier){
+    return;
+  }
 
-  reader.onload = function(e){
+
+  const lecteur =
+  new FileReader();
+
+
+  lecteur.onload =
+  async function(e){
 
     try{
 
-      const data =
-        JSON.parse(e.target.result);
+      const donnees =
+      JSON.parse(
+        e.target.result
+      );
 
-      if(!Array.isArray(data.activites)){
-        throw new Error();
+
+      if(!Array.isArray(donnees)){
+
+        throw new Error(
+          "Format incorrect"
+        );
+
       }
 
-      if(!confirm(
-        "Remplacer ton planning actuel par cette sauvegarde ?"
-      )){
-        return;
-      }
 
       activites =
-        data.activites;
+      donnees;
 
       sauvegarderLocal();
 
-      if(data.theme){
-        changerTheme(data.theme);
+
+      if(utilisateurConnecte){
+
+        await synchroniser();
+
+        await chargerActivitesCloud();
+
       }
 
-      premiumActif =
-        data.premiumDemo === true;
 
-      localStorage.setItem(
-        "premiumDemo",
-        premiumActif
+      afficherPlanning();
+
+      mettreAJourDashboard();
+
+      afficherToast(
+        "Sauvegarde importée."
       );
 
-      afficher();
+    }catch(error){
 
-      mettreAJourPremium();
-
-      afficherNotification(
-        "✅ Sauvegarde importée."
+      afficherToast(
+        "Sauvegarde invalide."
       );
 
-    }catch{
-
-      afficherNotification(
-        "❌ Fichier de sauvegarde invalide."
-      );
     }
+
   };
 
-  reader.readAsText(file);
+
+  lecteur.readAsText(fichier);
+
 }
 
 
-/* =========================================================
-   NAVIGATION
-========================================================= */
+/* =====================================================
+   THEME
+===================================================== */
+
+function changerTheme(theme){
+
+  document.body.classList.remove(
+    "theme-blue",
+    "theme-green",
+    "theme-orange",
+    "theme-pink",
+    "theme-dark"
+  );
+
+
+  if(theme !== "violet"){
+
+    document.body.classList.add(
+      "theme-" + theme
+    );
+
+  }
+
+
+  localStorage.setItem(
+    "planify_theme",
+    theme
+  );
+
+}
+
+
+function chargerTheme(){
+
+  const theme =
+  localStorage.getItem(
+    "planify_theme"
+  ) || "violet";
+
+  changerTheme(theme);
+
+}
+
+
+function changerThemeRapide(){
+
+  const sombre =
+  document.body.classList.contains(
+    "theme-dark"
+  );
+
+  changerTheme(
+    sombre
+    ? "violet"
+    : "dark"
+  );
+
+}
+
+
+/* =====================================================
+   UTILITAIRES
+===================================================== */
+
+function sauvegarderLocal(){
+
+  localStorage.setItem(
+    "planify_activites",
+    JSON.stringify(activites)
+  );
+
+}
+
 
 function allerA(id){
 
   const element =
-    document.getElementById(id);
+  document.getElementById(id);
 
   if(element){
 
     element.scrollIntoView({
       behavior:"smooth"
     });
+
   }
+
 }
 
 
-/* =========================================================
-   INITIALISATION
-========================================================= */
+function imprimerPlanning(){
 
-async function initialiser(){
+  window.print();
 
-  chargerTheme();
+}
 
-  viderFormulaire();
 
-  afficher();
+function afficherToast(message){
 
-  mettreAJourPremium();
+  const toast =
+  document.getElementById("toast");
 
-  const {
-    data
-  } =
-  await supabaseClient.auth.getSession();
+  toast.textContent =
+  message;
 
-  utilisateurConnecte =
-    data.session?.user || null;
+  toast.classList.add("show");
 
-  mettreAJourProfil();
+  setTimeout(()=>{
 
-  if(utilisateurConnecte){
+    toast.classList.remove("show");
 
-    await chargerActivitesCloud();
-  }
+  },2500);
 
-  supabaseClient.auth.onAuthStateChange(
-    async (_event, session) => {
+}
 
-      utilisateurConnecte =
-        session?.user || null;
 
-      mettreAJourProfil();
+function echapperHTML(texte){
 
-      if(utilisateurConnecte){
+  return String(texte)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
-        await chargerActivitesCloud();
-      }
+}
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+supabaseClient.auth
+.onAuthStateChange(
+  async (event, session)=>{
+
+    utilisateurConnecte =
+    session?.user || null;
+
+    if(utilisateurConnecte){
+
+      await chargerProfilPremium();
+
+      await chargerActivitesCloud();
+
+    }else{
+
+      profilPremium = {
+        is_premium:false,
+        premium_until:null
+      };
+
     }
-  );
-}
 
-initialiser();
+    mettreAJourCompte();
+
+    mettreAJourDashboard();
+
+  }
+);
+
 </script>
 
 </body>
