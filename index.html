@@ -3,2622 +3,2959 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Planify — Mon planning</title>
+
+<title>Planify — Ton planning, simplement</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+:root{
+    --primary:#6c4cff;
+    --primary-light:#eeeaff;
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --text:#202124;
+    --muted:#6b7280;
+    --border:#e5e7eb;
+    --success:#22a06b;
+    --danger:#e74c3c;
+    --shadow:0 10px 30px rgba(0,0,0,.07);
+    --radius:18px;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background: #f5f3ff;
-  color: #222;
-  transition: 0.3s;
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    transition:.25s;
 }
 
 button,
 input,
-select {
-  font: inherit;
+select{
+    font:inherit;
 }
 
-button {
-  cursor: pointer;
+button{
+    cursor:pointer;
 }
 
-.navbar {
-  background: white;
-  padding: 15px 5%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  position: sticky;
-  top: 0;
-  z-index: 20;
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(255,255,255,.94);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
 }
 
-.logo {
-  font-size: 25px;
-  font-weight: bold;
-  color: #6c4cff;
+.navbar-inner{
+    max-width:1250px;
+    margin:auto;
+    min-height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    padding:12px 20px;
 }
 
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.logo{
+    font-size:24px;
+    font-weight:800;
+    color:var(--primary);
 }
 
-.nav-btn {
-  border: none;
-  background: #f1edff;
-  color: #5d3fe3;
-  padding: 9px 14px;
-  border-radius: 10px;
-  font-weight: bold;
+.logo span{
+    color:var(--text);
 }
 
-.profile {
-  background: #f5f3ff;
-  padding: 8px 12px;
-  border-radius: 12px;
-  font-size: 14px;
+.nav-actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
 }
 
-.container {
-  width: 92%;
-  max-width: 1200px;
-  margin: 30px auto;
+.nav-btn{
+    border:1px solid var(--border);
+    background:white;
+    color:var(--text);
+    padding:9px 13px;
+    border-radius:12px;
+    font-weight:600;
+    transition:.2s;
 }
 
-.hero {
-  background: linear-gradient(135deg, #6c4cff, #8e6dff);
-  color: white;
-  padding: 35px;
-  border-radius: 22px;
-  margin-bottom: 25px;
-  box-shadow: 0 10px 30px rgba(108,76,255,0.2);
+.nav-btn:hover{
+    transform:translateY(-1px);
+    border-color:var(--primary);
 }
 
-.hero h1 {
-  font-size: 34px;
-  margin-bottom: 10px;
+.nav-btn.primary{
+    background:var(--primary);
+    color:white;
+    border-color:var(--primary);
 }
 
-.hero p {
-  opacity: 0.92;
+.container{
+    max-width:1250px;
+    margin:auto;
+    padding:28px 20px 60px;
 }
 
-.section {
-  background: white;
-  border-radius: 18px;
-  padding: 24px;
-  margin-bottom: 25px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+.hero{
+    background:linear-gradient(135deg,var(--primary),#8e6dff);
+    color:white;
+    border-radius:28px;
+    padding:42px;
+    box-shadow:var(--shadow);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:30px;
+    margin-bottom:25px;
+    overflow:hidden;
+    position:relative;
 }
 
-.section h2 {
-  margin-bottom: 18px;
+.hero:after{
+    content:"";
+    width:280px;
+    height:280px;
+    background:rgba(255,255,255,.1);
+    border-radius:50%;
+    position:absolute;
+    right:-80px;
+    top:-100px;
 }
 
-.dashboard {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
-  margin-bottom: 25px;
+.hero-content{
+    position:relative;
+    z-index:2;
+    max-width:700px;
 }
 
-.stat {
-  background: white;
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 5px 18px rgba(0,0,0,0.05);
+.hero h1{
+    font-size:42px;
+    margin:0 0 12px;
 }
 
-.stat-icon {
-  font-size: 25px;
+.hero p{
+    font-size:17px;
+    line-height:1.6;
+    opacity:.94;
 }
 
-.stat-number {
-  font-size: 27px;
-  font-weight: bold;
-  margin-top: 7px;
-  color: #6c4cff;
+.hero-buttons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:20px;
 }
 
-.stat-label {
-  color: #777;
-  font-size: 14px;
-  margin-top: 4px;
+.hero-btn{
+    border:0;
+    padding:12px 18px;
+    border-radius:12px;
+    font-weight:700;
 }
 
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+.hero-btn.white{
+    background:white;
+    color:var(--primary);
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
+.hero-btn.transparent{
+    background:rgba(255,255,255,.16);
+    color:white;
+    border:1px solid rgba(255,255,255,.3);
 }
 
-.form-group label {
-  font-weight: bold;
-  font-size: 14px;
+.profile-card{
+    min-width:240px;
+    background:rgba(255,255,255,.13);
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:20px;
+    padding:20px;
+    position:relative;
+    z-index:2;
 }
 
-.form-group input,
-.form-group select {
-  border: 1px solid #ddd;
-  padding: 12px;
-  border-radius: 10px;
-  background: white;
+.profile-avatar{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    background:white;
+    color:var(--primary);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    font-weight:800;
+    margin-bottom:12px;
 }
 
-.full {
-  grid-column: 1 / -1;
+.profile-card strong{
+    display:block;
+    font-size:18px;
 }
 
-.primary-btn {
-  background: #6c4cff;
-  color: white;
-  border: none;
-  padding: 13px 18px;
-  border-radius: 11px;
-  font-weight: bold;
-  margin-top: 15px;
+.profile-card small{
+    opacity:.85;
 }
 
-.primary-btn:hover {
-  background: #5638d5;
+.section{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:22px;
+    margin-bottom:22px;
+    box-shadow:0 4px 15px rgba(0,0,0,.025);
 }
 
-.secondary-btn {
-  background: #eeeaff;
-  color: #5d3fe3;
-  border: none;
-  padding: 11px 15px;
-  border-radius: 10px;
-  font-weight: bold;
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:18px;
 }
 
-.danger-btn {
-  background: #ffe9e9;
-  color: #d93636;
-  border: none;
-  padding: 9px 12px;
-  border-radius: 9px;
-  font-weight: bold;
+.section-title h2{
+    margin:0;
+    font-size:22px;
 }
 
-.controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 18px;
+.section-title p{
+    margin:5px 0 0;
+    color:var(--muted);
+    font-size:14px;
 }
 
-.controls-left,
-.controls-right {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
 }
 
-.mode-btn {
-  border: none;
-  padding: 10px 15px;
-  border-radius: 10px;
-  background: #eee;
-  font-weight: bold;
+.stat{
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:20px;
+    background:var(--card);
 }
 
-.mode-btn.active {
-  background: #6c4cff;
-  color: white;
+.stat-icon{
+    font-size:25px;
 }
 
-.planning-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 15px;
+.stat-number{
+    color:var(--primary);
+    font-size:28px;
+    font-weight:800;
+    margin-top:8px;
 }
 
-.planning-header button {
-  border: none;
-  background: #eeeaff;
-  color: #5d3fe3;
-  padding: 10px 14px;
-  border-radius: 10px;
-  font-weight: bold;
+.stat-label{
+    color:var(--muted);
+    font-size:13px;
+    margin-top:3px;
 }
 
-.week-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
+.form-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+    gap:12px;
 }
 
-.day {
-  min-height: 260px;
-  background: #fafafa;
-  border: 1px solid #eee;
-  border-radius: 12px;
-  padding: 10px;
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
 }
 
-.day.today {
-  border: 2px solid #6c4cff;
+.field label{
+    font-size:13px;
+    font-weight:700;
 }
 
-.day-title {
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 10px;
+.field input,
+.field select{
+    width:100%;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    padding:11px;
+    border-radius:11px;
+    outline:none;
 }
 
-.activity {
-  padding: 10px;
-  border-radius: 9px;
-  margin-bottom: 8px;
-  color: white;
-  font-size: 13px;
+.field input:focus,
+.field select:focus{
+    border-color:var(--primary);
 }
 
-.activity strong {
-  display: block;
-  margin-bottom: 4px;
+.form-buttons{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+    flex-wrap:wrap;
 }
 
-.activity-actions {
-  display: flex;
-  gap: 5px;
-  margin-top: 8px;
+.primary-btn,
+.secondary-btn,
+.danger-btn{
+    border:0;
+    border-radius:11px;
+    padding:11px 16px;
+    font-weight:700;
 }
 
-.activity-actions button {
-  border: none;
-  border-radius: 6px;
-  padding: 5px 7px;
-  font-size: 11px;
-  cursor: pointer;
+.primary-btn{
+    background:var(--primary);
+    color:white;
 }
 
-.edit-btn {
-  background: rgba(255,255,255,0.9);
-  color: #333;
+.secondary-btn{
+    background:var(--primary-light);
+    color:var(--primary);
 }
 
-.delete-btn {
-  background: rgba(255,255,255,0.9);
-  color: #d22;
+.danger-btn{
+    background:#fff0ef;
+    color:var(--danger);
 }
 
-.month-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 6px;
+.primary-btn:hover,
+.secondary-btn:hover,
+.danger-btn:hover{
+    transform:translateY(-1px);
 }
 
-.month-day {
-  min-height: 100px;
-  background: #fafafa;
-  border: 1px solid #eee;
-  border-radius: 9px;
-  padding: 7px;
+.planning-toolbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
 }
 
-.month-day.today {
-  border: 2px solid #6c4cff;
+.toolbar-left,
+.toolbar-right{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
 }
 
-.month-number {
-  font-weight: bold;
-  margin-bottom: 6px;
+.mode-btn{
+    border:1px solid var(--border);
+    background:var(--card);
+    padding:9px 14px;
+    border-radius:10px;
+    font-weight:700;
 }
 
-.mini-activity {
-  font-size: 11px;
-  padding: 4px;
-  border-radius: 5px;
-  color: white;
-  margin-bottom: 3px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+.mode-btn.active{
+    background:var(--primary);
+    color:white;
+    border-color:var(--primary);
 }
 
-.templates {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+.week-grid{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:10px;
 }
 
-.template-card {
-  border: 1px solid #eee;
-  padding: 18px;
-  border-radius: 14px;
-  background: #fafafa;
+.day{
+    min-height:180px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:12px;
+    background:var(--card);
 }
 
-.template-card h3 {
-  margin-bottom: 7px;
+.day.today{
+    border:2px solid var(--primary);
+    background:var(--primary-light);
 }
 
-.template-card p {
-  color: #777;
-  font-size: 13px;
-  margin-bottom: 12px;
+.day-header{
+    font-weight:800;
+    margin-bottom:10px;
 }
 
-.template-card button {
-  width: 100%;
-  border: none;
-  background: #6c4cff;
-  color: white;
-  padding: 9px;
-  border-radius: 9px;
-  font-weight: bold;
+.day-date{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:3px;
 }
 
-.premium-box {
-  background: linear-gradient(135deg, #29204f, #50339c);
-  color: white;
-  border-radius: 18px;
-  padding: 25px;
+.activity{
+    border-radius:10px;
+    padding:9px;
+    margin-top:8px;
+    color:white;
+    font-size:13px;
+    box-shadow:0 3px 8px rgba(0,0,0,.1);
 }
 
-.premium-box h2 {
-  color: #ffd95a;
+.activity strong{
+    display:block;
 }
 
-.premium-status {
-  margin: 10px 0 18px;
+.activity small{
+    opacity:.9;
 }
 
-.premium-templates {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+.activity-actions{
+    display:flex;
+    gap:5px;
+    margin-top:7px;
 }
 
-.premium-template {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  color: white;
-  padding: 15px;
-  border-radius: 12px;
-  cursor: pointer;
+.activity-actions button{
+    border:0;
+    border-radius:7px;
+    padding:4px 7px;
+    font-size:11px;
 }
 
-.data-buttons {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+.month-grid{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:7px;
 }
 
-.data-btn {
-  border: none;
-  padding: 12px 18px;
-  border-radius: 10px;
-  font-weight: bold;
+.month-head{
+    text-align:center;
+    font-size:12px;
+    font-weight:800;
+    color:var(--muted);
+    padding:7px;
 }
 
-.export-btn {
-  background: #6c4cff;
-  color: white;
+.month-day{
+    min-height:105px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:8px;
+    background:var(--card);
 }
 
-.import-btn {
-  background: #eeeaff;
-  color: #5d3fe3;
+.month-day.today{
+    border:2px solid var(--primary);
+    background:var(--primary-light);
 }
 
-input[type="file"] {
-  display: none;
+.month-number{
+    font-weight:800;
+    font-size:13px;
 }
 
-.themes {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+.month-activity{
+    color:white;
+    border-radius:6px;
+    padding:4px;
+    margin-top:5px;
+    font-size:10px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
 }
 
-.theme-btn {
-  border: none;
-  padding: 10px 15px;
-  border-radius: 10px;
-  font-weight: bold;
+.empty{
+    color:var(--muted);
+    font-size:13px;
+    text-align:center;
+    padding:20px 5px;
 }
 
-footer {
-  text-align: center;
-  padding: 25px;
-  color: #777;
+.template-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
 }
 
-/* NOTIFICATION */
-.notification {
-  position: fixed;
-  top: 85px;
-  right: 20px;
-  background: white;
-  color: #222;
-  padding: 15px 18px;
-  border-radius: 13px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.18);
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 260px;
-  max-width: 380px;
-  animation: notificationIn 0.3s ease;
-  border-left: 5px solid #6c4cff;
+.template{
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:18px;
+    background:var(--card);
+    transition:.2s;
 }
 
-.notification.success {
-  border-left-color: #27ae60;
+.template:hover{
+    transform:translateY(-3px);
+    box-shadow:var(--shadow);
 }
 
-.notification.warning {
-  border-left-color: #f39c12;
+.template-icon{
+    font-size:28px;
 }
 
-.notification.error {
-  border-left-color: #e74c3c;
+.template h3{
+    margin:10px 0 5px;
 }
 
-.notification button {
-  border: none;
-  background: transparent;
-  font-size: 18px;
-  margin-left: auto;
+.template p{
+    color:var(--muted);
+    font-size:13px;
+    min-height:38px;
 }
 
-@keyframes notificationIn {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.premium-box{
+    background:linear-gradient(135deg,#1d1d25,#34343e);
+    color:white;
+    border-radius:20px;
+    padding:25px;
 }
 
-/* MODAL */
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 200;
-  padding: 20px;
+.premium-box h2{
+    margin-top:0;
 }
 
-.modal {
-  background: white;
-  padding: 28px;
-  border-radius: 18px;
-  max-width: 450px;
-  width: 100%;
-  text-align: center;
+.premium-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
 }
 
-.modal h2 {
-  margin-bottom: 10px;
+.premium-card{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:15px;
+    padding:17px;
 }
 
-.modal p {
-  color: #666;
-  margin-bottom: 20px;
-  line-height: 1.5;
+.premium-card h3{
+    margin-top:7px;
 }
 
-.modal-buttons {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
+.premium-card p{
+    color:#c9c9d0;
+    font-size:13px;
 }
 
-.modal-buttons button {
-  border: none;
-  padding: 11px 16px;
-  border-radius: 9px;
-  font-weight: bold;
+.premium-btn{
+    background:white;
+    color:#24242b;
+    border:0;
+    border-radius:10px;
+    padding:9px 12px;
+    font-weight:800;
 }
 
-/* THEMES */
+.data-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.data-card{
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:20px;
+}
+
+.data-card h3{
+    margin-top:0;
+}
+
+.data-card p{
+    color:var(--muted);
+    line-height:1.5;
+    font-size:14px;
+}
+
+.status{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:7px 10px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:800;
+}
+
+.status.free{
+    background:#f1f1f1;
+    color:#555;
+}
+
+.status.premium{
+    background:#fff1bf;
+    color:#8a6500;
+}
+
+.status.online{
+    background:#e8f8ef;
+    color:#16824f;
+}
+
+.feature-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.feature{
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:20px;
+}
+
+.feature-icon{
+    font-size:28px;
+}
+
+.feature h3{
+    margin-bottom:8px;
+}
 
-body.theme-violet {
-  background: #f5f3ff;
+.feature p{
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.5;
 }
 
-body.theme-blue {
-  background: #eef6ff;
+.footer{
+    text-align:center;
+    color:var(--muted);
+    padding:25px;
+    font-size:13px;
 }
 
-body.theme-green {
-  background: #eefaf2;
+.notification{
+    position:fixed;
+    top:85px;
+    right:20px;
+    z-index:500;
+    background:white;
+    color:#222;
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
+    border-radius:14px;
+    padding:14px 18px;
+    max-width:350px;
+    transform:translateX(120%);
+    transition:.3s;
 }
 
-body.theme-orange {
-  background: #fff6ed;
+.notification.show{
+    transform:translateX(0);
 }
 
-body.theme-pink {
-  background: #fff0f7;
+.notification.success{
+    border-left:5px solid var(--success);
 }
 
-body.theme-dark {
-  background: #151515;
-  color: #eee;
+.notification.error{
+    border-left:5px solid var(--danger);
 }
 
-body.theme-dark .section,
-body.theme-dark .stat,
-body.theme-dark .navbar {
-  background: #222;
-  color: #eee;
+.modal-bg{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    z-index:1000;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
 }
 
-body.theme-dark .form-group input,
-body.theme-dark .form-group select {
-  background: #2d2d2d;
-  color: white;
-  border-color: #444;
+.modal-bg.show{
+    display:flex;
 }
 
-body.theme-dark .day,
-body.theme-dark .month-day,
-body.theme-dark .template-card {
-  background: #292929;
-  border-color: #444;
+.modal{
+    width:100%;
+    max-width:450px;
+    background:var(--card);
+    color:var(--text);
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 20px 60px rgba(0,0,0,.2);
 }
 
-body.theme-dark .profile {
-  background: #333;
+.modal h2{
+    margin-top:0;
 }
 
-body.theme-dark .notification,
-body.theme-dark .modal {
-  background: #252525;
-  color: white;
+.modal-actions{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+    justify-content:flex-end;
 }
 
-/* MOBILE */
+.theme-grid{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:10px;
+}
+
+.theme-btn{
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:10px;
+    background:var(--card);
+    font-weight:700;
+}
+
+.theme-btn:hover{
+    border-color:var(--primary);
+}
+
+body.theme-violet{
+    --primary:#6c4cff;
+    --primary-light:#eeeaff;
+    --bg:#f5f3ff;
+}
+
+body.theme-blue{
+    --primary:#3498db;
+    --primary-light:#e8f4ff;
+    --bg:#eef6ff;
+}
+
+body.theme-green{
+    --primary:#27ae60;
+    --primary-light:#e9f8ef;
+    --bg:#eefaf2;
+}
 
-@media (max-width: 850px) {
-  .dashboard {
-    grid-template-columns: repeat(2, 1fr);
-  }
+body.theme-orange{
+    --primary:#e67e22;
+    --primary-light:#fff0df;
+    --bg:#fff6ed;
+}
+
+body.theme-pink{
+    --primary:#e84393;
+    --primary-light:#ffe5f1;
+    --bg:#fff0f7;
+}
 
-  .templates {
-    grid-template-columns: repeat(2, 1fr);
-  }
+body.theme-dark{
+    --primary:#9b7bff;
+    --primary-light:#302b43;
+    --bg:#141414;
+    --card:#202020;
+    --text:#f2f2f2;
+    --muted:#b8b8b8;
+    --border:#353535;
+    --shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+body.theme-dark .navbar{
+    background:rgba(20,20,20,.95);
+}
 
-  .premium-templates {
-    grid-template-columns: repeat(2, 1fr);
-  }
+body.theme-dark .nav-btn,
+body.theme-dark .mode-btn,
+body.theme-dark .theme-btn{
+    background:#242424;
+    color:#eee;
+}
 
-  .week-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+body.theme-dark .notification{
+    background:#222;
+    color:white;
+}
 
-  .day {
-    min-height: 220px;
-  }
+body.theme-dark .status.free{
+    background:#333;
+    color:#ddd;
 }
+
+@media(max-width:1000px){
+    .dashboard{
+        grid-template-columns:repeat(2,1fr);
+    }
 
-@media (max-width: 600px) {
-  .navbar {
-    padding: 12px 4%;
-  }
+    .template-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
 
-  .logo {
-    font-size: 21px;
-  }
+    .premium-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
 
-  .profile {
-    display: none;
-  }
+    .form-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
 
-  .nav-btn {
-    padding: 8px 10px;
-    font-size: 12px;
-  }
+    .feature-grid{
+        grid-template-columns:1fr;
+    }
+}
 
-  .container {
-    width: 94%;
-    margin: 18px auto;
-  }
+@media(max-width:750px){
+    .navbar-inner{
+        align-items:flex-start;
+        flex-direction:column;
+    }
 
-  .hero {
-    padding: 24px;
-    border-radius: 17px;
-  }
+    .nav-actions{
+        width:100%;
+    }
 
-  .hero h1 {
-    font-size: 27px;
-  }
+    .nav-btn{
+        flex:1;
+    }
 
-  .section {
-    padding: 17px;
-    border-radius: 15px;
-  }
+    .hero{
+        padding:25px;
+        flex-direction:column;
+        align-items:flex-start;
+    }
 
-  .dashboard {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
+    .hero h1{
+        font-size:32px;
+    }
 
-  .stat {
-    padding: 15px;
-  }
+    .profile-card{
+        width:100%;
+    }
 
-  .stat-number {
-    font-size: 22px;
-  }
+    .week-grid{
+        grid-template-columns:1fr;
+    }
 
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
+    .day{
+        min-height:auto;
+    }
 
-  .full {
-    grid-column: auto;
-  }
+    .month-grid{
+        grid-template-columns:repeat(7,minmax(65px,1fr));
+        overflow-x:auto;
+    }
 
-  .controls {
-    align-items: stretch;
-  }
+    .month-day{
+        min-width:65px;
+    }
 
-  .controls-left,
-  .controls-right {
-    width: 100%;
-  }
+    .planning-toolbar{
+        align-items:stretch;
+        flex-direction:column;
+    }
 
-  .controls-left button,
-  .controls-right button {
-    flex: 1;
-  }
+    .toolbar-left,
+    .toolbar-right{
+        width:100%;
+    }
 
-  .planning-header {
-    flex-wrap: wrap;
-  }
+    .toolbar-left button,
+    .toolbar-right button{
+        flex:1;
+    }
 
-  .week-grid {
-    grid-template-columns: 1fr;
-  }
+    .data-grid{
+        grid-template-columns:1fr;
+    }
+
+    .theme-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
 
-  .day {
-    min-height: auto;
-  }
+@media(max-width:520px){
+    .container{
+        padding:18px 12px 40px;
+    }
 
-  .month-grid {
-    grid-template-columns: repeat(7, minmax(45px, 1fr));
-    overflow-x: auto;
-  }
+    .dashboard{
+        grid-template-columns:1fr 1fr;
+    }
 
-  .month-day {
-    min-height: 80px;
-    font-size: 12px;
-  }
+    .form-grid{
+        grid-template-columns:1fr;
+    }
 
-  .templates {
-    grid-template-columns: 1fr;
-  }
+    .template-grid,
+    .premium-grid{
+        grid-template-columns:1fr;
+    }
 
-  .premium-templates {
-    grid-template-columns: 1fr;
-  }
+    .hero{
+        border-radius:20px;
+    }
 
-  .data-buttons {
-    flex-direction: column;
-  }
+    .hero h1{
+        font-size:28px;
+    }
 
-  .data-btn {
-    width: 100%;
-  }
+    .section{
+        padding:16px;
+    }
 
-  .notification {
-    left: 15px;
-    right: 15px;
-    top: 75px;
-    min-width: auto;
-    max-width: none;
-  }
+    .navbar-inner{
+        padding:10px 12px;
+    }
 }
 </style>
 </head>
 
 <body class="theme-violet">
 
+<div id="notification" class="notification"></div>
+
 <header class="navbar">
-  <div class="logo">📅 Planify</div>
+    <div class="navbar-inner">
 
-  <div class="nav-right">
-    <button class="nav-btn" onclick="aujourdHui()">Aujourd'hui</button>
-    <button class="nav-btn" onclick="changerThemeRapide()">🌙</button>
+        <div class="logo">
+            Plan<span>ify</span> 📅
+        </div>
 
-    <div class="profile">
-      👤 Mon compte
+        <div class="nav-actions">
+            <button class="nav-btn" onclick="allerA('planning')">📅 Planning</button>
+            <button class="nav-btn" onclick="allerA('templates')">🧩 Modèles</button>
+            <button class="nav-btn" onclick="allerA('premium')">💎 Premium</button>
+            <button class="nav-btn" onclick="allerA('compte')">👤 Compte</button>
+            <button class="nav-btn" onclick="changerThemeRapide()">🌙</button>
+        </div>
+
     </div>
-  </div>
 </header>
 
 <main class="container">
 
-  <section class="hero">
-    <h1>Organise ta vie avec Planify ✨</h1>
-    <p>Crée, organise et sauvegarde ton planning simplement.</p>
-  </section>
+    <!-- HERO -->
+    <section class="hero">
 
-  <!-- DASHBOARD -->
+        <div class="hero-content">
 
-  <section class="dashboard">
+            <h1>Organise ta vie avec Planify.</h1>
 
-    <div class="stat">
-      <div class="stat-icon">📋</div>
-      <div class="stat-number" id="nombreActivites">0</div>
-      <div class="stat-label">Activités</div>
+            <p>
+                Ton planning simple, moderne et personnalisable.
+                Organise tes cours, révisions, sport, projets et activités
+                depuis un seul endroit.
+            </p>
+
+            <div class="hero-buttons">
+                <button class="hero-btn white" onclick="allerA('planning')">
+                    Commencer mon planning
+                </button>
+
+                <button class="hero-btn transparent" onclick="allerA('fonctionnalites')">
+                    Découvrir Planify
+                </button>
+            </div>
+
+        </div>
+
+        <div class="profile-card">
+
+            <div class="profile-avatar" id="avatar">
+                P
+            </div>
+
+            <strong id="profileName">
+                Profil local
+            </strong>
+
+            <small id="profileStatus">
+                Mode gratuit
+            </small>
+
+            <br>
+
+            <span id="premiumStatus" class="status free">
+                ● Gratuit
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- DASHBOARD -->
+    <section class="section">
+
+        <div class="section-title">
+
+            <div>
+                <h2>📊 Tableau de bord</h2>
+                <p>Une vue rapide de ton organisation.</p>
+            </div>
+
+        </div>
+
+        <div class="dashboard">
+
+            <div class="stat">
+                <div class="stat-icon">📚</div>
+                <div class="stat-number" id="statActivities">0</div>
+                <div class="stat-label">Activités</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-icon">⏱️</div>
+                <div class="stat-number" id="statTime">0h</div>
+                <div class="stat-label">Temps planifié</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-icon">📅</div>
+                <div class="stat-number" id="statDays">0</div>
+                <div class="stat-label">Jours occupés</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-icon">☁️</div>
+                <div class="stat-number" id="statAccount">Local</div>
+                <div class="stat-label">Synchronisation</div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PLANNING -->
+    <section class="section" id="planning">
+
+        <div class="section-title">
+
+            <div>
+                <h2>📅 Mon planning</h2>
+                <p>Ajoute et organise tes activités.</p>
+            </div>
+
+        </div>
+
+        <div class="form-grid">
+
+            <div class="field">
+                <label>Activité</label>
+                <input id="nom" placeholder="Ex : Révisions de maths">
+            </div>
+
+            <div class="field">
+                <label>Date</label>
+                <input id="date" type="date">
+            </div>
+
+            <div class="field">
+                <label>Début</label>
+                <input id="debut" type="time" value="09:00">
+            </div>
+
+            <div class="field">
+                <label>Fin</label>
+                <input id="fin" type="time" value="10:00">
+            </div>
+
+            <div class="field">
+                <label>Couleur</label>
+                <select id="couleur">
+                    <option value="#6c4cff">Violet</option>
+                    <option value="#3498db">Bleu</option>
+                    <option value="#27ae60">Vert</option>
+                    <option value="#e67e22">Orange</option>
+                    <option value="#e84393">Rose</option>
+                    <option value="#e74c3c">Rouge</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="form-grid" style="margin-top:12px;">
+
+            <div class="field">
+                <label>Répétition</label>
+
+                <select id="repetition">
+                    <option value="aucune">Aucune</option>
+                    <option value="quotidienne">Tous les jours</option>
+                    <option value="hebdomadaire">Toutes les semaines</option>
+                    <option value="mensuelle">Tous les mois</option>
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="form-buttons">
+
+            <button class="primary-btn" onclick="ajouterActivite()">
+                ➕ Ajouter
+            </button>
+
+            <button class="secondary-btn" onclick="viderFormulaire()">
+                Effacer
+            </button>
+
+        </div>
+
+
+        <div class="planning-toolbar" style="margin-top:25px;">
+
+            <div class="toolbar-left">
+
+                <button class="mode-btn active" id="btnSemaine" onclick="changerMode('semaine')">
+                    Semaine
+                </button>
+
+                <button class="mode-btn" id="btnMois" onclick="changerMode('mois')">
+                    Mois
+                </button>
+
+            </div>
+
+            <div class="toolbar-right">
+
+                <button class="mode-btn" onclick="precedent()">←</button>
+
+                <button class="mode-btn" onclick="aujourdHui()">Aujourd'hui</button>
+
+                <button class="mode-btn" onclick="suivant()">→</button>
+
+            </div>
+
+        </div>
+
+        <div id="planningContainer"></div>
+
+    </section>
+
+
+    <!-- MODELES -->
+    <section class="section" id="templates">
+
+        <div class="section-title">
+
+            <div>
+                <h2>🧩 Modèles gratuits</h2>
+                <p>Commence rapidement avec une organisation déjà préparée.</p>
+            </div>
+
+        </div>
+
+        <div class="template-grid">
+
+            <div class="template">
+                <div class="template-icon">🎓</div>
+                <h3>Étudiant</h3>
+                <p>Une organisation simple pour les cours.</p>
+                <button class="secondary-btn" onclick="chargerModele('etudiant')">
+                    Utiliser
+                </button>
+            </div>
+
+            <div class="template">
+                <div class="template-icon">📚</div>
+                <h3>Révisions</h3>
+                <p>Organise tes séances de travail.</p>
+                <button class="secondary-btn" onclick="chargerModele('revision')">
+                    Utiliser
+                </button>
+            </div>
+
+            <div class="template">
+                <div class="template-icon">🏋️</div>
+                <h3>Sport</h3>
+                <p>Planifie tes séances sportives.</p>
+                <button class="secondary-btn" onclick="chargerModele('sport')">
+                    Utiliser
+                </button>
+            </div>
+
+            <div class="template">
+                <div class="template-icon">🏖️</div>
+                <h3>Vacances</h3>
+                <p>Profite de tes journées sans rien oublier.</p>
+                <button class="secondary-btn" onclick="chargerModele('vacances')">
+                    Utiliser
+                </button>
+            </div>
+
+            <div class="template">
+                <div class="template-icon">💼</div>
+                <h3>Organisation</h3>
+                <p>Un modèle général pour gérer tes tâches.</p>
+                <button class="secondary-btn" onclick="chargerModele('organisation')">
+                    Utiliser
+                </button>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PREMIUM -->
+    <section class="section" id="premium">
+
+        <div class="premium-box">
+
+            <h2>💎 Planify Premium</h2>
+
+            <p>
+                Une future formule Premium pour débloquer des fonctionnalités
+                supplémentaires.
+            </p>
+
+            <div class="premium-grid">
+
+                <div class="premium-card">
+                    <div>📝</div>
+                    <h3>Examens</h3>
+                    <p>Organisation spéciale pour les périodes d'examens.</p>
+                    <button class="premium-btn" onclick="utiliserModelePremium('examens')">
+                        Essayer
+                    </button>
+                </div>
+
+                <div class="premium-card">
+                    <div>🧠</div>
+                    <h3>Productivité</h3>
+                    <p>Une organisation pensée pour les objectifs.</p>
+                    <button class="premium-btn" onclick="utiliserModelePremium('productivite')">
+                        Essayer
+                    </button>
+                </div>
+
+                <div class="premium-card">
+                    <div>🎯</div>
+                    <h3>Objectifs</h3>
+                    <p>Planifie tes objectifs et tes étapes.</p>
+                    <button class="premium-btn" onclick="utiliserModelePremium('objectifs')">
+                        Essayer
+                    </button>
+                </div>
+
+                <div class="premium-card">
+                    <div>✨</div>
+                    <h3>Personnalisé</h3>
+                    <p>Une future personnalisation avancée.</p>
+                    <button class="premium-btn" onclick="utiliserModelePremium('personnalise')">
+                        Essayer
+                    </button>
+                </div>
+
+            </div>
+
+            <br>
+
+            <button class="premium-btn" onclick="activerPremiumDemo()">
+                💎 Activer le Premium démo
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- COMPTE -->
+    <section class="section" id="compte">
+
+        <div class="section-title">
+
+            <div>
+                <h2>👤 Compte Planify</h2>
+                <p>Cette version utilise un compte local de démonstration.</p>
+            </div>
+
+        </div>
+
+        <div class="data-grid">
+
+            <div class="data-card">
+
+                <h3>🔐 Ton profil</h3>
+
+                <p>
+                    Dans cette version, ton profil est enregistré sur cet appareil.
+                    Un vrai système de connexion nécessitera ensuite une base de
+                    données et un service d'authentification.
+                </p>
+
+                <div class="field">
+                    <label>Nom</label>
+                    <input id="nomCompte" placeholder="Ton prénom">
+                </div>
+
+                <br>
+
+                <button class="primary-btn" onclick="enregistrerCompte()">
+                    Enregistrer le profil
+                </button>
+
+                <button class="danger-btn" onclick="deconnecterCompte()">
+                    Réinitialiser
+                </button>
+
+            </div>
+
+
+            <div class="data-card">
+
+                <h3>☁️ Synchronisation</h3>
+
+                <p>
+                    La synchronisation en ligne est préparée dans l'interface.
+                    Elle pourra être connectée plus tard à une vraie base de
+                    données pour retrouver le planning sur plusieurs appareils.
+                </p>
+
+                <span class="status online">
+                    ● Interface prête
+                </span>
+
+                <br><br>
+
+                <button class="secondary-btn" onclick="simulerSynchronisation()">
+                    ☁️ Simuler une synchronisation
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DONNEES -->
+    <section class="section">
+
+        <div class="section-title">
+
+            <div>
+                <h2>💾 Données</h2>
+                <p>Sauvegarde ton planning ou restaure une ancienne sauvegarde.</p>
+            </div>
+
+        </div>
+
+        <div class="data-grid">
+
+            <div class="data-card">
+
+                <h3>📥 Sauvegarder</h3>
+
+                <p>
+                    Télécharge une copie de tes activités et de tes paramètres.
+                </p>
+
+                <button class="primary-btn" onclick="exporterDonnees()">
+                    Télécharger ma sauvegarde
+                </button>
+
+            </div>
+
+            <div class="data-card">
+
+                <h3>📤 Restaurer</h3>
+
+                <p>
+                    Importe une sauvegarde Planify précédemment téléchargée.
+                </p>
+
+                <input type="file" id="importFile" accept=".json" onchange="importerDonnees(event)">
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- THEMES -->
+    <section class="section">
+
+        <div class="section-title">
+
+            <div>
+                <h2>🎨 Apparence</h2>
+                <p>Choisis le thème que tu préfères.</p>
+            </div>
+
+        </div>
+
+        <div class="theme-grid">
+
+            <button class="theme-btn" onclick="changerTheme('violet')">
+                🟣 Violet
+            </button>
+
+            <button class="theme-btn" onclick="changerTheme('blue')">
+                🔵 Bleu
+            </button>
+
+            <button class="theme-btn" onclick="changerTheme('green')">
+                🟢 Vert
+            </button>
+
+            <button class="theme-btn" onclick="changerTheme('orange')">
+                🟠 Orange
+            </button>
+
+            <button class="theme-btn" onclick="changerTheme('pink')">
+                🩷 Rose
+            </button>
+
+            <button class="theme-btn" onclick="changerTheme('dark')">
+                🌙 Sombre
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- FONCTIONNALITES -->
+    <section class="section" id="fonctionnalites">
+
+        <div class="section-title">
+
+            <div>
+                <h2>✨ Pourquoi Planify ?</h2>
+                <p>Les grandes fonctionnalités du projet.</p>
+            </div>
+
+        </div>
+
+        <div class="feature-grid">
+
+            <div class="feature">
+                <div class="feature-icon">📱</div>
+                <h3>Compatible mobile</h3>
+                <p>
+                    L'interface s'adapte aux smartphones, tablettes et ordinateurs.
+                </p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">🎨</div>
+                <h3>Personnalisable</h3>
+                <p>
+                    Choisis ton thème et les couleurs de tes activités.
+                </p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">💾</div>
+                <h3>Tes données</h3>
+                <p>
+                    Ton planning peut être sauvegardé et restauré facilement.
+                </p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">📅</div>
+                <h3>Calendrier</h3>
+                <p>
+                    Visualise ton organisation à la semaine ou au mois.
+                </p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">🔁</div>
+                <h3>Répétitions</h3>
+                <p>
+                    Crée rapidement des activités quotidiennes, hebdomadaires ou mensuelles.
+                </p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">🚀</div>
+                <h3>Évolutif</h3>
+                <p>
+                    L'architecture pourra ensuite accueillir les comptes, la synchronisation
+                    et un véritable système Premium.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <div class="footer">
+        Planify © 2026 — Ton planning, simplement.
     </div>
-
-    <div class="stat">
-      <div class="stat-icon">⏱️</div>
-      <div class="stat-number" id="tempsTotal">0h</div>
-      <div class="stat-label">Temps planifié</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-icon">📅</div>
-      <div class="stat-number" id="joursOccupes">0</div>
-      <div class="stat-label">Jours occupés</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-icon">⭐</div>
-      <div class="stat-number" id="statutCompte">FREE</div>
-      <div class="stat-label">Compte</div>
-    </div>
-
-  </section>
-
-  <!-- AJOUT ACTIVITE -->
-
-  <section class="section">
-
-    <h2>➕ Ajouter une activité</h2>
-
-    <div class="form-grid">
-
-      <div class="form-group full">
-        <label>Nom de l'activité</label>
-        <input id="nom" type="text" placeholder="Ex : Réviser les maths">
-      </div>
-
-      <div class="form-group">
-        <label>Date</label>
-        <input id="date" type="date">
-      </div>
-
-      <div class="form-group">
-        <label>Couleur</label>
-        <input id="couleur" type="color" value="#6c4cff">
-      </div>
-
-      <div class="form-group">
-        <label>Heure de début</label>
-        <input id="debut" type="time">
-      </div>
-
-      <div class="form-group">
-        <label>Heure de fin</label>
-        <input id="fin" type="time">
-      </div>
-
-      <div class="form-group full">
-        <label>Répétition</label>
-        <select id="repetition">
-          <option value="aucune">Aucune</option>
-          <option value="quotidienne">Tous les jours</option>
-          <option value="hebdomadaire">Toutes les semaines</option>
-          <option value="mensuelle">Tous les mois</option>
-        </select>
-      </div>
-
-    </div>
-
-    <button class="primary-btn" onclick="ajouterActivite()">
-      Ajouter l'activité
-    </button>
-
-    <button class="secondary-btn" onclick="viderFormulaire()">
-      Effacer
-    </button>
-
-  </section>
-
-  <!-- PLANNING -->
-
-  <section class="section">
-
-    <div class="controls">
-
-      <div class="controls-left">
-        <button id="btnSemaine" class="mode-btn active" onclick="changerMode('semaine')">
-          📅 Semaine
-        </button>
-
-        <button id="btnMois" class="mode-btn" onclick="changerMode('mois')">
-          🗓️ Mois
-        </button>
-      </div>
-
-      <div class="controls-right">
-        <button class="mode-btn" onclick="precedent()">◀</button>
-        <button class="mode-btn" onclick="aujourdHui()">Aujourd'hui</button>
-        <button class="mode-btn" onclick="suivant()">▶</button>
-        <button class="mode-btn" onclick="exporterPDF()">🖨️ PDF</button>
-      </div>
-
-    </div>
-
-    <div class="planning-header">
-      <h2 id="titrePlanning">Ma semaine</h2>
-    </div>
-
-    <div id="planning"></div>
-
-  </section>
-
-  <!-- MODELES -->
-
-  <section class="section">
-
-    <h2>📚 Modèles gratuits</h2>
-
-    <div class="templates">
-
-      <div class="template-card">
-        <h3>🎓 Étudiant</h3>
-        <p>Une organisation pour les cours et les devoirs.</p>
-        <button onclick="chargerModele('etudiant')">Utiliser</button>
-      </div>
-
-      <div class="template-card">
-        <h3>📚 Révisions</h3>
-        <p>Organise facilement tes séances de révision.</p>
-        <button onclick="chargerModele('revisions')">Utiliser</button>
-      </div>
-
-      <div class="template-card">
-        <h3>🏋️ Sport</h3>
-        <p>Planifie tes entraînements.</p>
-        <button onclick="chargerModele('sport')">Utiliser</button>
-      </div>
-
-      <div class="template-card">
-        <h3>🏖️ Vacances</h3>
-        <p>Profite de tes vacances tout en gardant une organisation.</p>
-        <button onclick="chargerModele('vacances')">Utiliser</button>
-      </div>
-
-      <div class="template-card">
-        <h3>💼 Organisation</h3>
-        <p>Un modèle général pour organiser ta semaine.</p>
-        <button onclick="chargerModele('organisation')">Utiliser</button>
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- PREMIUM -->
-
-  <section class="section">
-
-    <div class="premium-box">
-
-      <h2>⭐ Planify Premium</h2>
-
-      <div class="premium-status" id="premiumStatus">
-        Compte gratuit
-      </div>
-
-      <div class="premium-templates">
-
-        <button class="premium-template" onclick="utiliserModelePremium('examens')">
-          🔒 📝 Examens
-        </button>
-
-        <button class="premium-template" onclick="utiliserModelePremium('productivite')">
-          🔒 🧠 Productivité
-        </button>
-
-        <button class="premium-template" onclick="utiliserModelePremium('objectifs')">
-          🔒 🎯 Objectifs
-        </button>
-
-        <button class="premium-template" onclick="utiliserModelePremium('personnalise')">
-          🔒 ✨ Personnalisé
-        </button>
-
-      </div>
-
-      <br>
-
-      <button class="primary-btn" onclick="activerPremiumDemo()">
-        ⭐ Tester Premium
-      </button>
-
-    </div>
-
-  </section>
-
-  <!-- DONNEES -->
-
-  <section class="section">
-
-    <h2>💾 Mes données</h2>
-
-    <p style="color:#777; margin-bottom:15px;">
-      Sauvegarde ton planning sur ton appareil ou restaure une sauvegarde précédente.
-    </p>
-
-    <div class="data-buttons">
-
-      <button class="data-btn export-btn" onclick="exporterDonnees()">
-        📥 Exporter ma sauvegarde
-      </button>
-
-      <label class="data-btn import-btn">
-        📤 Importer une sauvegarde
-        <input
-          id="importFichier"
-          type="file"
-          accept=".json,application/json"
-          onchange="importerDonnees(event)"
-        >
-      </label>
-
-    </div>
-
-  </section>
-
-  <!-- THEMES -->
-
-  <section class="section">
-
-    <h2>🎨 Personnaliser Planify</h2>
-
-    <div class="themes">
-
-      <button class="theme-btn" onclick="changerTheme('violet')">
-        🟣 Violet
-      </button>
-
-      <button class="theme-btn" onclick="changerTheme('blue')">
-        🔵 Bleu
-      </button>
-
-      <button class="theme-btn" onclick="changerTheme('green')">
-        🟢 Vert
-      </button>
-
-      <button class="theme-btn" onclick="changerTheme('orange')">
-        🟠 Orange
-      </button>
-
-      <button class="theme-btn" onclick="changerTheme('pink')">
-        🩷 Rose
-      </button>
-
-      <button class="theme-btn" onclick="changerTheme('dark')">
-        🌙 Sombre
-      </button>
-
-    </div>
-
-  </section>
 
 </main>
 
-<footer>
-  Planify © 2026 — Organise ton quotidien simplement ✨
-</footer>
 
-<!-- NOTIFICATION -->
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg">
 
-<div id="notification" class="notification" style="display:none;">
-  <span id="notificationIcon">✅</span>
-  <span id="notificationText"></span>
-  <button onclick="fermerNotification()">×</button>
-</div>
+    <div class="modal">
 
-<!-- PREMIUM MODAL -->
+        <h2 id="modalTitle">Planify</h2>
 
-<div class="overlay" id="premiumOverlay">
+        <p id="modalMessage">
+            Message
+        </p>
 
-  <div class="modal">
+        <div class="modal-actions">
 
-    <h2>⭐ Fonction Premium</h2>
+            <button class="secondary-btn" onclick="fermerModal()">
+                Annuler
+            </button>
 
-    <p>
-      Ce modèle est réservé à Planify Premium.
-      Tu peux toutefois activer le mode démo pour découvrir son fonctionnement.
-    </p>
+            <button class="primary-btn" id="modalConfirm">
+                Confirmer
+            </button>
 
-    <div class="modal-buttons">
-
-      <button
-        style="background:#eee;"
-        onclick="fermerMessagePremium()">
-        Fermer
-      </button>
-
-      <button
-        style="background:#6c4cff;color:white;"
-        onclick="activerPremiumDemo()">
-        Tester Premium
-      </button>
+        </div>
 
     </div>
 
-  </div>
-
 </div>
+
 
 <script>
 
-let activites = JSON.parse(localStorage.getItem("monPlanning")) || [];
+let activites = JSON.parse(localStorage.getItem("monPlanning") || "[]");
 
 let mode = "semaine";
 
 let dateActuelle = new Date();
 
 let premiumActif =
-  localStorage.getItem("premiumDemo") === "true";
+    localStorage.getItem("premiumDemo") === "true";
 
-let notificationTimer = null;
+let profil =
+    JSON.parse(localStorage.getItem("planifyProfil") || "null");
 
 
-/* =========================
-   OUTILS
-========================= */
+function formatDate(date){
 
-function formatDate(date) {
+    const annee = date.getFullYear();
 
-  const annee = date.getFullYear();
-  const mois = String(date.getMonth() + 1).padStart(2, "0");
-  const jour = String(date.getDate()).padStart(2, "0");
+    const mois = String(date.getMonth()+1).padStart(2,"0");
 
-  return `${annee}-${mois}-${jour}`;
+    const jour = String(date.getDate()).padStart(2,"0");
+
+    return `${annee}-${mois}-${jour}`;
 }
 
 
-function obtenirLundi(date) {
+function obtenirLundi(date){
 
-  const d = new Date(date);
+    const d = new Date(date);
 
-  const jour = d.getDay();
+    const jour = d.getDay();
 
-  const difference = jour === 0 ? -6 : 1 - jour;
+    const difference = jour === 0 ? -6 : 1 - jour;
 
-  d.setDate(d.getDate() + difference);
+    d.setDate(d.getDate()+difference);
 
-  return d;
+    d.setHours(0,0,0,0);
+
+    return d;
 }
 
 
-function sauvegarder() {
+function sauvegarder(){
 
-  localStorage.setItem(
-    "monPlanning",
-    JSON.stringify(activites)
-  );
+    localStorage.setItem(
+        "monPlanning",
+        JSON.stringify(activites)
+    );
 
-  mettreAJourDashboard();
+    mettreAJourDashboard();
 }
 
 
-function escapeHTML(texte) {
+function escapeHTML(texte){
 
-  const div = document.createElement("div");
+    const div = document.createElement("div");
 
-  div.textContent = texte;
+    div.textContent = texte;
 
-  return div.innerHTML;
+    return div.innerHTML;
 }
 
 
-/* =========================
-   NOTIFICATIONS
-========================= */
+function afficherNotification(message,type="success",icon="✓"){
 
-function afficherNotification(message, type = "success", icon = "✅") {
+    const notification =
+        document.getElementById("notification");
 
-  const notification =
-    document.getElementById("notification");
+    notification.innerHTML =
+        `<strong>${icon}</strong> ${escapeHTML(message)}`;
 
-  const texte =
-    document.getElementById("notificationText");
+    notification.className =
+        "notification show " + type;
 
-  const icone =
-    document.getElementById("notificationIcon");
+    clearTimeout(window.notificationTimer);
 
-  texte.textContent = message;
-  icone.textContent = icon;
-
-  notification.className =
-    "notification " + type;
-
-  notification.style.display = "flex";
-
-  clearTimeout(notificationTimer);
-
-  notificationTimer = setTimeout(() => {
-
-    fermerNotification();
-
-  }, 3500);
+    window.notificationTimer =
+        setTimeout(
+            fermerNotification,
+            3000
+        );
 }
 
 
-function fermerNotification() {
+function fermerNotification(){
 
-  document.getElementById("notification").style.display =
-    "none";
+    document
+        .getElementById("notification")
+        .classList.remove("show");
 }
 
 
-/* =========================
-   DASHBOARD
-========================= */
+function mettreAJourDashboard(){
 
-function mettreAJourDashboard() {
+    document.getElementById("statActivities")
+        .textContent = activites.length;
 
-  document.getElementById("nombreActivites").textContent =
-    activites.length;
 
-  const jours =
-    new Set(activites.map(a => a.date));
+    let minutes = 0;
 
-  document.getElementById("joursOccupes").textContent =
-    jours.size;
+    activites.forEach(a=>{
 
-  let minutes = 0;
+        if(!a.debut || !a.fin) return;
 
-  activites.forEach(a => {
+        const debut = a.debut.split(":");
+        const fin = a.fin.split(":");
 
-    if (a.debut && a.fin) {
+        const d =
+            parseInt(debut[0])*60 +
+            parseInt(debut[1]);
 
-      const debut = a.debut.split(":");
-      const fin = a.fin.split(":");
+        const f =
+            parseInt(fin[0])*60 +
+            parseInt(fin[1]);
 
-      const debutMinutes =
-        Number(debut[0]) * 60 + Number(debut[1]);
+        if(f>d){
+            minutes += f-d;
+        }
 
-      const finMinutes =
-        Number(fin[0]) * 60 + Number(fin[1]);
+    });
 
-      if (finMinutes > debutMinutes) {
 
-        minutes += finMinutes - debutMinutes;
+    const heures = Math.floor(minutes/60);
 
-      }
+    const mins = minutes%60;
+
+    document.getElementById("statTime")
+        .textContent =
+        heures > 0
+        ? `${heures}h${mins ? " "+mins+"m" : ""}`
+        : `${mins}m`;
+
+
+    const jours =
+        new Set(
+            activites.map(a=>a.date)
+        );
+
+    document.getElementById("statDays")
+        .textContent = jours.size;
+
+
+    document.getElementById("statAccount")
+        .textContent =
+        profil ? "Prêt" : "Local";
+}
+
+
+function ajouterActivite(){
+
+    const nom =
+        document.getElementById("nom").value.trim();
+
+    const date =
+        document.getElementById("date").value;
+
+    const debut =
+        document.getElementById("debut").value;
+
+    const fin =
+        document.getElementById("fin").value;
+
+    const couleur =
+        document.getElementById("couleur").value;
+
+    const repetition =
+        document.getElementById("repetition").value;
+
+
+    if(!nom || !date){
+
+        afficherNotification(
+            "Indique au minimum une activité et une date.",
+            "error",
+            "!"
+        );
+
+        return;
+    }
+
+
+    if(fin <= debut){
+
+        afficherNotification(
+            "L'heure de fin doit être après l'heure de début.",
+            "error",
+            "!"
+        );
+
+        return;
+    }
+
+
+    let nombre = 1;
+
+
+    if(repetition !== "aucune"){
+
+        nombre = 4;
 
     }
 
-  });
 
-  const heures = Math.floor(minutes / 60);
-  const reste = minutes % 60;
+    for(let i=0;i<nombre;i++){
 
-  document.getElementById("tempsTotal").textContent =
-    heures + "h" + (reste ? " " + reste + "m" : "");
-
-  document.getElementById("statutCompte").textContent =
-    premiumActif ? "PREMIUM" : "FREE";
-}
+        const d = new Date(date+"T12:00:00");
 
 
-/* =========================
-   ACTIVITES
-========================= */
-
-function ajouterActivite() {
-
-  const nom =
-    document.getElementById("nom").value.trim();
-
-  const date =
-    document.getElementById("date").value;
-
-  const debut =
-    document.getElementById("debut").value;
-
-  const fin =
-    document.getElementById("fin").value;
-
-  const couleur =
-    document.getElementById("couleur").value;
-
-  const repetition =
-    document.getElementById("repetition").value;
+        if(repetition === "quotidienne"){
+            d.setDate(d.getDate()+i);
+        }
 
 
-  if (!nom || !date) {
+        if(repetition === "hebdomadaire"){
+            d.setDate(d.getDate()+i*7);
+        }
+
+
+        if(repetition === "mensuelle"){
+            d.setMonth(d.getMonth()+i);
+        }
+
+
+        activites.push({
+
+            id:
+                Date.now() +
+                Math.random(),
+
+            nom,
+
+            date:
+                formatDate(d),
+
+            debut,
+
+            fin,
+
+            couleur,
+
+            repetition
+
+        });
+
+    }
+
+
+    sauvegarder();
+
+    afficher();
+
+    viderFormulaire();
+
 
     afficherNotification(
-      "Indique au minimum un nom et une date.",
-      "warning",
-      "⚠️"
+        repetition === "aucune"
+        ? "Activité ajoutée !"
+        : "Activités répétées ajoutées !",
+        "success",
+        "✓"
     );
-
-    return;
-  }
+}
 
 
-  let nombreOccurrences = 1;
+function supprimerActivite(id){
 
-  if (repetition !== "aucune") {
+    ouvrirModal(
+        "Supprimer l'activité",
+        "Voulez-vous vraiment supprimer cette activité ?",
+        ()=>{
 
-    nombreOccurrences = 12;
+            activites =
+                activites.filter(
+                    a=>a.id !== id
+                );
 
-  }
+            sauvegarder();
+
+            afficher();
+
+            afficherNotification(
+                "Activité supprimée.",
+                "success",
+                "✓"
+            );
+
+        }
+    );
+}
 
 
-  for (let i = 0; i < nombreOccurrences; i++) {
+function modifierActivite(id){
 
-    const nouvelleDate =
-      new Date(date + "T12:00:00");
+    const a =
+        activites.find(
+            x=>x.id === id
+        );
+
+    if(!a) return;
 
 
-    if (repetition === "quotidienne") {
+    document.getElementById("nom").value =
+        a.nom;
 
-      nouvelleDate.setDate(
-        nouvelleDate.getDate() + i
-      );
+    document.getElementById("date").value =
+        a.date;
+
+    document.getElementById("debut").value =
+        a.debut;
+
+    document.getElementById("fin").value =
+        a.fin;
+
+    document.getElementById("couleur").value =
+        a.couleur;
+
+    document.getElementById("repetition").value =
+        "aucune";
+
+
+    activites =
+        activites.filter(
+            x=>x.id !== id
+        );
+
+    sauvegarder();
+
+    afficher();
+
+    document
+        .getElementById("planning")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+    afficherNotification(
+        "Activité chargée dans le formulaire.",
+        "success",
+        "✏️"
+    );
+}
+
+
+function viderFormulaire(){
+
+    document.getElementById("nom").value = "";
+
+    document.getElementById("date").value =
+        formatDate(new Date());
+
+    document.getElementById("debut").value =
+        "09:00";
+
+    document.getElementById("fin").value =
+        "10:00";
+
+    document.getElementById("repetition").value =
+        "aucune";
+}
+
+
+function afficherActivite(activite){
+
+    return `
+        <div
+            class="activity"
+            style="background:${activite.couleur}"
+        >
+
+            <strong>
+                ${escapeHTML(activite.nom)}
+            </strong>
+
+            <small>
+                ${activite.debut} → ${activite.fin}
+            </small>
+
+            <div class="activity-actions">
+
+                <button
+                    onclick="modifierActivite(${activite.id})"
+                >
+                    ✏️
+                </button>
+
+                <button
+                    onclick="supprimerActivite(${activite.id})"
+                >
+                    🗑️
+                </button>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+function afficherSemaine(){
+
+    const lundi =
+        obtenirLundi(dateActuelle);
+
+    let html =
+        `<div class="week-grid">`;
+
+
+    const noms =
+        [
+            "Lundi",
+            "Mardi",
+            "Mercredi",
+            "Jeudi",
+            "Vendredi",
+            "Samedi",
+            "Dimanche"
+        ];
+
+
+    for(let i=0;i<7;i++){
+
+        const d =
+            new Date(lundi);
+
+        d.setDate(
+            lundi.getDate()+i
+        );
+
+        const date =
+            formatDate(d);
+
+
+        const aujourd =
+            date ===
+            formatDate(new Date());
+
+
+        const duJour =
+            activites
+                .filter(
+                    a=>a.date === date
+                )
+                .sort(
+                    (a,b)=>
+                    a.debut.localeCompare(b.debut)
+                );
+
+
+        html += `
+
+            <div class="day ${aujourd ? "today" : ""}">
+
+                <div class="day-header">
+
+                    ${noms[i]}
+
+                    <div class="day-date">
+                        ${d.toLocaleDateString(
+                            "fr-FR",
+                            {
+                                day:"numeric",
+                                month:"short"
+                            }
+                        )}
+                    </div>
+
+                </div>
+
+        `;
+
+
+        if(duJour.length === 0){
+
+            html +=
+                `<div class="empty">
+                    Rien de prévu
+                </div>`;
+
+        }else{
+
+            duJour.forEach(a=>{
+                html += afficherActivite(a);
+            });
+
+        }
+
+
+        html += `</div>`;
 
     }
 
-    if (repetition === "hebdomadaire") {
 
-      nouvelleDate.setDate(
-        nouvelleDate.getDate() + i * 7
-      );
+    html += "</div>";
 
-    }
-
-    if (repetition === "mensuelle") {
-
-      nouvelleDate.setMonth(
-        nouvelleDate.getMonth() + i
-      );
-
-    }
+    document
+        .getElementById("planningContainer")
+        .innerHTML = html;
+}
 
 
-    activites.push({
+function afficherMois(){
 
-      id:
-        Date.now() +
-        Math.random(),
+    const annee =
+        dateActuelle.getFullYear();
 
-      nom,
-      date:
-        formatDate(nouvelleDate),
+    const mois =
+        dateActuelle.getMonth();
 
-      debut,
-      fin,
-      couleur,
-      repetition
+
+    const premier =
+        new Date(
+            annee,
+            mois,
+            1
+        );
+
+
+    const dernier =
+        new Date(
+            annee,
+            mois+1,
+            0
+        );
+
+
+    const debut =
+        premier.getDay() === 0
+        ? 6
+        : premier.getDay()-1;
+
+
+    let html = `
+        <div class="month-grid">
+    `;
+
+
+    const jours =
+        [
+            "Lun",
+            "Mar",
+            "Mer",
+            "Jeu",
+            "Ven",
+            "Sam",
+            "Dim"
+        ];
+
+
+    jours.forEach(j=>{
+
+        html +=
+            `<div class="month-head">${j}</div>`;
 
     });
 
-  }
 
+    for(let i=0;i<debut;i++){
 
-  sauvegarder();
+        html +=
+            `<div></div>`;
 
-  afficher();
+    }
 
-  viderFormulaire();
 
+    for(
+        let jour=1;
+        jour<=dernier.getDate();
+        jour++
+    ){
 
-  afficherNotification(
-    repetition === "aucune"
-      ? "Activité ajoutée avec succès !"
-      : "Activités récurrentes ajoutées !",
-    "success",
-    "✅"
-  );
-}
+        const d =
+            new Date(
+                annee,
+                mois,
+                jour
+            );
 
+        const date =
+            formatDate(d);
 
-function supprimerActivite(id) {
 
-  const activite =
-    activites.find(a => a.id === id);
+        const aujourd =
+            date ===
+            formatDate(new Date());
 
-  if (!activite) return;
 
+        const duJour =
+            activites.filter(
+                a=>a.date === date
+            );
 
-  const confirmation =
-    confirm(
-      `Supprimer l'activité "${activite.nom}" ?`
-    );
 
+        html += `
 
-  if (!confirmation) return;
+            <div class="month-day ${aujourd ? "today" : ""}">
 
+                <div class="month-number">
+                    ${jour}
+                </div>
 
-  activites =
-    activites.filter(a => a.id !== id);
+        `;
 
 
-  sauvegarder();
+        duJour
+            .slice(0,4)
+            .forEach(a=>{
 
-  afficher();
+                html += `
+                    <div
+                        class="month-activity"
+                        style="background:${a.couleur}"
+                        title="${escapeHTML(a.nom)}"
+                    >
+                        ${escapeHTML(a.nom)}
+                    </div>
+                `;
 
+            });
 
-  afficherNotification(
-    "Activité supprimée.",
-    "success",
-    "🗑️"
-  );
-}
 
+        if(duJour.length > 4){
 
-function modifierActivite(id) {
+            html += `
+                <div style="font-size:10px;margin-top:4px;">
+                    +${duJour.length-4} autre(s)
+                </div>
+            `;
 
-  const activite =
-    activites.find(a => a.id === id);
-
-  if (!activite) return;
-
-
-  document.getElementById("nom").value =
-    activite.nom;
-
-  document.getElementById("date").value =
-    activite.date;
-
-  document.getElementById("debut").value =
-    activite.debut;
-
-  document.getElementById("fin").value =
-    activite.fin;
-
-  document.getElementById("couleur").value =
-    activite.couleur;
-
-  document.getElementById("repetition").value =
-    "aucune";
-
-
-  activites =
-    activites.filter(a => a.id !== id);
-
-  sauvegarder();
-
-  afficher();
-
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-
-
-  afficherNotification(
-    "Modifie les informations puis clique sur Ajouter.",
-    "warning",
-    "✏️"
-  );
-}
-
-
-function viderFormulaire() {
-
-  document.getElementById("nom").value = "";
-
-  document.getElementById("date").value =
-    formatDate(new Date());
-
-  document.getElementById("debut").value = "";
-
-  document.getElementById("fin").value = "";
-
-  document.getElementById("couleur").value =
-    "#6c4cff";
-
-  document.getElementById("repetition").value =
-    "aucune";
-}
-
-
-/* =========================
-   AFFICHAGE ACTIVITE
-========================= */
-
-function afficherActivite(activite) {
-
-  return `
-
-    <div
-      class="activity"
-      style="background:${activite.couleur}"
-    >
-
-      <strong>
-        ${escapeHTML(activite.nom)}
-      </strong>
-
-      <div>
-        ${activite.debut || "--:--"}
-        -
-        ${activite.fin || "--:--"}
-      </div>
-
-      ${
-        activite.repetition !== "aucune"
-          ? `<div style="margin-top:4px;font-size:11px;">
-              🔁 ${activite.repetition}
-             </div>`
-          : ""
-      }
-
-      <div class="activity-actions">
-
-        <button
-          class="edit-btn"
-          onclick="modifierActivite(${activite.id})">
-          ✏️
-        </button>
-
-        <button
-          class="delete-btn"
-          onclick="supprimerActivite(${activite.id})">
-          🗑️
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-}
-
-
-/* =========================
-   SEMAINE
-========================= */
-
-function afficherSemaine() {
-
-  const planning =
-    document.getElementById("planning");
-
-  const lundi =
-    obtenirLundi(dateActuelle);
-
-  let html =
-    '<div class="week-grid">';
-
-
-  const jours =
-    [
-      "Lundi",
-      "Mardi",
-      "Mercredi",
-      "Jeudi",
-      "Vendredi",
-      "Samedi",
-      "Dimanche"
-    ];
-
-
-  for (let i = 0; i < 7; i++) {
-
-    const date =
-      new Date(lundi);
-
-    date.setDate(
-      lundi.getDate() + i
-    );
-
-
-    const dateString =
-      formatDate(date);
-
-
-    const aujourdHui =
-      dateString ===
-      formatDate(new Date());
-
-
-    const activitesJour =
-      activites.filter(
-        a => a.date === dateString
-      );
-
-
-    html += `
-
-      <div class="day ${aujourdHui ? "today" : ""}">
-
-        <div class="day-title">
-
-          ${jours[i]}
-
-          <br>
-
-          <span style="color:#777;font-size:12px;">
-            ${date.toLocaleDateString("fr-FR", {
-              day: "2-digit",
-              month: "2-digit"
-            })}
-          </span>
-
-        </div>
-
-        ${
-          activitesJour.length
-            ? activitesJour
-                .map(afficherActivite)
-                .join("")
-            : `<p style="color:#aaa;text-align:center;font-size:13px;">
-                Aucune activité
-               </p>`
         }
 
-      </div>
 
-    `;
+        html += "</div>";
 
-  }
-
-
-  html += "</div>";
-
-  planning.innerHTML = html;
+    }
 
 
-  document.getElementById("titrePlanning").textContent =
-    "Semaine du " +
-    lundi.toLocaleDateString("fr-FR", {
-      day: "2-digit",
-      month: "long",
-      year: "numeric"
-    });
+    html += "</div>";
+
+    document
+        .getElementById("planningContainer")
+        .innerHTML = html;
 }
 
 
-/* =========================
-   MOIS
-========================= */
+function afficher(){
 
-function afficherMois() {
+    if(mode === "semaine"){
 
-  const planning =
-    document.getElementById("planning");
+        afficherSemaine();
 
-  const annee =
-    dateActuelle.getFullYear();
+    }else{
 
-  const mois =
-    dateActuelle.getMonth();
+        afficherMois();
 
-  const premierJour =
-    new Date(annee, mois, 1);
+    }
 
-  const dernierJour =
-    new Date(annee, mois + 1, 0);
-
-
-  let debut =
-    premierJour.getDay();
-
-  debut =
-    debut === 0 ? 6 : debut - 1;
-
-
-  let html =
-    '<div class="month-grid">';
-
-
-  const jours =
-    [
-      "Lun",
-      "Mar",
-      "Mer",
-      "Jeu",
-      "Ven",
-      "Sam",
-      "Dim"
-    ];
-
-
-  jours.forEach(jour => {
-
-    html += `
-      <div
-        style="
-          text-align:center;
-          font-weight:bold;
-          padding:7px;
-        "
-      >
-        ${jour}
-      </div>
-    `;
-
-  });
-
-
-  for (let i = 0; i < debut; i++) {
-
-    html += "<div></div>";
-
-  }
-
-
-  for (
-    let jour = 1;
-    jour <= dernierJour.getDate();
-    jour++
-  ) {
-
-    const date =
-      new Date(annee, mois, jour);
-
-    const dateString =
-      formatDate(date);
-
-
-    const aujourdHui =
-      dateString ===
-      formatDate(new Date());
-
-
-    const activitesJour =
-      activites.filter(
-        a => a.date === dateString
-      );
-
-
-    html += `
-
-      <div class="month-day ${aujourdHui ? "today" : ""}">
-
-        <div class="month-number">
-          ${jour}
-        </div>
-
-        ${
-          activitesJour
-            .map(a => `
-              <div
-                class="mini-activity"
-                style="background:${a.couleur}"
-                title="${escapeHTML(a.nom)}"
-              >
-                ${escapeHTML(a.nom)}
-              </div>
-            `)
-            .join("")
-        }
-
-      </div>
-
-    `;
-
-  }
-
-
-  html += "</div>";
-
-  planning.innerHTML = html;
-
-
-  document.getElementById("titrePlanning").textContent =
-    dateActuelle.toLocaleDateString(
-      "fr-FR",
-      {
-        month: "long",
-        year: "numeric"
-      }
-    );
+    mettreAJourDashboard();
 }
 
 
-/* =========================
-   AFFICHER
-========================= */
+function changerMode(nouveauMode){
 
-function afficher() {
+    mode = nouveauMode;
 
-  if (mode === "semaine") {
+    document
+        .getElementById("btnSemaine")
+        .classList.toggle(
+            "active",
+            mode === "semaine"
+        );
 
-    afficherSemaine();
+    document
+        .getElementById("btnMois")
+        .classList.toggle(
+            "active",
+            mode === "mois"
+        );
 
-  } else {
-
-    afficherMois();
-
-  }
-
-  mettreAJourDashboard();
+    afficher();
 }
 
 
-/* =========================
-   MODE
-========================= */
+function precedent(){
 
-function changerMode(nouveauMode) {
+    if(mode === "semaine"){
 
-  mode = nouveauMode;
+        dateActuelle.setDate(
+            dateActuelle.getDate()-7
+        );
 
+    }else{
 
-  document
-    .getElementById("btnSemaine")
-    .classList.toggle(
-      "active",
-      mode === "semaine"
-    );
+        dateActuelle.setMonth(
+            dateActuelle.getMonth()-1
+        );
 
+    }
 
-  document
-    .getElementById("btnMois")
-    .classList.toggle(
-      "active",
-      mode === "mois"
-    );
-
-
-  afficher();
+    afficher();
 }
 
 
-/* =========================
-   NAVIGATION
-========================= */
+function suivant(){
 
-function precedent() {
+    if(mode === "semaine"){
 
-  if (mode === "semaine") {
+        dateActuelle.setDate(
+            dateActuelle.getDate()+7
+        );
 
-    dateActuelle.setDate(
-      dateActuelle.getDate() - 7
-    );
+    }else{
 
-  } else {
+        dateActuelle.setMonth(
+            dateActuelle.getMonth()+1
+        );
 
-    dateActuelle.setMonth(
-      dateActuelle.getMonth() - 1
-    );
+    }
 
-  }
-
-  afficher();
+    afficher();
 }
 
 
-function suivant() {
+function aujourdHui(){
 
-  if (mode === "semaine") {
+    dateActuelle = new Date();
 
-    dateActuelle.setDate(
-      dateActuelle.getDate() + 7
-    );
-
-  } else {
-
-    dateActuelle.setMonth(
-      dateActuelle.getMonth() + 1
-    );
-
-  }
-
-  afficher();
+    afficher();
 }
 
 
-function aujourdHui() {
-
-  dateActuelle =
-    new Date();
-
-  afficher();
-
-
-  afficherNotification(
-    "Retour à aujourd'hui.",
-    "success",
-    "📅"
-  );
-}
-
-
-/* =========================
-   PDF
-========================= */
-
-function exporterPDF() {
-
-  afficherNotification(
-    "La fenêtre d'impression va s'ouvrir.",
-    "success",
-    "🖨️"
-  );
-
-
-  setTimeout(() => {
+function exporterPDF(){
 
     window.print();
 
-  }, 500);
 }
 
 
-/* =========================
-   THEMES
-========================= */
+function changerTheme(theme){
 
-function changerTheme(theme) {
+    document.body.className =
+        "theme-" + theme;
 
-  document.body.className =
-    "theme-" + theme;
-
-  localStorage.setItem(
-    "themePlanning",
-    theme
-  );
-
-
-  afficherNotification(
-    "Thème " + theme + " activé.",
-    "success",
-    "🎨"
-  );
-}
-
-
-function chargerTheme() {
-
-  const theme =
-    localStorage.getItem("themePlanning")
-    || "violet";
-
-  document.body.className =
-    "theme-" + theme;
-}
-
-
-function changerThemeRapide() {
-
-  const themeActuel =
-    localStorage.getItem("themePlanning")
-    || "violet";
-
-
-  if (themeActuel === "dark") {
-
-    changerTheme("violet");
-
-  } else {
-
-    changerTheme("dark");
-
-  }
-}
-
-
-/* =========================
-   MODELES GRATUITS
-========================= */
-
-function chargerModele(type) {
-
-  const maintenant =
-    new Date();
-
-
-  const lundi =
-    obtenirLundi(maintenant);
-
-
-  let modele = [];
-
-
-  if (type === "etudiant") {
-
-    modele = [
-
-      {
-        nom: "Cours",
-        jour: 0,
-        debut: "08:00",
-        fin: "12:00",
-        couleur: "#6c4cff"
-      },
-
-      {
-        nom: "Devoirs",
-        jour: 1,
-        debut: "17:00",
-        fin: "18:30",
-        couleur: "#3498db"
-      },
-
-      {
-        nom: "Révisions",
-        jour: 3,
-        debut: "18:00",
-        fin: "19:00",
-        couleur: "#9b59b6"
-      }
-
-    ];
-
-  }
-
-
-  if (type === "revisions") {
-
-    modele = [
-
-      {
-        nom: "Mathématiques",
-        jour: 0,
-        debut: "17:00",
-        fin: "18:00",
-        couleur: "#e74c3c"
-      },
-
-      {
-        nom: "Français",
-        jour: 2,
-        debut: "17:00",
-        fin: "18:00",
-        couleur: "#3498db"
-      },
-
-      {
-        nom: "Sciences",
-        jour: 4,
-        debut: "17:00",
-        fin: "18:00",
-        couleur: "#27ae60"
-      }
-
-    ];
-
-  }
-
-
-  if (type === "sport") {
-
-    modele = [
-
-      {
-        nom: "Course",
-        jour: 1,
-        debut: "18:00",
-        fin: "19:00",
-        couleur: "#27ae60"
-      },
-
-      {
-        nom: "Musculation",
-        jour: 3,
-        debut: "18:00",
-        fin: "19:00",
-        couleur: "#e67e22"
-      },
-
-      {
-        nom: "Repos",
-        jour: 5,
-        debut: "10:00",
-        fin: "10:30",
-        couleur: "#3498db"
-      }
-
-    ];
-
-  }
-
-
-  if (type === "vacances") {
-
-    modele = [
-
-      {
-        nom: "Sortie",
-        jour: 1,
-        debut: "14:00",
-        fin: "17:00",
-        couleur: "#3498db"
-      },
-
-      {
-        nom: "Activité",
-        jour: 3,
-        debut: "15:00",
-        fin: "17:00",
-        couleur: "#f39c12"
-      },
-
-      {
-        nom: "Détente",
-        jour: 5,
-        debut: "16:00",
-        fin: "18:00",
-        couleur: "#9b59b6"
-      }
-
-    ];
-
-  }
-
-
-  if (type === "organisation") {
-
-    modele = [
-
-      {
-        nom: "Organisation",
-        jour: 0,
-        debut: "09:00",
-        fin: "10:00",
-        couleur: "#6c4cff"
-      },
-
-      {
-        nom: "Travail",
-        jour: 2,
-        debut: "10:00",
-        fin: "12:00",
-        couleur: "#3498db"
-      },
-
-      {
-        nom: "Bilan de la semaine",
-        jour: 4,
-        debut: "18:00",
-        fin: "18:30",
-        couleur: "#27ae60"
-      }
-
-    ];
-
-  }
-
-
-  modele.forEach(item => {
-
-    const date =
-      new Date(lundi);
-
-    date.setDate(
-      date.getDate() + item.jour
+    localStorage.setItem(
+        "themePlanning",
+        theme
     );
 
-
-    activites.push({
-
-      id:
-        Date.now() +
-        Math.random(),
-
-      nom: item.nom,
-
-      date:
-        formatDate(date),
-
-      debut: item.debut,
-
-      fin: item.fin,
-
-      couleur: item.couleur,
-
-      repetition: "aucune"
-
-    });
-
-  });
-
-
-  sauvegarder();
-
-  afficher();
-
-
-  afficherNotification(
-    "Modèle chargé avec succès !",
-    "success",
-    "📚"
-  );
-}
-
-
-/* =========================
-   PREMIUM
-========================= */
-
-function utiliserModelePremium(type) {
-
-  if (!premiumActif) {
-
-    afficherMessagePremium();
-
-    return;
-
-  }
-
-
-  chargerModelePremium(type);
-}
-
-
-function chargerModelePremium(type) {
-
-  const lundi =
-    obtenirLundi(new Date());
-
-
-  let modele = [];
-
-
-  if (type === "examens") {
-
-    modele = [
-
-      {
-        nom: "Révisions intensives",
-        jour: 0,
-        debut: "17:00",
-        fin: "19:00",
-        couleur: "#e74c3c"
-      },
-
-      {
-        nom: "Sujet blanc",
-        jour: 2,
-        debut: "17:00",
-        fin: "19:00",
-        couleur: "#9b59b6"
-      },
-
-      {
-        nom: "Révision finale",
-        jour: 5,
-        debut: "10:00",
-        fin: "12:00",
-        couleur: "#3498db"
-      }
-
-    ];
-
-  }
-
-
-  if (type === "productivite") {
-
-    modele = [
-
-      {
-        nom: "Objectifs du jour",
-        jour: 0,
-        debut: "08:00",
-        fin: "08:30",
-        couleur: "#6c4cff"
-      },
-
-      {
-        nom: "Travail concentré",
-        jour: 1,
-        debut: "09:00",
-        fin: "11:00",
-        couleur: "#3498db"
-      },
-
-      {
-        nom: "Bilan",
-        jour: 4,
-        debut: "18:00",
-        fin: "18:30",
-        couleur: "#27ae60"
-      }
-
-    ];
-
-  }
-
-
-  if (type === "objectifs") {
-
-    modele = [
-
-      {
-        nom: "Objectif principal",
-        jour: 0,
-        debut: "09:00",
-        fin: "10:00",
-        couleur: "#f39c12"
-      },
-
-      {
-        nom: "Progression",
-        jour: 2,
-        debut: "17:00",
-        fin: "18:00",
-        couleur: "#3498db"
-      },
-
-      {
-        nom: "Bilan objectifs",
-        jour: 6,
-        debut: "18:00",
-        fin: "18:30",
-        couleur: "#27ae60"
-      }
-
-    ];
-
-  }
-
-
-  if (type === "personnalise") {
-
-    modele = [
-
-      {
-        nom: "Projet personnel",
-        jour: 1,
-        debut: "14:00",
-        fin: "16:00",
-        couleur: "#9b59b6"
-      },
-
-      {
-        nom: "Temps libre",
-        jour: 4,
-        debut: "17:00",
-        fin: "19:00",
-        couleur: "#3498db"
-      }
-
-    ];
-
-  }
-
-
-  modele.forEach(item => {
-
-    const date =
-      new Date(lundi);
-
-    date.setDate(
-      date.getDate() + item.jour
-    );
-
-
-    activites.push({
-
-      id:
-        Date.now() +
-        Math.random(),
-
-      nom: item.nom,
-
-      date:
-        formatDate(date),
-
-      debut: item.debut,
-
-      fin: item.fin,
-
-      couleur: item.couleur,
-
-      repetition: "aucune"
-
-    });
-
-  });
-
-
-  sauvegarder();
-
-  afficher();
-
-
-  afficherNotification(
-    "Modèle Premium chargé ! ⭐",
-    "success",
-    "⭐"
-  );
-}
-
-
-function activerPremiumDemo() {
-
-  premiumActif = true;
-
-  localStorage.setItem(
-    "premiumDemo",
-    "true"
-  );
-
-
-  mettreAJourPremium();
-
-  fermerMessagePremium();
-
-
-  afficherNotification(
-    "Mode Premium activé ! ⭐",
-    "success",
-    "⭐"
-  );
-}
-
-
-function mettreAJourPremium() {
-
-  const status =
-    document.getElementById("premiumStatus");
-
-
-  if (premiumActif) {
-
-    status.textContent =
-      "⭐ Mode Premium actif";
-
-  } else {
-
-    status.textContent =
-      "Compte gratuit — certains modèles sont verrouillés.";
-
-  }
-
-
-  mettreAJourDashboard();
-}
-
-
-function afficherMessagePremium() {
-
-  document.getElementById(
-    "premiumOverlay"
-  ).style.display = "flex";
-}
-
-
-function fermerMessagePremium() {
-
-  document.getElementById(
-    "premiumOverlay"
-  ).style.display = "none";
-}
-
-
-/* =========================
-   EXPORT DONNEES
-========================= */
-
-function exporterDonnees() {
-
-  const sauvegarde = {
-
-    version: 1,
-
-    dateExport:
-      new Date().toISOString(),
-
-    activites: activites,
-
-    theme:
-      localStorage.getItem("themePlanning")
-      || "violet",
-
-    premiumDemo:
-      premiumActif
-
-  };
-
-
-  const contenu =
-    JSON.stringify(
-      sauvegarde,
-      null,
-      2
-    );
-
-
-  const blob =
-    new Blob(
-      [contenu],
-      {
-        type: "application/json"
-      }
-    );
-
-
-  const url =
-    URL.createObjectURL(blob);
-
-
-  const lien =
-    document.createElement("a");
-
-  lien.href = url;
-
-  lien.download =
-    "planify-sauvegarde.json";
-
-  lien.click();
-
-
-  URL.revokeObjectURL(url);
-
-
-  afficherNotification(
-    "Sauvegarde téléchargée !",
-    "success",
-    "💾"
-  );
-}
-
-
-/* =========================
-   IMPORT DONNEES
-========================= */
-
-function importerDonnees(event) {
-
-  const fichier =
-    event.target.files[0];
-
-
-  if (!fichier) return;
-
-
-  const lecteur =
-    new FileReader();
-
-
-  lecteur.onload = function(e) {
-
-    try {
-
-      const donnees =
-        JSON.parse(e.target.result);
-
-
-      if (
-        !donnees.activites ||
-        !Array.isArray(donnees.activites)
-      ) {
-
-        throw new Error(
-          "Sauvegarde invalide"
-        );
-
-      }
-
-
-      const confirmation =
-        confirm(
-          "Importer cette sauvegarde remplacera ton planning actuel. Continuer ?"
-        );
-
-
-      if (!confirmation) {
-
-        event.target.value = "";
-
-        return;
-
-      }
-
-
-      activites =
-        donnees.activites;
-
-
-      localStorage.setItem(
-        "monPlanning",
-        JSON.stringify(activites)
-      );
-
-
-      if (donnees.theme) {
-
-        localStorage.setItem(
-          "themePlanning",
-          donnees.theme
-        );
-
-      }
-
-
-      if (
-        typeof donnees.premiumDemo ===
-        "boolean"
-      ) {
-
-        premiumActif =
-          donnees.premiumDemo;
-
-        localStorage.setItem(
-          "premiumDemo",
-          premiumActif
-        );
-
-      }
-
-
-      chargerTheme();
-
-      mettreAJourPremium();
-
-      afficher();
-
-
-      afficherNotification(
-        "Sauvegarde importée avec succès !",
+    afficherNotification(
+        "Thème changé.",
         "success",
-        "📤"
-      );
+        "🎨"
+    );
+}
 
 
-    } catch (erreur) {
+function chargerTheme(){
 
-      afficherNotification(
-        "Impossible d'importer cette sauvegarde.",
-        "error",
-        "❌"
-      );
+    const theme =
+        localStorage.getItem(
+            "themePlanning"
+        ) || "violet";
+
+    document.body.className =
+        "theme-" + theme;
+}
+
+
+function changerThemeRapide(){
+
+    const actuel =
+        document.body.className;
+
+    if(actuel.includes("dark")){
+
+        changerTheme("violet");
+
+    }else{
+
+        changerTheme("dark");
 
     }
 
-
-    event.target.value = "";
-
-  };
-
-
-  lecteur.readAsText(fichier);
 }
 
 
-/* =========================
-   INITIALISATION
-========================= */
+function chargerModele(type){
+
+    const aujourd =
+        formatDate(new Date());
+
+
+    const modeles = {
+
+        etudiant:[
+            ["Cours","09:00","10:00","#3498db"],
+            ["Révisions","17:00","18:00","#6c4cff"]
+        ],
+
+        revision:[
+            ["Maths","17:00","18:00","#6c4cff"],
+            ["Français","18:15","19:15","#3498db"]
+        ],
+
+        sport:[
+            ["Sport","18:00","19:00","#27ae60"]
+        ],
+
+        vacances:[
+            ["Sortie","14:00","16:00","#e67e22"]
+        ],
+
+        organisation:[
+            ["Organisation","08:30","09:00","#e84393"],
+            ["Travail personnel","17:00","18:00","#6c4cff"]
+        ]
+
+    };
+
+
+    const modele =
+        modeles[type];
+
+
+    if(!modele) return;
+
+
+    modele.forEach(x=>{
+
+        activites.push({
+
+            id:
+                Date.now() +
+                Math.random(),
+
+            nom:x[0],
+
+            date:aujourd,
+
+            debut:x[1],
+
+            fin:x[2],
+
+            couleur:x[3],
+
+            repetition:"aucune"
+
+        });
+
+    });
+
+
+    sauvegarder();
+
+    afficher();
+
+    afficherNotification(
+        "Modèle ajouté à ton planning !",
+        "success",
+        "🧩"
+    );
+}
+
+
+function utiliserModelePremium(type){
+
+    if(!premiumActif){
+
+        ouvrirModal(
+            "Fonctionnalité Premium",
+            "Active le Premium démo pour essayer ce modèle.",
+            ()=>{
+                activerPremiumDemo();
+            }
+        );
+
+        return;
+    }
+
+
+    chargerModelePremium(type);
+}
+
+
+function chargerModelePremium(type){
+
+    const aujourd =
+        formatDate(new Date());
+
+
+    const modeles = {
+
+        examens:[
+            ["Révisions intensives","17:00","18:30","#6c4cff"],
+            ["Pause","18:30","19:00","#27ae60"]
+        ],
+
+        productivite:[
+            ["Objectif principal","09:00","10:30","#3498db"],
+            ["Travail concentré","14:00","15:30","#6c4cff"]
+        ],
+
+        objectifs:[
+            ["Planification objectifs","18:00","19:00","#e67e22"]
+        ],
+
+        personnalise:[
+            ["Projet personnel","16:00","17:30","#e84393"]
+        ]
+
+    };
+
+
+    const modele =
+        modeles[type];
+
+
+    if(!modele) return;
+
+
+    modele.forEach(x=>{
+
+        activites.push({
+
+            id:
+                Date.now() +
+                Math.random(),
+
+            nom:x[0],
+
+            date:aujourd,
+
+            debut:x[1],
+
+            fin:x[2],
+
+            couleur:x[3],
+
+            repetition:"aucune"
+
+        });
+
+    });
+
+
+    sauvegarder();
+
+    afficher();
+
+    afficherNotification(
+        "Modèle Premium ajouté !",
+        "success",
+        "💎"
+    );
+}
+
+
+function activerPremiumDemo(){
+
+    premiumActif = true;
+
+    localStorage.setItem(
+        "premiumDemo",
+        "true"
+    );
+
+    mettreAJourPremium();
+
+    afficherNotification(
+        "Premium démo activé !",
+        "💎",
+        "✨"
+    );
+}
+
+
+function mettreAJourPremium(){
+
+    const element =
+        document.getElementById(
+            "premiumStatus"
+        );
+
+    if(premiumActif){
+
+        element.className =
+            "status premium";
+
+        element.textContent =
+            "● Premium démo";
+
+        document.getElementById(
+            "profileStatus"
+        ).textContent =
+            "Premium démo";
+
+    }else{
+
+        element.className =
+            "status free";
+
+        element.textContent =
+            "● Gratuit";
+
+        document.getElementById(
+            "profileStatus"
+        ).textContent =
+            "Mode gratuit";
+    }
+
+}
+
+
+function enregistrerCompte(){
+
+    const nom =
+        document
+            .getElementById("nomCompte")
+            .value
+            .trim();
+
+
+    if(!nom){
+
+        afficherNotification(
+            "Indique un nom.",
+            "error",
+            "!"
+        );
+
+        return;
+    }
+
+
+    profil = {
+        nom
+    };
+
+
+    localStorage.setItem(
+        "planifyProfil",
+        JSON.stringify(profil)
+    );
+
+
+    mettreAJourProfil();
+
+    mettreAJourDashboard();
+
+
+    afficherNotification(
+        "Profil enregistré !",
+        "success",
+        "👤"
+    );
+}
+
+
+function mettreAJourProfil(){
+
+    if(!profil) return;
+
+
+    document.getElementById(
+        "profileName"
+    ).textContent =
+        profil.nom;
+
+
+    document.getElementById(
+        "avatar"
+    ).textContent =
+        profil.nom
+            .charAt(0)
+            .toUpperCase();
+
+
+    document.getElementById(
+        "nomCompte"
+    ).value =
+        profil.nom;
+}
+
+
+function deconnecterCompte(){
+
+    ouvrirModal(
+        "Réinitialiser le profil",
+        "Cela supprimera uniquement le profil local. Ton planning sera conservé.",
+        ()=>{
+
+            profil = null;
+
+            localStorage.removeItem(
+                "planifyProfil"
+            );
+
+            document.getElementById(
+                "profileName"
+            ).textContent =
+                "Profil local";
+
+            document.getElementById(
+                "profileStatus"
+            ).textContent =
+                premiumActif
+                ? "Premium démo"
+                : "Mode gratuit";
+
+            document.getElementById(
+                "avatar"
+            ).textContent =
+                "P";
+
+            document.getElementById(
+                "nomCompte"
+            ).value = "";
+
+            mettreAJourDashboard();
+
+            afficherNotification(
+                "Profil réinitialisé.",
+                "success",
+                "✓"
+            );
+
+        }
+    );
+}
+
+
+function simulerSynchronisation(){
+
+    const button =
+        event?.target;
+
+
+    if(button){
+
+        button.disabled = true;
+
+        button.textContent =
+            "⏳ Synchronisation...";
+    }
+
+
+    setTimeout(()=>{
+
+        if(button){
+
+            button.disabled = false;
+
+            button.textContent =
+                "☁️ Simuler une synchronisation";
+        }
+
+
+        document.getElementById(
+            "statAccount"
+        ).textContent =
+            "Synchro";
+
+
+        afficherNotification(
+            "Synchronisation simulée avec succès.",
+            "success",
+            "☁️"
+        );
+
+    },1200);
+}
+
+
+function exporterDonnees(){
+
+    const sauvegarde = {
+
+        version:"1.0",
+
+        dateExport:
+            new Date().toISOString(),
+
+        activites,
+
+        theme:
+            localStorage.getItem(
+                "themePlanning"
+            ),
+
+        premiumDemo:premiumActif,
+
+        profil
+
+    };
+
+
+    const blob =
+        new Blob(
+            [
+                JSON.stringify(
+                    sauvegarde,
+                    null,
+                    2
+                )
+            ],
+            {
+                type:"application/json"
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const a =
+        document.createElement("a");
+
+
+    a.href = url;
+
+    a.download =
+        "planify-sauvegarde.json";
+
+
+    a.click();
+
+
+    URL.revokeObjectURL(url);
+
+
+    afficherNotification(
+        "Sauvegarde téléchargée.",
+        "success",
+        "💾"
+    );
+}
+
+
+function importerDonnees(event){
+
+    const fichier =
+        event.target.files[0];
+
+
+    if(!fichier) return;
+
+
+    const lecteur =
+        new FileReader();
+
+
+    lecteur.onload = function(e){
+
+        try{
+
+            const data =
+                JSON.parse(
+                    e.target.result
+                );
+
+
+            if(
+                !Array.isArray(
+                    data.activites
+                )
+            ){
+
+                throw new Error();
+
+            }
+
+
+            ouvrirModal(
+                "Restaurer la sauvegarde",
+                "Cette opération remplacera ton planning actuel.",
+                ()=>{
+
+                    activites =
+                        data.activites;
+
+
+                    if(data.theme){
+
+                        changerTheme(
+                            data.theme
+                        );
+
+                    }
+
+
+                    if(
+                        typeof data.premiumDemo ===
+                        "boolean"
+                    ){
+
+                        premiumActif =
+                            data.premiumDemo;
+
+                        localStorage.setItem(
+                            "premiumDemo",
+                            String(premiumActif)
+                        );
+
+                    }
+
+
+                    if(data.profil){
+
+                        profil =
+                            data.profil;
+
+                        localStorage.setItem(
+                            "planifyProfil",
+                            JSON.stringify(profil)
+                        );
+
+                    }
+
+
+                    sauvegarder();
+
+                    mettreAJourPremium();
+
+                    mettreAJourProfil();
+
+                    afficher();
+
+                    afficherNotification(
+                        "Sauvegarde restaurée !",
+                        "success",
+                        "📤"
+                    );
+
+                }
+            );
+
+
+        }catch{
+
+            afficherNotification(
+                "Fichier de sauvegarde invalide.",
+                "error",
+                "!"
+            );
+
+        }
+
+    };
+
+
+    lecteur.readAsText(fichier);
+
+}
+
+
+function ouvrirModal(
+    titre,
+    message,
+    confirmation
+){
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        titre;
+
+
+    document.getElementById(
+        "modalMessage"
+    ).textContent =
+        message;
+
+
+    document
+        .getElementById("modalBg")
+        .classList.add("show");
+
+
+    document.getElementById(
+        "modalConfirm"
+    ).onclick = ()=>{
+
+        fermerModal();
+
+        confirmation();
+
+    };
+
+}
+
+
+function fermerModal(){
+
+    document
+        .getElementById("modalBg")
+        .classList.remove("show");
+}
+
+
+function allerA(id){
+
+    const element =
+        document.getElementById(id);
+
+    if(element){
+
+        element.scrollIntoView({
+            behavior:"smooth"
+        });
+
+    }
+
+}
+
+
+document.addEventListener(
+    "keydown",
+    function(e){
+
+        if(e.key === "Escape"){
+
+            fermerModal();
+
+        }
+
+    }
+);
+
 
 chargerTheme();
 
-document.getElementById("date").value =
-  formatDate(new Date());
-
 mettreAJourPremium();
+
+mettreAJourProfil();
+
+viderFormulaire();
 
 afficher();
 
