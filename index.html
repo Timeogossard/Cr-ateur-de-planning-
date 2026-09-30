@@ -936,7 +936,42 @@ footer {
     </div>
 
   </section>
+  </section>
 
+  <!-- SAUVEGARDE -->
+  <section class="section">
+
+    <div class="section-title">
+      <h2>💾 Mes données</h2>
+    </div>
+
+    <p style="color:var(--muted);">
+      Sauvegarde ton planning ou récupère une sauvegarde précédente.
+    </p>
+
+    <div class="form-actions">
+
+      <button class="primary" onclick="exporterDonnees()">
+        💾 Exporter mon planning
+      </button>
+
+      <button class="secondary" onclick="document.getElementById('importFichier').click()">
+        📂 Importer mon planning
+      </button>
+
+      <input
+        type="file"
+        id="importFichier"
+        accept=".json"
+        style="display:none"
+        onchange="importerDonnees(event)"
+      >
+
+    </div>
+
+  </section>
+
+  <!-- THEMES -->
   <!-- THEMES -->
   <section class="section">
 
@@ -2224,6 +2259,142 @@ mettreAJourPremium();
 afficher();
 
 </script>
+/* =========================
+   SAUVEGARDE / IMPORT
+========================= */
 
+function exporterDonnees() {
+
+  let sauvegarde = {
+    version: 1,
+    dateExport: new Date().toISOString(),
+    activites: activites,
+    theme: localStorage.getItem("themePlanning") || "violet",
+    premiumDemo: premiumActif
+  };
+
+  let contenu = JSON.stringify(
+    sauvegarde,
+    null,
+    2
+  );
+
+  let fichier = new Blob(
+    [contenu],
+    {
+      type: "application/json"
+    }
+  );
+
+  let url =
+    URL.createObjectURL(fichier);
+
+  let lien =
+    document.createElement("a");
+
+  lien.href = url;
+
+  lien.download =
+    "planify-sauvegarde.json";
+
+  lien.click();
+
+  URL.revokeObjectURL(url);
+
+}
+
+
+function importerDonnees(event) {
+
+  let fichier =
+    event.target.files[0];
+
+  if (!fichier) return;
+
+  let lecteur =
+    new FileReader();
+
+  lecteur.onload = function(e) {
+
+    try {
+
+      let donnees =
+        JSON.parse(e.target.result);
+
+      if (
+        !donnees.activites ||
+        !Array.isArray(donnees.activites)
+      ) {
+
+        alert(
+          "❌ Ce fichier n'est pas une sauvegarde Planify valide."
+        );
+
+        return;
+
+      }
+
+      if (!confirm(
+        "Importer cette sauvegarde va remplacer ton planning actuel. Continuer ?"
+      )) {
+
+        return;
+
+      }
+
+      activites =
+        donnees.activites;
+
+      localStorage.setItem(
+        "monPlanning",
+        JSON.stringify(activites)
+      );
+
+      if (donnees.theme) {
+
+        localStorage.setItem(
+          "themePlanning",
+          donnees.theme
+        );
+
+        chargerTheme();
+
+      }
+
+      if (
+        typeof donnees.premiumDemo === "boolean"
+      ) {
+
+        premiumActif =
+          donnees.premiumDemo;
+
+        localStorage.setItem(
+          "premiumDemo",
+          String(premiumActif)
+        );
+
+      }
+
+      mettreAJourPremium();
+
+      afficher();
+
+      alert(
+        "✅ Ton planning a été restauré !"
+      );
+
+    } catch (erreur) {
+
+      alert(
+        "❌ Impossible de lire cette sauvegarde."
+      );
+
+    }
+
+  };
+
+  lecteur.readAsText(fichier);
+
+}
 </body>
 </html>
