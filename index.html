@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Créateur de Planning</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      color: #222;
+    }
+
+    header {
+      background: #2563eb;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    header h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .formulaire {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+      margin-bottom: 25px;
+    }
+
+    .formulaire h2 {
+      margin-top: 0;
+    }
+
+    .champs {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input,
+    select,
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: #2563eb;
+      color: white;
+      font-weight: bold;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .boutons {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .bouton-secondaire {
+      background: #64748b;
+    }
+
+    .planning {
+      background: white;
+      border-radius: 15px;
+      overflow-x: auto;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    }
+
+    .semaine {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(150px, 1fr));
+      min-width: 1050px;
+    }
+
+    .jour {
+      border-right: 1px solid #ddd;
+      min-height: 500px;
+    }
+
+    .jour:last-child {
+      border-right: none;
+    }
+
+    .nom-jour {
+      background: #e8eefc;
+      padding: 15px;
+      text-align: center;
+      font-weight: bold;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .activites {
+      padding: 10px;
+    }
+
+    .activite {
+      background: #dbeafe;
+      border-left: 5px solid #2563eb;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+    }
+
+    .activite strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .heure {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .actions {
+      display: flex;
+      gap: 5px;
+      margin-top: 10px;
+    }
+
+    .actions button {
+      padding: 7px;
+      font-size: 12px;
+    }
+
+    .modifier {
+      background: #f59e0b;
+    }
+
+    .supprimer {
+      background: #dc2626;
+    }
+
+    .aucune {
+      text-align: center;
+      color: #999;
+      padding: 30px 10px;
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+    }
+
+    @media (max-width: 800px) {
+      header h1 {
+        font-size: 25px;
+      }
+
+      .champs {
+        grid-template-columns: 1fr;
+      }
+
+      .boutons {
+        flex-direction: column;
+      }
+    }
+
+    @media print {
+      header {
+        background: white;
+        color: black;
+      }
+
+      .formulaire,
+      .actions,
+      footer {
+        display: none;
+      }
+
+      body {
+        background: white;
+      }
+
+      .planning {
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>📅 Mon Créateur de Planning</h1>
+  <p>Organisez facilement votre semaine</p>
+</header>
+
+<div class="container">
+
+  <section class="formulaire">
+
+    <h2>➕ Ajouter une activité</h2>
+
+    <div class="champs">
+
+      <label>
+        Jour
+        <select id="jour">
+          <option value="lundi">Lundi</option>
+          <option value="mardi">Mardi</option>
+          <option value="mercredi">Mercredi</option>
+          <option value="jeudi">Jeudi</option>
+          <option value="vendredi">Vendredi</option>
+          <option value="samedi">Samedi</option>
+          <option value="dimanche">Dimanche</option>
+        </select>
+      </label>
+
+      <label>
+        Activité
+        <input
+          type="text"
+          id="activite"
+          placeholder="Ex : Réunion"
+        >
+      </label>
+
+      <label>
+        Heure de début
+        <input type="time" id="debut">
+      </label>
+
+      <label>
+        Heure de fin
+        <input type="time" id="fin">
+      </label>
+
+      <label>
+        Couleur
+        <input type="color" id="couleur" value="#2563eb">
+      </label>
+
+    </div>
+
+    <div class="boutons">
+
+      <button onclick="ajouterActivite()">
+        Ajouter au planning
+      </button>
+
+      <button
+        class="bouton-secondaire"
+        onclick="window.print()">
+        🖨️ Imprimer
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <section class="planning">
+
+    <div class="semaine">
+
+      <div class="jour">
+        <div class="nom-jour">Lundi</div>
+        <div class="activites" id="lundi"></div>
+      </div>
+
+      <div class="jour">
+        <div class="nom-jour">Mardi</div>
+        <div class="activites" id="mardi"></div>
+      </div>
+
+      <div class="jour">
+        <div class="nom-jour">Mercredi</div>
+        <div class="activites" id="mercredi"></div>
+      </div>
+
+      <div class="jour">
+        <div class="nom-jour">Jeudi</div>
+        <div class="activites" id="jeudi"></div>
+      </div>
+
+      <div class="jour">
+        <div class="nom-jour">Vendredi</div>
+        <div class="activites" id="vendredi"></div>
+      </div>
+
+      <div class="jour">
+        <div class="nom-jour">Samedi</div>
+        <div class="activites" id="samedi"></div>
+      </div>
+
+      <div class="jour">
+        <div class="nom-jour">Dimanche</div>
+        <div class="activites" id="dimanche"></div>
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+<footer>
+  Mon Créateur de Planning © 2026
+</footer>
+
+
+<script>
+
+  let planning = JSON.parse(
+    localStorage.getItem("monPlanning")
+  ) || [];
+
+
+  function sauvegarder() {
+
+    localStorage.setItem(
+      "monPlanning",
+      JSON.stringify(planning)
+    );
+
+  }
+
+
+  function ajouterActivite() {
+
+    const jour =
+      document.getElementById("jour").value;
+
+    const nom =
+      document.getElementById("activite").value.trim();
+
+    const debut =
+      document.getElementById("debut").value;
+
+    const fin =
+      document.getElementById("fin").value;
+
+    const couleur =
+      document.getElementById("couleur").value;
+
+
+    if (!nom) {
+      alert("Veuillez entrer une activité.");
+      return;
+    }
+
+
+    if (!debut || !fin) {
+      alert("Veuillez choisir les horaires.");
+      return;
+    }
+
+
+    if (debut >= fin) {
+      alert(
+        "L'heure de fin doit être après l'heure de début."
+      );
+      return;
+    }
+
+
+    const nouvelleActivite = {
+
+      id: Date.now(),
+
+      jour: jour,
+
+      nom: nom,
+
+      debut: debut,
+
+      fin: fin,
+
+      couleur: couleur
+
+    };
+
+
+    planning.push(nouvelleActivite);
+
+    sauvegarder();
+
+    afficherPlanning();
+
+
+    document.getElementById("activite").value = "";
+
+    document.getElementById("debut").value = "";
+
+    document.getElementById("fin").value = "";
+
+  }
+
+
+  function afficherPlanning() {
+
+    const jours = [
+      "lundi",
+      "mardi",
+      "mercredi",
+      "jeudi",
+      "vendredi",
+      "samedi",
+      "dimanche"
+    ];
+
+
+    jours.forEach(function(jour) {
+
+      const zone =
+        document.getElementById(jour);
+
+      zone.innerHTML = "";
+
+
+      const activites =
+        planning
+          .filter(function(item) {
+            return item.jour === jour;
+          })
+          .sort(function(a, b) {
+            return a.debut.localeCompare(b.debut);
+          });
+
+
+      if (activites.length === 0) {
+
+        zone.innerHTML =
+          '<div class="aucune">Aucune activité</div>';
+
+        return;
+
+      }
+
+
+      activites.forEach(function(item) {
+
+        const bloc =
+          document.createElement("div");
+
+        bloc.className = "activite";
+
+        bloc.style.borderLeftColor =
+          item.couleur;
+
+
+        bloc.innerHTML = `
+
+          <strong>${echapper(item.nom)}</strong>
+
+          <div class="heure">
+            🕐 ${item.debut} - ${item.fin}
+          </div>
+
+          <div class="actions">
+
+            <button
+              class="modifier"
+              onclick="modifierActivite(${item.id})">
+              Modifier
+            </button>
+
+            <button
+              class="supprimer"
+              onclick="supprimerActivite(${item.id})">
+              Supprimer
+            </button>
+
+          </div>
+
+        `;
+
+
+        zone.appendChild(bloc);
+
+      });
+
+    });
+
+  }
+
+
+  function supprimerActivite(id) {
+
+    if (
+      !confirm(
+        "Voulez-vous vraiment supprimer cette activité ?"
+      )
+    ) {
+      return;
+    }
+
+
+    planning =
+      planning.filter(function(item) {
+        return item.id !== id;
+      });
+
+
+    sauvegarder();
+
+    afficherPlanning();
+
+  }
+
+
+  function modifierActivite(id) {
+
+    const item =
+      planning.find(function(element) {
+        return element.id === id;
+      });
+
+
+    if (!item) {
+      return;
+    }
+
+
+    document.getElementById("jour").value =
+      item.jour;
+
+    document.getElementById("activite").value =
+      item.nom;
+
+    document.getElementById("debut").value =
+      item.debut;
+
+    document.getElementById("fin").value =
+      item.fin;
+
+    document.getElementById("couleur").value =
+      item.couleur;
+
+
+    planning =
+      planning.filter(function(element) {
+        return element.id !== id;
+      });
+
+
+    sauvegarder();
+
+    afficherPlanning();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+
+
+  function echapper(texte) {
+
+    const div =
+      document.createElement("div");
+
+    div.textContent = texte;
+
+    return div.innerHTML;
+
+  }
+
+
+  afficherPlanning();
+
+</script>
+
+</body>
+</html>
