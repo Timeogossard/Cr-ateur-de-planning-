@@ -25,7 +25,7 @@ body {
 }
 
 header {
-    background: linear-gradient(135deg, var(--principal), var(--secondaire));
+    background: var(--principal);
     color: white;
     text-align: center;
     padding: 25px 15px;
@@ -35,27 +35,31 @@ header h1 {
     margin: 0 0 8px;
 }
 
+header p {
+    margin: 0;
+}
+
 .container {
     max-width: 1200px;
     margin: 25px auto;
     padding: 0 15px;
 }
 
-.card {
+.panel {
     background: white;
-    border-radius: 15px;
     padding: 20px;
+    border-radius: 15px;
     margin-bottom: 20px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
 h2 {
-    color: var(--principal);
+    margin-top: 0;
 }
 
-.form-grid {
+.formulaire {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 12px;
 }
 
@@ -65,277 +69,235 @@ button {
     width: 100%;
     padding: 11px;
     border-radius: 8px;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     font-size: 15px;
 }
 
 button {
-    border: none;
     background: var(--principal);
     color: white;
+    border: none;
     cursor: pointer;
     font-weight: bold;
 }
 
 button:hover {
-    opacity: 0.88;
+    opacity: 0.9;
 }
 
-.buttons {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+.boutons {
+    display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     margin-top: 15px;
 }
 
-/* MODELES */
-
-.modeles {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    gap: 12px;
+.boutons button {
+    width: auto;
 }
 
-.modele {
-    padding: 18px;
-    border-radius: 12px;
-    background: #f5f5f5;
-    cursor: pointer;
-    text-align: center;
-    border: 2px solid transparent;
-    transition: 0.2s;
+.btn-secondaire {
+    background: var(--secondaire);
 }
 
-.modele:hover {
-    border-color: var(--principal);
-    transform: translateY(-2px);
+.btn-pdf {
+    background: #dc2626;
 }
 
-.modele .emoji {
-    font-size: 30px;
-    display: block;
-    margin-bottom: 8px;
+.btn-sombre {
+    background: #222;
 }
-
-.modele small {
-    display: block;
-    margin-top: 5px;
-    color: #666;
-}
-
-.premium-modele {
-    position: relative;
-}
-
-.badge {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: #f59e0b;
-    color: white;
-    padding: 4px 7px;
-    border-radius: 8px;
-    font-size: 11px;
-}
-
-/* NAVIGATION */
 
 .navigation {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.navigation h2 {
-    text-align: center;
-    margin: 0;
-}
-
-.navigation button:last-child {
-    justify-self: end;
-}
-
-.modes {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 10px;
     margin-bottom: 15px;
 }
 
-.modes button {
-    flex: 1;
+.navigation button {
+    width: auto;
+    padding: 10px 18px;
 }
 
-.bouton-actif {
-    background: #111827;
-}
-
-/* CALENDRIER SEMAINE */
-
-.calendrier-semaine {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
-    overflow-x: auto;
-}
-
-.jour {
-    background: #f8f8f8;
-    min-height: 260px;
-    border-radius: 10px;
-    padding: 8px;
-    min-width: 130px;
-}
-
-.jour h3 {
-    margin: 0 0 10px;
+#titrePeriode {
     text-align: center;
-    font-size: 15px;
+    font-size: 22px;
+    font-weight: bold;
 }
 
-.jour-aujourd-hui {
-    border: 3px solid var(--principal);
-}
-
-.activite {
-    color: white;
-    border-radius: 8px;
-    padding: 8px;
-    margin-bottom: 7px;
-    font-size: 13px;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-}
-
-.activite strong {
-    display: block;
-    margin-bottom: 3px;
-}
-
-/* CALENDRIER MOIS */
-
-.calendrier-mois {
+.calendrier {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 5px;
 }
 
-.nom-jour {
+.jour {
+    background: #eee;
+    padding: 10px;
     text-align: center;
     font-weight: bold;
-    padding: 8px;
-    background: var(--principal);
-    color: white;
-    border-radius: 5px;
+    border-radius: 6px;
 }
 
-.case-mois {
-    min-height: 120px;
-    background: #fafafa;
+.case {
+    min-height: 150px;
+    background: white;
+    border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 7px;
-    border: 1px solid #eee;
+    padding: 8px;
 }
 
-.case-aujourd-hui {
+.case.aujourdhui {
     border: 3px solid var(--principal);
 }
 
-.numero-date {
+.date-case {
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 7px;
 }
 
-.activite-mois {
+.activite {
+    padding: 8px;
+    border-radius: 7px;
+    margin-bottom: 7px;
     color: white;
-    padding: 4px;
-    border-radius: 5px;
-    margin-top: 4px;
-    font-size: 11px;
-    cursor: pointer;
+    font-size: 13px;
 }
 
-/* THEMES */
+.activite strong {
+    display: block;
+}
 
-.themes {
+.actions {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.actions button {
+    padding: 5px;
+    font-size: 12px;
+    width: 50%;
+}
+
+.btn-modifier {
+    background: #2563eb;
+}
+
+.btn-supprimer {
+    background: #dc2626;
+}
+
+.templates {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 10px;
 }
 
-.theme {
-    cursor: pointer;
+.template {
     padding: 15px;
+    background: #f3f4f6;
     border-radius: 10px;
     text-align: center;
-    color: white;
-    font-weight: bold;
+    cursor: pointer;
+    border: 2px solid transparent;
 }
 
-.violet { background: #7c3aed; }
-.bleu { background: #2563eb; }
-.vert { background: #16a34a; }
-.orange { background: #ea580c; }
-.rose { background: #db2777; }
-.sombre { background: #111827; }
-
-/* PREMIUM */
+.template:hover {
+    border-color: var(--principal);
+}
 
 .premium {
-    background: linear-gradient(135deg, #111827, #374151);
-    color: white;
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border: 2px solid #f59e0b;
 }
 
-.premium h2 {
-    color: white;
+.theme-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.premium ul {
-    line-height: 1.8;
+.theme-buttons button {
+    width: auto;
 }
 
-/* IMPRESSION */
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+}
 
+/* Impression / PDF */
 @media print {
-    header,
-    .card:not(.calendrier-card),
-    button,
-    .form-grid,
-    .navigation,
-    .modes {
-        display: none !important;
-    }
 
     body {
         background: white;
     }
 
-    .container {
-        max-width: 100%;
+    header {
+        background: white;
+        color: black;
+        border-bottom: 2px solid #222;
     }
 
-    .card {
+    .no-print,
+    .formulaire,
+    .boutons,
+    .templates,
+    footer {
+        display: none !important;
+    }
+
+    .container {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .panel {
         box-shadow: none;
+        border: none;
+        padding: 5px;
+        margin: 0 0 10px;
+    }
+
+    .calendrier {
+        gap: 3px;
+    }
+
+    .case {
+        min-height: 120px;
+        break-inside: avoid;
+    }
+
+    #titrePeriode {
+        margin: 10px 0;
     }
 }
 
 @media (max-width: 700px) {
 
-    .navigation {
+    .calendrier {
         grid-template-columns: 1fr;
     }
 
-    .navigation h2 {
-        order: -1;
+    .jour {
+        display: none;
     }
 
-    .calendrier-mois {
-        min-width: 700px;
+    .case {
+        min-height: 120px;
     }
 
-    .calendrier-semaine {
-        grid-template-columns: repeat(7, 130px);
+    .navigation {
+        flex-direction: column;
+    }
+
+    .navigation button {
+        width: 100%;
     }
 }
 </style>
@@ -345,1649 +307,1014 @@ button:hover {
 
 <header>
     <h1>📅 Mon Créateur de Planning</h1>
-    <p>Organise facilement tes journées, semaines et mois</p>
+    <p>Organise facilement tes journées, semaines et mois.</p>
 </header>
 
 <div class="container">
 
-<!-- MODELES -->
+    <!-- FORMULAIRE -->
+    <div class="panel no-print">
+        <h2>➕ Ajouter une activité</h2>
+
+        <div class="formulaire">
+
+            <input
+                type="text"
+                id="nom"
+                placeholder="Nom de l'activité"
+            >
+
+            <input
+                type="date"
+                id="date"
+            >
+
+            <input
+                type="time"
+                id="debut"
+            >
+
+            <input
+                type="time"
+                id="fin"
+            >
+
+            <input
+                type="color"
+                id="couleur"
+                value="#7c3aed"
+            >
+
+            <select id="repetition">
+                <option value="aucune">Aucune répétition</option>
+                <option value="quotidienne">Tous les jours</option>
+                <option value="hebdomadaire">Toutes les semaines</option>
+                <option value="mensuelle">Tous les mois</option>
+            </select>
+
+            <select id="nombreRepetitions">
+                <option value="1">1 occurrence</option>
+                <option value="2">2 occurrences</option>
+                <option value="3">3 occurrences</option>
+                <option value="4">4 occurrences</option>
+                <option value="5">5 occurrences</option>
+                <option value="6">6 occurrences</option>
+                <option value="7">7 occurrences</option>
+                <option value="8">8 occurrences</option>
+                <option value="9">9 occurrences</option>
+                <option value="10">10 occurrences</option>
+                <option value="11">11 occurrences</option>
+                <option value="12">12 occurrences</option>
+            </select>
 
-<div class="card">
+        </div>
 
-<h2>📋 Modèles de planning</h2>
+        <div class="boutons">
+            <button onclick="ajouterActivite()">➕ Ajouter</button>
+            <button class="btn-secondaire" onclick="viderFormulaire()">
+                🧹 Vider
+            </button>
+        </div>
+    </div>
 
-<p>Choisis un modèle pour remplir automatiquement ta semaine.</p>
+    <!-- NAVIGATION -->
+    <div class="panel">
 
-<div class="modeles">
+        <div class="navigation">
 
-<div class="modele" onclick="chargerModele('etudiant')">
-<span class="emoji">🎓</span>
-<strong>Étudiant</strong>
-<small>Cours et organisation</small>
-</div>
-
-<div class="modele" onclick="chargerModele('revision')">
-<span class="emoji">📚</span>
-<strong>Révisions</strong>
-<small>Organise tes révisions</small>
-</div>
+            <button onclick="precedent()">⬅️ Précédent</button>
 
-<div class="modele" onclick="chargerModele('sport')">
-<span class="emoji">🏋️</span>
-<strong>Sport</strong>
-<small>Planning sportif</small>
-</div>
+            <div id="titrePeriode"></div>
 
-<div class="modele" onclick="chargerModele('organisation')">
-<span class="emoji">🏠</span>
-<strong>Organisation</strong>
-<small>Organise ta semaine</small>
-</div>
+            <button onclick="suivant()">Suivant ➡️</button>
 
-<div class="modele premium-modele" onclick="modelePremium()">
-<span class="badge">PREMIUM</span>
-<span class="emoji">✨</span>
-<strong>Planning personnalisé</strong>
-<small>Modèle avancé</small>
-</div>
+        </div>
 
-</div>
-</div>
+        <div class="boutons no-print">
 
+            <button onclick="aujourdHui()">
+                📍 Aujourd'hui
+            </button>
 
-<!-- AJOUT ACTIVITE -->
+            <button onclick="changerMode('semaine')">
+                📆 Vue semaine
+            </button>
 
-<div class="card">
+            <button onclick="changerMode('mois')">
+                ⭐ Vue mois
+            </button>
 
-<h2>➕ Ajouter une activité</h2>
+            <button class="btn-pdf" onclick="exporterPDF()">
+                📄 Exporter en PDF
+            </button>
 
-<div class="form-grid">
+        </div>
 
-<input
-type="text"
-id="nom"
-placeholder="Nom de l'activité"
->
+    </div>
 
-<input
-type="date"
-id="date"
->
+    <!-- CALENDRIER -->
+    <div class="panel">
+        <div id="calendrier"></div>
+    </div>
 
-<input
-type="time"
-id="debut"
-value="09:00"
->
+    <!-- MODÈLES -->
+    <div class="panel no-print">
 
-<input
-type="time"
-id="fin"
-value="10:00"
->
+        <h2>📋 Modèles de planning</h2>
 
-<input
-type="color"
-id="couleur"
-value="#7c3aed"
->
+        <div class="templates">
 
-<select id="repetition">
+            <div class="template" onclick="chargerModele('etudiant')">
+                🎓<br>
+                <strong>Étudiant</strong>
+            </div>
 
-<option value="aucune">
-🔵 Aucune répétition
-</option>
+            <div class="template" onclick="chargerModele('revision')">
+                📚<br>
+                <strong>Révisions</strong>
+            </div>
 
-<option value="quotidienne">
-🔁 Tous les jours
-</option>
+            <div class="template" onclick="chargerModele('sport')">
+                🏋️<br>
+                <strong>Sport</strong>
+            </div>
 
-<option value="hebdomadaire">
-📆 Toutes les semaines
-</option>
+            <div class="template" onclick="chargerModele('organisation')">
+                💼<br>
+                <strong>Organisation</strong>
+            </div>
 
-<option value="mensuelle">
-🗓️ Tous les mois
-</option>
+            <div class="template premium" onclick="modelePremium()">
+                ⭐<br>
+                <strong>Modèle Premium</strong>
+            </div>
 
-</select>
+        </div>
 
-<select id="nombreRepetitions">
+    </div>
 
-<option value="1">1 occurrence</option>
-<option value="2">2 occurrences</option>
-<option value="3">3 occurrences</option>
-<option value="4">4 occurrences</option>
-<option value="5">5 occurrences</option>
-<option value="6">6 occurrences</option>
-<option value="7">7 occurrences</option>
-<option value="8">8 occurrences</option>
-<option value="9">9 occurrences</option>
-<option value="10">10 occurrences</option>
-<option value="11">11 occurrences</option>
-<option value="12">12 occurrences</option>
+    <!-- THÈMES -->
+    <div class="panel no-print">
 
-</select>
+        <h2>🎨 Thèmes</h2>
 
-</div>
+        <div class="theme-buttons">
 
-<div class="buttons">
+            <button onclick="changerTheme('violet')">
+                🟣 Violet
+            </button>
 
-<button onclick="ajouterActivite()">
-➕ Ajouter
-</button>
+            <button onclick="changerTheme('bleu')">
+                🔵 Bleu
+            </button>
 
-<button onclick="imprimerPlanning()">
-🖨️ Imprimer
-</button>
+            <button onclick="changerTheme('vert')">
+                🟢 Vert
+            </button>
 
-</div>
+            <button onclick="changerTheme('orange')">
+                🟠 Orange
+            </button>
 
-</div>
+            <button onclick="changerTheme('rose')">
+                🌸 Rose
+            </button>
 
+            <button onclick="changerTheme('sombre')">
+                🌙 Sombre
+            </button>
 
-<!-- NAVIGATION -->
+        </div>
 
-<div class="card">
+    </div>
 
-<div class="modes">
+    <!-- PREMIUM -->
+    <div class="panel premium no-print">
 
-<button id="btnSemaine" onclick="changerMode('semaine')">
-📆 Vue semaine
-</button>
+        <h2>⭐ Version Premium</h2>
 
-<button id="btnMois" onclick="changerMode('mois')">
-⭐ Vue mois
-</button>
+        <p>
+            Débloque prochainement encore plus de fonctionnalités :
+        </p>
 
-</div>
+        <ul>
+            <li>📅 Plusieurs plannings</li>
+            <li>🎨 Plus de thèmes</li>
+            <li>📋 Plus de modèles</li>
+            <li>🔁 Répétitions avancées</li>
+            <li>📄 Export PDF amélioré</li>
+            <li>✨ Personnalisation avancée</li>
+        </ul>
 
-<div class="navigation">
+        <button onclick="alert('La version Premium sera disponible prochainement !')">
+            ⭐ Découvrir Premium
+        </button>
 
-<button onclick="precedent()">
-◀ Précédent
-</button>
-
-<h2 id="titreCalendrier"></h2>
-
-<button onclick="suivant()">
-Suivant ▶
-</button>
-
-</div>
-
-<button onclick="aujourdHui()">
-📍 Aujourd'hui
-</button>
-
-</div>
-
-
-<!-- CALENDRIER -->
-
-<div class="card calendrier-card">
-
-<div id="calendrier"></div>
-
-</div>
-
-
-<!-- THEMES -->
-
-<div class="card">
-
-<h2>🎨 Thèmes</h2>
-
-<p>Choisis le style de ton planning.</p>
-
-<div class="themes">
-
-<div class="theme violet" onclick="changerTheme('violet')">
-💜 Violet
-</div>
-
-<div class="theme bleu" onclick="changerTheme('bleu')">
-💙 Bleu
-</div>
-
-<div class="theme vert" onclick="changerTheme('vert')">
-💚 Vert
-</div>
-
-<div class="theme orange" onclick="changerTheme('orange')">
-🧡 Orange
-</div>
-
-<div class="theme rose" onclick="changerTheme('rose')">
-💗 Rose
-</div>
-
-<div class="theme sombre" onclick="changerTheme('sombre')">
-🖤 Sombre
-</div>
+    </div>
 
 </div>
 
-</div>
-
-
-<!-- PREMIUM -->
-
-<div class="card premium">
-
-<h2>⭐ Version Premium</h2>
-
-<p>
-Des fonctionnalités supplémentaires pourront être proposées
-dans une future version Premium.
-</p>
-
-<ul>
-
-<li>📆 Vue mensuelle</li>
-
-<li>🎨 Thèmes personnalisés</li>
-
-<li>📋 Modèles supplémentaires</li>
-
-<li>🔁 Activités récurrentes</li>
-
-<li>📄 Export PDF</li>
-
-<li>📚 Plusieurs plannings</li>
-
-</ul>
-
-</div>
-
-</div>
+<footer>
+    Mon Créateur de Planning © 2026
+</footer>
 
 
 <script>
 
-/* =========================
-DONNEES
-========================= */
-
-let activites =
-JSON.parse(localStorage.getItem("monPlanning")) || [];
-
-let mode = "semaine";
+let activites = JSON.parse(localStorage.getItem("monPlanning")) || [];
 
 let dateActuelle = new Date();
 
+let mode = "semaine";
+
 
 /* =========================
-OUTILS
+   OUTILS
 ========================= */
 
 function formatDate(date) {
 
-let annee = date.getFullYear();
+    const annee = date.getFullYear();
+    const mois = String(date.getMonth() + 1).padStart(2, "0");
+    const jour = String(date.getDate()).padStart(2, "0");
 
-let mois =
-String(date.getMonth() + 1).padStart(2,"0");
-
-let jour =
-String(date.getDate()).padStart(2,"0");
-
-return `${annee}-${mois}-${jour}`;
-
+    return `${annee}-${mois}-${jour}`;
 }
 
 
 function obtenirLundi(date) {
 
-let d = new Date(date);
+    const d = new Date(date);
 
-let jour = d.getDay();
+    const jour = d.getDay();
 
-let difference =
-jour === 0 ? -6 : 1 - jour;
+    const difference = jour === 0 ? -6 : 1 - jour;
 
-d.setDate(
-d.getDate() + difference
-);
+    d.setDate(d.getDate() + difference);
 
-d.setHours(0,0,0,0);
+    d.setHours(0, 0, 0, 0);
 
-return d;
-
+    return d;
 }
 
 
 function sauvegarder() {
 
-localStorage.setItem(
-"monPlanning",
-JSON.stringify(activites)
-);
-
+    localStorage.setItem(
+        "monPlanning",
+        JSON.stringify(activites)
+    );
 }
 
 
 /* =========================
-AJOUT ACTIVITE
+   AJOUT
 ========================= */
 
 function ajouterActivite() {
 
-let nom =
-document.getElementById("nom").value.trim();
+    const nom = document.getElementById("nom").value.trim();
+    const dateBase = document.getElementById("date").value;
+    const debut = document.getElementById("debut").value;
+    const fin = document.getElementById("fin").value;
+    const couleur = document.getElementById("couleur").value;
+    const repetition = document.getElementById("repetition").value;
+    const nombre = parseInt(
+        document.getElementById("nombreRepetitions").value
+    );
 
-let date =
-document.getElementById("date").value;
+    if (!nom || !dateBase || !debut || !fin) {
 
-let debut =
-document.getElementById("debut").value;
+        alert("Veuillez remplir tous les champs importants.");
 
-let fin =
-document.getElementById("fin").value;
+        return;
+    }
 
-let couleur =
-document.getElementById("couleur").value;
+    const dateDepart = new Date(dateBase + "T00:00:00");
 
-let repetition =
-document.getElementById("repetition").value;
+    for (let i = 0; i < nombre; i++) {
 
-let nombre =
-parseInt(
-document.getElementById("nombreRepetitions").value
-);
+        const nouvelleDate = new Date(dateDepart);
 
-if (!nom || !date || !debut || !fin) {
+        if (repetition === "quotidienne") {
 
-alert("⚠️ Remplis tous les champs.");
+            nouvelleDate.setDate(
+                dateDepart.getDate() + i
+            );
 
-return;
+        } else if (repetition === "hebdomadaire") {
 
-}
+            nouvelleDate.setDate(
+                dateDepart.getDate() + i * 7
+            );
 
+        } else if (repetition === "mensuelle") {
 
-/* Première activité */
+            nouvelleDate.setMonth(
+                dateDepart.getMonth() + i
+            );
+        }
 
-let dateBase =
-new Date(date + "T00:00:00");
+        activites.push({
 
+            id: Date.now() + i + Math.random(),
 
-/* Création des répétitions */
+            nom: nom,
 
-for (
-let i = 0;
-i < nombre;
-i++
-) {
+            date: formatDate(nouvelleDate),
 
-let nouvelleDate =
-new Date(dateBase);
+            debut: debut,
 
+            fin: fin,
 
-if (repetition === "quotidienne") {
+            couleur: couleur,
 
-nouvelleDate.setDate(
-dateBase.getDate() + i
-);
+            repetition: repetition
 
-}
+        });
+    }
 
+    sauvegarder();
 
-else if (
-repetition === "hebdomadaire"
-) {
+    viderFormulaire();
 
-nouvelleDate.setDate(
-dateBase.getDate() + i * 7
-);
-
-}
-
-
-else if (
-repetition === "mensuelle"
-) {
-
-nouvelleDate.setMonth(
-dateBase.getMonth() + i
-);
-
-}
-
-
-activites.push({
-
-id:
-Date.now() +
-Math.random(),
-
-nom: nom,
-
-date:
-formatDate(nouvelleDate),
-
-debut: debut,
-
-fin: fin,
-
-couleur: couleur,
-
-repetition: repetition
-
-});
-
-}
-
-
-sauvegarder();
-
-
-document.getElementById("nom").value = "";
-
-
-afficher();
-
-
-alert(
-"✅ Activité ajoutée avec succès !"
-);
-
+    afficher();
 }
 
 
 /* =========================
-SUPPRIMER
+   SUPPRESSION
 ========================= */
 
 function supprimerActivite(id) {
 
-if (
-!confirm(
-"Supprimer cette activité ?"
-)
-) {
+    if (!confirm("Supprimer cette activité ?")) {
+        return;
+    }
 
-return;
+    activites = activites.filter(
+        activite => activite.id !== id
+    );
 
-}
+    sauvegarder();
 
-
-activites =
-activites.filter(
-activite =>
-activite.id !== id
-);
-
-
-sauvegarder();
-
-afficher();
-
+    afficher();
 }
 
 
 /* =========================
-MODIFIER
+   MODIFICATION
 ========================= */
 
 function modifierActivite(id) {
 
-let activite =
-activites.find(
-activite =>
-activite.id === id
-);
+    const activite = activites.find(
+        a => a.id === id
+    );
 
-if (!activite) return;
+    if (!activite) return;
 
+    document.getElementById("nom").value = activite.nom;
+    document.getElementById("date").value = activite.date;
+    document.getElementById("debut").value = activite.debut;
+    document.getElementById("fin").value = activite.fin;
+    document.getElementById("couleur").value = activite.couleur;
+    document.getElementById("repetition").value = "aucune";
+    document.getElementById("nombreRepetitions").value = "1";
 
-document.getElementById("nom").value =
-activite.nom;
+    activites = activites.filter(
+        a => a.id !== id
+    );
 
-document.getElementById("date").value =
-activite.date;
+    sauvegarder();
 
-document.getElementById("debut").value =
-activite.debut;
+    afficher();
 
-document.getElementById("fin").value =
-activite.fin;
-
-document.getElementById("couleur").value =
-activite.couleur;
-
-document.getElementById("repetition").value =
-"aucune";
-
-document.getElementById("nombreRepetitions").value =
-"1";
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
 
 
-activites =
-activites.filter(
-item =>
-item.id !== id
-);
+function viderFormulaire() {
 
+    document.getElementById("nom").value = "";
+    document.getElementById("date").value = "";
+    document.getElementById("debut").value = "";
+    document.getElementById("fin").value = "";
 
-sauvegarder();
+    document.getElementById("repetition").value = "aucune";
 
-afficher();
-
-
-window.scrollTo({
-
-top: 0,
-
-behavior: "smooth"
-
-});
-
+    document.getElementById("nombreRepetitions").value = "1";
 }
 
 
 /* =========================
-SEMAINE
+   ACTIVITÉS
+========================= */
+
+function afficherActivite(activite) {
+
+    const repetitionTexte =
+        activite.repetition &&
+        activite.repetition !== "aucune"
+            ? " 🔁"
+            : "";
+
+    return `
+        <div
+            class="activite"
+            style="background:${activite.couleur}"
+        >
+
+            <strong>
+                ${activite.nom}${repetitionTexte}
+            </strong>
+
+            <span>
+                ${activite.debut} - ${activite.fin}
+            </span>
+
+            <div class="actions no-print">
+
+                <button
+                    class="btn-modifier"
+                    onclick="modifierActivite(${activite.id})"
+                >
+                    ✏️
+                </button>
+
+                <button
+                    class="btn-supprimer"
+                    onclick="supprimerActivite(${activite.id})"
+                >
+                    🗑️
+                </button>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =========================
+   VUE SEMAINE
 ========================= */
 
 function afficherSemaine() {
 
-let lundi =
-obtenirLundi(dateActuelle);
-
-
-let nomsJours = [
-
-"Lundi",
-"Mardi",
-"Mercredi",
-"Jeudi",
-"Vendredi",
-"Samedi",
-"Dimanche"
-
-];
-
-
-let html =
-`<div class="calendrier-semaine">`;
-
-
-for (
-let i = 0;
-i < 7;
-i++
-) {
-
-let jour =
-new Date(lundi);
-
-
-jour.setDate(
-lundi.getDate() + i
-);
-
-
-let dateString =
-formatDate(jour);
-
-
-let dateAffichee =
-jour.toLocaleDateString(
-"fr-FR",
-{
-day:"numeric",
-month:"short"
-}
-);
-
-
-let aujourd =
-dateString ===
-formatDate(new Date());
-
-
-html += `
-
-<div class="jour ${
-aujourd
-? "jour-aujourd-hui"
-: ""
-}">
-
-<h3>
-
-${nomsJours[i]}<br>
-
-${dateAffichee}
-
-</h3>
-
-`;
-
-
-let duJour =
-activites
-.filter(
-activite =>
-activite.date === dateString
-)
-.sort(
-(a,b) =>
-a.debut.localeCompare(
-b.debut
-)
-);
-
-
-if (
-duJour.length === 0
-) {
-
-html += `
-
-<p style="
-text-align:center;
-color:#999;
-">
-
-Aucune activité
-
-</p>
-
-`;
-
-}
-
-
-else {
-
-duJour.forEach(
-activite => {
-
-let badgeRepetition =
-activite.repetition &&
-activite.repetition !== "aucune"
-? " 🔁"
-: "";
-
-
-html += `
-
-<div
-
-class="activite"
-
-style="
-background:${activite.couleur}
-"
-
-onclick="
-modifierActivite(${activite.id})
-"
-
->
-
-<strong>
-
-${activite.nom}
-${badgeRepetition}
-
-</strong>
-
-🕐
-${activite.debut}
--
-${activite.fin}
-
-<br><br>
-
-<span
-
-onclick="
-event.stopPropagation();
-supprimerActivite(${activite.id})
-"
-
-style="
-cursor:pointer;
-"
-
->
-
-🗑️ Supprimer
-
-</span>
-
-</div>
-
-`;
-
-});
-
-}
-
-
-html += `</div>`;
-
-}
-
-
-html += `</div>`;
-
-
-document.getElementById(
-"calendrier"
-).innerHTML = html;
-
+    const calendrier =
+        document.getElementById("calendrier");
+
+    const lundi = obtenirLundi(dateActuelle);
+
+    const nomsJours = [
+        "Lundi",
+        "Mardi",
+        "Mercredi",
+        "Jeudi",
+        "Vendredi",
+        "Samedi",
+        "Dimanche"
+    ];
+
+    const aujourdhui = formatDate(new Date());
+
+    let html = `
+        <div class="calendrier">
+
+            ${nomsJours.map(jour => `
+                <div class="jour">
+                    ${jour}
+                </div>
+            `).join("")}
+    `;
+
+    for (let i = 0; i < 7; i++) {
+
+        const date = new Date(lundi);
+
+        date.setDate(lundi.getDate() + i);
+
+        const dateString = formatDate(date);
+
+        const activitesJour =
+            activites.filter(
+                a => a.date === dateString
+            );
+
+        html += `
+            <div class="case ${
+                dateString === aujourdhui
+                    ? "aujourdhui"
+                    : ""
+            }">
+
+                <div class="date-case">
+                    ${date.getDate()}/${date.getMonth() + 1}
+                </div>
+
+                ${
+                    activitesJour.length
+                        ? activitesJour
+                            .sort((a,b) =>
+                                a.debut.localeCompare(b.debut)
+                            )
+                            .map(afficherActivite)
+                            .join("")
+                        : "<small>Aucune activité</small>"
+                }
+
+            </div>
+        `;
+    }
+
+    html += `</div>`;
+
+    calendrier.innerHTML = html;
+
+    document.getElementById("titrePeriode").textContent =
+        `Semaine du ${lundi.getDate()} ${
+            lundi.toLocaleDateString("fr-FR", {
+                month: "long"
+            })
+        } ${lundi.getFullYear()}`;
 }
 
 
 /* =========================
-MOIS
+   VUE MOIS
 ========================= */
 
 function afficherMois() {
 
-let annee =
-dateActuelle.getFullYear();
+    const calendrier =
+        document.getElementById("calendrier");
 
-let mois =
-dateActuelle.getMonth();
+    const annee = dateActuelle.getFullYear();
+    const mois = dateActuelle.getMonth();
 
+    const premierJour = new Date(
+        annee,
+        mois,
+        1
+    );
 
-let premierJour =
-new Date(
-annee,
-mois,
-1
-);
+    const dernierJour = new Date(
+        annee,
+        mois + 1,
+        0
+    );
 
+    let debutSemaine = premierJour.getDay();
 
-let dernierJour =
-new Date(
-annee,
-mois + 1,
-0
-);
+    debutSemaine =
+        debutSemaine === 0
+            ? 6
+            : debutSemaine - 1;
 
+    const nombreJours = dernierJour.getDate();
 
-let debut =
-premierJour.getDay();
+    const aujourdhui = formatDate(new Date());
 
-debut =
-debut === 0
-? 6
-: debut - 1;
+    let html = `
+        <div class="calendrier">
 
+            <div class="jour">Lun</div>
+            <div class="jour">Mar</div>
+            <div class="jour">Mer</div>
+            <div class="jour">Jeu</div>
+            <div class="jour">Ven</div>
+            <div class="jour">Sam</div>
+            <div class="jour">Dim</div>
+    `;
 
-let html =
-`<div class="calendrier-mois">`;
+    for (let i = 0; i < debutSemaine; i++) {
 
+        html += `<div class="case"></div>`;
+    }
 
-let noms = [
+    for (let jour = 1; jour <= nombreJours; jour++) {
 
-"Lun",
-"Mar",
-"Mer",
-"Jeu",
-"Ven",
-"Sam",
-"Dim"
+        const date = new Date(
+            annee,
+            mois,
+            jour
+        );
 
-];
+        const dateString = formatDate(date);
 
+        const activitesJour =
+            activites.filter(
+                a => a.date === dateString
+            );
 
-noms.forEach(
-nom => {
+        html += `
+            <div class="case ${
+                dateString === aujourdhui
+                    ? "aujourdhui"
+                    : ""
+            }">
 
-html += `
+                <div class="date-case">
+                    ${jour}
+                </div>
 
-<div class="nom-jour">
-${nom}
-</div>
+                ${
+                    activitesJour.length
+                        ? activitesJour
+                            .sort((a,b) =>
+                                a.debut.localeCompare(b.debut)
+                            )
+                            .map(afficherActivite)
+                            .join("")
+                        : ""
+                }
 
-`;
+            </div>
+        `;
+    }
 
-});
+    html += `</div>`;
 
+    calendrier.innerHTML = html;
 
-for (
-let i = 0;
-i < debut;
-i++
-) {
-
-html += `<div></div>`;
-
-}
-
-
-for (
-let jour = 1;
-jour <= dernierJour.getDate();
-jour++
-) {
-
-let date =
-new Date(
-annee,
-mois,
-jour
-);
-
-
-let dateString =
-formatDate(date);
-
-
-let aujourd =
-dateString ===
-formatDate(new Date());
-
-
-html += `
-
-<div class="case-mois ${
-aujourd
-? "case-aujourd-hui"
-: ""
-}">
-
-<div class="numero-date">
-
-${jour}
-
-</div>
-
-`;
-
-
-let duJour =
-activites.filter(
-activite =>
-activite.date === dateString
-);
-
-
-duJour.forEach(
-activite => {
-
-let badgeRepetition =
-activite.repetition &&
-activite.repetition !== "aucune"
-? " 🔁"
-: "";
-
-
-html += `
-
-<div
-
-class="activite-mois"
-
-style="
-background:${activite.couleur}
-"
-
-onclick="
-modifierActivite(${activite.id})
-"
-
->
-
-${activite.debut}
-${activite.nom}
-${badgeRepetition}
-
-</div>
-
-`;
-
-});
-
-
-html += `</div>`;
-
-}
-
-
-html += `</div>`;
-
-
-document.getElementById(
-"calendrier"
-).innerHTML = html;
-
+    document.getElementById("titrePeriode").textContent =
+        dateActuelle.toLocaleDateString(
+            "fr-FR",
+            {
+                month: "long",
+                year: "numeric"
+            }
+        );
 }
 
 
 /* =========================
-AFFICHAGE
+   AFFICHAGE
 ========================= */
 
 function afficher() {
 
-let titre =
-document.getElementById(
-"titreCalendrier"
-);
+    if (mode === "semaine") {
 
+        afficherSemaine();
 
-if (
-mode === "semaine"
-) {
+    } else {
 
-let lundi =
-obtenirLundi(
-dateActuelle
-);
+        afficherMois();
 
-
-let dimanche =
-new Date(lundi);
-
-
-dimanche.setDate(
-lundi.getDate() + 6
-);
-
-
-let debut =
-lundi.toLocaleDateString(
-"fr-FR",
-{
-day:"numeric",
-month:"long"
-}
-);
-
-
-let fin =
-dimanche.toLocaleDateString(
-"fr-FR",
-{
-day:"numeric",
-month:"long",
-year:"numeric"
-}
-);
-
-
-titre.innerText =
-`${debut} → ${fin}`;
-
-
-afficherSemaine();
-
-
-document
-.getElementById(
-"btnSemaine"
-)
-.classList.add(
-"bouton-actif"
-);
-
-
-document
-.getElementById(
-"btnMois"
-)
-.classList.remove(
-"bouton-actif"
-);
-
-}
-
-
-else {
-
-titre.innerText =
-dateActuelle.toLocaleDateString(
-"fr-FR",
-{
-month:"long",
-year:"numeric"
-}
-);
-
-
-afficherMois();
-
-
-document
-.getElementById(
-"btnMois"
-)
-.classList.add(
-"bouton-actif"
-);
-
-
-document
-.getElementById(
-"btnSemaine"
-)
-.classList.remove(
-"bouton-actif"
-);
-
-}
-
+    }
 }
 
 
 /* =========================
-MODE
+   MODES
 ========================= */
 
-function changerMode(
-nouveauMode
-) {
+function changerMode(nouveauMode) {
 
-mode =
-nouveauMode;
+    mode = nouveauMode;
 
-afficher();
-
+    afficher();
 }
 
 
 /* =========================
-PRECEDENT
+   NAVIGATION
 ========================= */
 
 function precedent() {
 
-if (
-mode === "semaine"
-) {
+    if (mode === "semaine") {
 
-dateActuelle.setDate(
-dateActuelle.getDate() - 7
-);
+        dateActuelle.setDate(
+            dateActuelle.getDate() - 7
+        );
 
+    } else {
+
+        dateActuelle.setMonth(
+            dateActuelle.getMonth() - 1
+        );
+    }
+
+    afficher();
 }
 
-else {
-
-dateActuelle.setMonth(
-dateActuelle.getMonth() - 1
-);
-
-}
-
-afficher();
-
-}
-
-
-/* =========================
-SUIVANT
-========================= */
 
 function suivant() {
 
-if (
-mode === "semaine"
-) {
+    if (mode === "semaine") {
 
-dateActuelle.setDate(
-dateActuelle.getDate() + 7
-);
+        dateActuelle.setDate(
+            dateActuelle.getDate() + 7
+        );
 
+    } else {
+
+        dateActuelle.setMonth(
+            dateActuelle.getMonth() + 1
+        );
+    }
+
+    afficher();
 }
 
-else {
-
-dateActuelle.setMonth(
-dateActuelle.getMonth() + 1
-);
-
-}
-
-afficher();
-
-}
-
-
-/* =========================
-AUJOURD'HUI
-========================= */
 
 function aujourdHui() {
 
-dateActuelle =
-new Date();
+    dateActuelle = new Date();
 
-afficher();
+    afficher();
+}
+
+
+/* =========================
+   EXPORT PDF
+========================= */
+
+function exporterPDF() {
+
+    window.print();
 
 }
 
 
 /* =========================
-THEMES
+   THÈMES
 ========================= */
 
 function changerTheme(theme) {
 
-let root =
-document.documentElement;
+    const root =
+        document.documentElement;
 
+    if (theme === "violet") {
 
-if (
-theme === "violet"
-) {
+        root.style.setProperty(
+            "--principal",
+            "#7c3aed"
+        );
 
-root.style.setProperty(
-"--principal",
-"#7c3aed"
-);
+        root.style.setProperty(
+            "--secondaire",
+            "#a78bfa"
+        );
 
-root.style.setProperty(
-"--secondaire",
-"#a78bfa"
-);
+        root.style.setProperty(
+            "--fond",
+            "#f5f3ff"
+        );
 
-root.style.setProperty(
-"--fond",
-"#f5f3ff"
-);
+        root.style.setProperty(
+            "--texte",
+            "#222"
+        );
 
-}
+    }
 
+    if (theme === "bleu") {
 
-if (
-theme === "bleu"
-) {
+        root.style.setProperty(
+            "--principal",
+            "#2563eb"
+        );
 
-root.style.setProperty(
-"--principal",
-"#2563eb"
-);
+        root.style.setProperty(
+            "--secondaire",
+            "#60a5fa"
+        );
 
-root.style.setProperty(
-"--secondaire",
-"#60a5fa"
-);
+        root.style.setProperty(
+            "--fond",
+            "#eff6ff"
+        );
 
-root.style.setProperty(
-"--fond",
-"#eff6ff"
-);
+    }
 
-}
+    if (theme === "vert") {
 
+        root.style.setProperty(
+            "--principal",
+            "#16a34a"
+        );
 
-if (
-theme === "vert"
-) {
+        root.style.setProperty(
+            "--secondaire",
+            "#4ade80"
+        );
 
-root.style.setProperty(
-"--principal",
-"#16a34a"
-);
+        root.style.setProperty(
+            "--fond",
+            "#f0fdf4"
+        );
 
-root.style.setProperty(
-"--secondaire",
-"#4ade80"
-);
+    }
 
-root.style.setProperty(
-"--fond",
-"#f0fdf4"
-);
+    if (theme === "orange") {
 
-}
+        root.style.setProperty(
+            "--principal",
+            "#ea580c"
+        );
 
+        root.style.setProperty(
+            "--secondaire",
+            "#fb923c"
+        );
 
-if (
-theme === "orange"
-) {
+        root.style.setProperty(
+            "--fond",
+            "#fff7ed"
+        );
 
-root.style.setProperty(
-"--principal",
-"#ea580c"
-);
+    }
 
-root.style.setProperty(
-"--secondaire",
-"#fb923c"
-);
+    if (theme === "rose") {
 
-root.style.setProperty(
-"--fond",
-"#fff7ed"
-);
+        root.style.setProperty(
+            "--principal",
+            "#db2777"
+        );
 
-}
+        root.style.setProperty(
+            "--secondaire",
+            "#f472b6"
+        );
 
+        root.style.setProperty(
+            "--fond",
+            "#fdf2f8"
+        );
 
-if (
-theme === "rose"
-) {
+    }
 
-root.style.setProperty(
-"--principal",
-"#db2777"
-);
+    if (theme === "sombre") {
 
-root.style.setProperty(
-"--secondaire",
-"#f472b6"
-);
+        root.style.setProperty(
+            "--principal",
+            "#111827"
+        );
 
-root.style.setProperty(
-"--fond",
-"#fdf2f8"
-);
+        root.style.setProperty(
+            "--secondaire",
+            "#374151"
+        );
 
-}
+        root.style.setProperty(
+            "--fond",
+            "#1f2937"
+        );
 
+        root.style.setProperty(
+            "--texte",
+            "#ffffff"
+        );
+    }
 
-if (
-theme === "sombre"
-) {
-
-root.style.setProperty(
-"--principal",
-"#111827"
-);
-
-root.style.setProperty(
-"--secondaire",
-"#374151"
-);
-
-root.style.setProperty(
-"--fond",
-"#e5e7eb"
-);
-
-}
-
-
-localStorage.setItem(
-"themePlanning",
-theme
-);
-
+    localStorage.setItem(
+        "themePlanning",
+        theme
+    );
 }
 
 
 /* =========================
-MODELES
+   MODÈLES
 ========================= */
 
 function chargerModele(type) {
 
-let lundi =
-obtenirLundi(
-dateActuelle
-);
+    if (
+        !confirm(
+            "Attention : ce modèle remplacera les activités actuelles de cette semaine. Continuer ?"
+        )
+    ) {
+        return;
+    }
 
+    const lundi = obtenirLundi(
+        dateActuelle
+    );
 
-let nouveauPlanning = [];
+    activites = [];
 
+    let modeles = [];
 
-if (
-type === "etudiant"
-) {
+    if (type === "etudiant") {
 
-nouveauPlanning = [
+        modeles = [
+            ["Cours", 0, "09:00", "11:00"],
+            ["Déjeuner", 0, "12:00", "13:00"],
+            ["Cours", 1, "09:00", "12:00"],
+            ["Révisions", 2, "17:00", "18:30"],
+            ["Sport", 3, "18:00", "19:00"],
+            ["Devoirs", 4, "17:00", "19:00"]
+        ];
+    }
 
-[
-"Maths",
-0,
-"08:00",
-"09:00",
-"#2563eb"
-],
+    if (type === "revision") {
 
-[
-"Français",
-1,
-"09:00",
-"10:00",
-"#7c3aed"
-],
+        modeles = [
+            ["Mathématiques", 0, "17:00", "18:00"],
+            ["Français", 1, "17:00", "18:00"],
+            ["Histoire", 2, "17:00", "18:00"],
+            ["Sciences", 3, "17:00", "18:00"],
+            ["Révision générale", 4, "17:00", "19:00"]
+        ];
+    }
 
-[
-"Anglais",
-2,
-"10:00",
-"11:00",
-"#16a34a"
-],
+    if (type === "sport") {
 
-[
-"Sciences",
-3,
-"09:00",
-"10:00",
-"#ea580c"
-],
+        modeles = [
+            ["Course", 0, "18:00", "19:00"],
+            ["Musculation", 2, "18:00", "19:00"],
+            ["Repos", 3, "18:00", "19:00"],
+            ["Cardio", 5, "10:00", "11:00"]
+        ];
+    }
 
-[
-"Révision",
-4,
-"17:00",
-"18:00",
-"#db2777"
-]
+    if (type === "organisation") {
 
-];
+        modeles = [
+            ["Travail", 0, "09:00", "17:00"],
+            ["Travail", 1, "09:00", "17:00"],
+            ["Travail", 2, "09:00", "17:00"],
+            ["Travail", 3, "09:00", "17:00"],
+            ["Travail", 4, "09:00", "17:00"]
+        ];
+    }
 
+    modeles.forEach(
+        (modele, index) => {
+
+            const date = new Date(lundi);
+
+            date.setDate(
+                lundi.getDate() + modele[1]
+            );
+
+            activites.push({
+
+                id: Date.now() + index,
+
+                nom: modele[0],
+
+                date: formatDate(date),
+
+                debut: modele[2],
+
+                fin: modele[3],
+
+                couleur: "#7c3aed",
+
+                repetition: "aucune"
+
+            });
+        }
+    );
+
+    sauvegarder();
+
+    afficher();
 }
 
-
-if (
-type === "revision"
-) {
-
-nouveauPlanning = [
-
-[
-"Révisions Maths",
-0,
-"17:00",
-"18:00",
-"#2563eb"
-],
-
-[
-"Révisions Français",
-1,
-"17:00",
-"18:00",
-"#7c3aed"
-],
-
-[
-"Révisions Sciences",
-2,
-"17:00",
-"18:00",
-"#16a34a"
-],
-
-[
-"Exercices",
-3,
-"17:00",
-"18:00",
-"#ea580c"
-],
-
-[
-"Révision générale",
-4,
-"17:00",
-"18:30",
-"#db2777"
-]
-
-];
-
-}
-
-
-if (
-type === "sport"
-) {
-
-nouveauPlanning = [
-
-[
-"Sport",
-0,
-"18:00",
-"19:00",
-"#16a34a"
-],
-
-[
-"Course",
-2,
-"18:00",
-"19:00",
-"#2563eb"
-],
-
-[
-"Sport",
-4,
-"18:00",
-"19:00",
-"#ea580c"
-],
-
-[
-"Activité sportive",
-5,
-"10:00",
-"11:00",
-"#7c3aed"
-]
-
-];
-
-}
-
-
-if (
-type === "organisation"
-) {
-
-nouveauPlanning = [
-
-[
-"Organisation",
-0,
-"08:00",
-"08:30",
-"#7c3aed"
-],
-
-[
-"Organisation",
-1,
-"08:00",
-"08:30",
-"#2563eb"
-],
-
-[
-"Organisation",
-2,
-"08:00",
-"08:30",
-"#16a34a"
-],
-
-[
-"Organisation",
-3,
-"08:00",
-"08:30",
-"#ea580c"
-],
-
-[
-"Organisation",
-4,
-"08:00",
-"08:30",
-"#db2777"
-],
-
-[
-"Préparer la semaine",
-6,
-"17:00",
-"18:00",
-"#7c3aed"
-]
-
-];
-
-}
-
-
-if (
-nouveauPlanning.length === 0
-) {
-
-return;
-
-}
-
-
-let confirmer =
-confirm(
-"Ce modèle va remplacer les activités de la semaine actuelle. Continuer ?"
-);
-
-
-if (!confirmer) {
-
-return;
-
-}
-
-
-let dimanche =
-new Date(lundi);
-
-dimanche.setDate(
-lundi.getDate() + 7
-);
-
-
-activites =
-activites.filter(
-activite => {
-
-let date =
-new Date(
-activite.date +
-"T00:00:00"
-);
-
-return (
-date < lundi ||
-date >= dimanche
-);
-
-}
-);
-
-
-nouveauPlanning.forEach(
-item => {
-
-let jour =
-new Date(lundi);
-
-jour.setDate(
-lundi.getDate() +
-item[1]
-);
-
-
-activites.push({
-
-id:
-Date.now() +
-Math.random(),
-
-nom:
-item[0],
-
-date:
-formatDate(jour),
-
-debut:
-item[2],
-
-fin:
-item[3],
-
-couleur:
-item[4],
-
-repetition:
-"aucune"
-
-});
-
-}
-);
-
-
-sauvegarder();
-
-afficher();
-
-
-alert(
-"✅ Modèle ajouté à ta semaine !"
-);
-
-}
-
-
-/* =========================
-PREMIUM
-========================= */
 
 function modelePremium() {
 
-alert(
-"⭐ Cette fonctionnalité fera partie des futures options Premium."
-);
-
+    alert(
+        "⭐ Ce modèle sera disponible dans la version Premium !"
+    );
 }
 
 
 /* =========================
-IMPRESSION
+   CHARGEMENT
 ========================= */
 
-function imprimerPlanning() {
+function chargerTheme() {
 
-window.print();
+    const theme =
+        localStorage.getItem(
+            "themePlanning"
+        );
 
+    if (theme) {
+
+        changerTheme(theme);
+
+    }
 }
 
 
 /* =========================
-CHARGEMENT
+   DÉMARRAGE
 ========================= */
 
-let themeSauvegarde =
-localStorage.getItem(
-"themePlanning"
-);
-
-
-if (
-themeSauvegarde
-) {
-
-changerTheme(
-themeSauvegarde
-);
-
-}
-
-
-document.getElementById(
-"date"
-).value =
-formatDate(
-new Date()
-);
-
+chargerTheme();
 
 afficher();
 
