@@ -9,7 +9,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -268,7 +267,7 @@ h3{
 
 .dashboard{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(3,1fr);
   gap:15px;
 }
 
@@ -345,6 +344,7 @@ h3{
 .view-buttons{
   display:flex;
   gap:8px;
+  flex-wrap:wrap;
 }
 
 .view-buttons button.active{
@@ -451,54 +451,6 @@ h3{
 .template-icon{
   font-size:30px;
   margin-bottom:10px;
-}
-
-.premium-template{
-  position:relative;
-  overflow:hidden;
-}
-
-.premium-lock{
-  display:inline-block;
-  margin-top:10px;
-  padding:5px 9px;
-  border-radius:8px;
-  background:#fef3c7;
-  color:#92400e;
-  font-size:12px;
-  font-weight:bold;
-}
-
-/* PREMIUM */
-
-.premium-box{
-  background:linear-gradient(135deg,#7c3aed,#4c1d95);
-  color:white;
-  border-radius:22px;
-  padding:30px;
-}
-
-.premium-list{
-  margin:20px 0;
-  line-height:2;
-}
-
-.premium-status{
-  display:inline-block;
-  padding:7px 12px;
-  border-radius:999px;
-  font-weight:bold;
-  margin-bottom:15px;
-}
-
-.status-free{
-  background:#f3f4f6;
-  color:#4b5563;
-}
-
-.status-premium{
-  background:#dcfce7;
-  color:#166534;
 }
 
 /* ACCOUNT */
@@ -679,7 +631,6 @@ footer{
   .activity-actions,
   #formSection,
   #templatesSection,
-  #premiumSection,
   #accountSection{
     display:none !important;
   }
@@ -700,8 +651,6 @@ footer{
 
 <body>
 
-<!-- NAVBAR -->
-
 <nav class="navbar">
 
 <div class="navbar-inner">
@@ -718,10 +667,6 @@ Planning
 Modèles
 </button>
 
-<button onclick="allerA('premiumSection')">
-Premium
-</button>
-
 <button onclick="ouvrirCompte()">
 Compte
 </button>
@@ -736,10 +681,7 @@ Compte
 
 </nav>
 
-
 <main class="container">
-
-<!-- HERO -->
 
 <section class="hero">
 
@@ -767,7 +709,6 @@ ton organisation partout.
 
 </div>
 
-
 <div class="card profile-card">
 
 <div class="profile-avatar" id="avatar">
@@ -784,8 +725,8 @@ Connecte-toi pour synchroniser ton planning.
 
 <br>
 
-<span id="profileStatus" class="premium-status status-free">
-Compte gratuit
+<span class="premium-status status-free">
+🆓 Gratuit
 </span>
 
 <button class="btn btn-primary" onclick="ouvrirCompte()">
@@ -795,9 +736,6 @@ Gérer mon compte
 </div>
 
 </section>
-
-
-<!-- DASHBOARD -->
 
 <section>
 
@@ -817,7 +755,6 @@ Activités
 
 </div>
 
-
 <div class="stat">
 
 <div class="stat-number" id="statHours">
@@ -829,7 +766,6 @@ Temps planifié
 </div>
 
 </div>
-
 
 <div class="stat">
 
@@ -843,25 +779,9 @@ Jours occupés
 
 </div>
 
-
-<div class="stat">
-
-<div class="stat-number" id="statPremium">
-Gratuit
-</div>
-
-<div class="stat-label">
-Statut
-</div>
-
-</div>
-
 </div>
 
 </section>
-
-
-<!-- FORMULAIRE -->
 
 <section id="formSection">
 
@@ -883,7 +803,6 @@ placeholder="Ex : Mathématiques"
 
 </div>
 
-
 <div class="field">
 
 <label>Date</label>
@@ -895,7 +814,6 @@ type="date"
 
 </div>
 
-
 <div class="field">
 
 <label>Début</label>
@@ -906,7 +824,6 @@ type="time"
 >
 
 </div>
-
 
 <div class="field">
 
@@ -920,7 +837,6 @@ type="time"
 </div>
 
 </div>
-
 
 <div class="form-grid" style="margin-top:12px;">
 
@@ -940,7 +856,6 @@ type="time"
 
 </div>
 
-
 <div class="field">
 
 <label>Répétition</label>
@@ -955,7 +870,6 @@ type="time"
 </select>
 
 </div>
-
 
 <div class="field">
 
@@ -982,7 +896,6 @@ type="time"
 
 </div>
 
-
 <div class="form-buttons">
 
 <button
@@ -1004,9 +917,6 @@ Réinitialiser
 </div>
 
 </section>
-
-
-<!-- PLANNING -->
 
 <section id="planningSection">
 
@@ -1067,7 +977,6 @@ onclick="imprimerPlanning()"
 
 </div>
 
-
 <div id="weekView"></div>
 
 <div id="monthView" class="hidden"></div>
@@ -1076,9 +985,6 @@ onclick="imprimerPlanning()"
 
 </section>
 
-
-<!-- MODELES -->
-
 <section id="templatesSection">
 
 <div class="card">
@@ -1086,7 +992,6 @@ onclick="imprimerPlanning()"
 <h2>📚 Modèles gratuits</h2>
 
 <div class="template-grid">
-
 
 <div class="template">
 
@@ -1111,7 +1016,6 @@ Utiliser
 
 </div>
 
-
 <div class="template">
 
 <div class="template-icon">
@@ -1134,7 +1038,6 @@ Utiliser
 </button>
 
 </div>
-
 
 <div class="template">
 
@@ -1159,84 +1062,69 @@ Utiliser
 
 </div>
 
-
-<div class="template premium-template">
-
-<div class="template-icon">
-⭐
-</div>
-
-<h3>Productivité Premium</h3>
-
-<p class="muted">
-Un modèle avancé.
-</p>
-
-<span class="premium-lock">
-🔒 PREMIUM
-</span>
-
-<br><br>
-
-<button
-class="btn btn-primary"
-onclick="utiliserPremium('Productivité')"
->
-Utiliser
-</button>
-
-</div>
-
-
-<div class="template premium-template">
+<div class="template">
 
 <div class="template-icon">
 🎯
 </div>
 
-<h3>Objectifs Premium</h3>
+<h3>Objectifs</h3>
 
 <p class="muted">
 Organisation autour de tes objectifs.
 </p>
 
-<span class="premium-lock">
-🔒 PREMIUM
-</span>
-
-<br><br>
+<br>
 
 <button
 class="btn btn-primary"
-onclick="utiliserPremium('Objectifs')"
+onclick="appliquerModele('Objectifs')"
 >
 Utiliser
 </button>
 
 </div>
 
-
-<div class="template premium-template">
+<div class="template">
 
 <div class="template-icon">
 🧠
 </div>
 
-<h3>Focus Premium</h3>
+<h3>Focus</h3>
 
 <p class="muted">
 Planning dédié à la concentration.
 </p>
 
-<span class="premium-lock">
-🔒 PREMIUM
-</span>
-
-<br><br>
+<br>
 
 <button
 class="btn btn-primary"
-onclick="utiliserPremium('Focus')"
+onclick="appliquerModele('Focus')"
+>
+Utiliser
+</button>
+
+</div>
+
+<div class="template">
+
+<div class="template-icon">
+⭐
+</div>
+
+<h3>Productivité</h3>
+
+<p class="muted">
+Organisation complète de ta journée.
+</p>
+
+<br>
+
+<button
+class="btn btn-primary"
+onclick="appliquerModele('Productivité')"
 >
 Utiliser
 </button>
@@ -1248,57 +1136,6 @@ Utiliser
 </div>
 
 </section>
-
-
-<!-- PREMIUM -->
-
-<section id="premiumSection">
-
-<div class="premium-box">
-
-<span id="premiumBadge" class="premium-status status-free">
-Compte gratuit
-</span>
-
-<h2>⭐ Planify Premium</h2>
-
-<p>
-Débloque les fonctionnalités Premium
-de ton compte.
-</p>
-
-<div class="premium-list">
-
-<div>✅ Modèles Premium</div>
-<div>✅ Fonctions avancées</div>
-<div>✅ Organisation améliorée</div>
-<div>✅ Fonctionnalités exclusives</div>
-
-</div>
-
-<div id="premiumMessage">
-
-<p>
-Ton compte utilise actuellement la version gratuite.
-</p>
-
-<br>
-
-<button
-class="btn btn-white"
-onclick="ouvrirCompte()"
->
-Se connecter
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- COMPTE -->
 
 <section id="accountSection">
 
@@ -1331,7 +1168,6 @@ Se déconnecter
 </button>
 
 </div>
-
 
 <div class="card">
 
@@ -1374,9 +1210,6 @@ onchange="importerBackup(event)"
 </div>
 
 </section>
-
-
-<!-- THEME -->
 
 <section>
 
@@ -1424,15 +1257,9 @@ Sombre
 
 </main>
 
-
 <footer>
-
 Planify © 2026 — Ton planning, simplement.
-
 </footer>
-
-
-<!-- AUTH MODAL -->
 
 <div
 id="authModal"
@@ -1467,7 +1294,6 @@ Inscription
 
 </div>
 
-
 <div class="auth-form">
 
 <input
@@ -1501,13 +1327,9 @@ class="muted"
 
 </div>
 
-
-<!-- TOAST -->
-
 <div id="toast" class="toast">
 Notification
 </div>
-
 
 <script>
 
@@ -1536,11 +1358,6 @@ let activites =
 JSON.parse(localStorage.getItem("planify_activites") || "[]");
 
 let utilisateurConnecte = null;
-
-let profilPremium = {
-  is_premium:false,
-  premium_until:null
-};
 
 let authMode = "login";
 
@@ -1575,11 +1392,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   data.session?.user || null;
 
   if(utilisateurConnecte){
-
-    await chargerProfilPremium();
-
     await chargerActivitesCloud();
-
   }
 
   mettreAJourCompte();
@@ -1608,7 +1421,6 @@ async function authAction(){
     "Remplis tous les champs.";
 
     return;
-
   }
 
   message.textContent =
@@ -1632,13 +1444,10 @@ async function authAction(){
       error.message;
 
       return;
-
     }
 
     utilisateurConnecte =
     data.user;
-
-    await chargerProfilPremium();
 
     await chargerActivitesCloud();
 
@@ -1663,15 +1472,12 @@ async function authAction(){
       error.message;
 
       return;
-
     }
 
     utilisateurConnecte =
     data.user;
 
     if(utilisateurConnecte){
-
-      await chargerProfilPremium();
 
       await chargerActivitesCloud();
 
@@ -1764,11 +1570,6 @@ async function deconnecterCompte(){
 
   utilisateurConnecte = null;
 
-  profilPremium = {
-    is_premium:false,
-    premium_until:null
-  };
-
   activites = [];
 
   sauvegarderLocal();
@@ -1780,129 +1581,6 @@ async function deconnecterCompte(){
   mettreAJourCompte();
 
   afficherToast("Déconnexion réussie.");
-
-}
-
-
-/* =====================================================
-   PROFIL PREMIUM
-===================================================== */
-
-async function chargerProfilPremium(){
-
-  if(!utilisateurConnecte){
-
-    profilPremium = {
-      is_premium:false,
-      premium_until:null
-    };
-
-    return;
-
-  }
-
-  const {
-    data,
-    error
-  } =
-  await supabaseClient
-  .from("profiles")
-  .select("is_premium,premium_until")
-  .eq("id", utilisateurConnecte.id)
-  .single();
-
-  if(error){
-
-    console.log(error);
-
-    profilPremium = {
-      is_premium:false,
-      premium_until:null
-    };
-
-    return;
-
-  }
-
-  profilPremium = data || {
-    is_premium:false,
-    premium_until:null
-  };
-
-  mettreAJourPremium();
-
-}
-
-
-function estPremium(){
-
-  if(!profilPremium.is_premium){
-    return false;
-  }
-
-  if(
-    profilPremium.premium_until &&
-    new Date(profilPremium.premium_until) < new Date()
-  ){
-
-    return false;
-
-  }
-
-  return true;
-
-}
-
-
-function mettreAJourPremium(){
-
-  const premium =
-  estPremium();
-
-  const status =
-  document.getElementById("profileStatus");
-
-  const badge =
-  document.getElementById("premiumBadge");
-
-  const stat =
-  document.getElementById("statPremium");
-
-  if(premium){
-
-    status.textContent =
-    "⭐ Planify Premium";
-
-    status.className =
-    "premium-status status-premium";
-
-    badge.textContent =
-    "⭐ Planify Premium";
-
-    badge.className =
-    "premium-status status-premium";
-
-    stat.textContent =
-    "Premium";
-
-  }else{
-
-    status.textContent =
-    "Compte gratuit";
-
-    status.className =
-    "premium-status status-free";
-
-    badge.textContent =
-    "Compte gratuit";
-
-    badge.className =
-    "premium-status status-free";
-
-    stat.textContent =
-    "Gratuit";
-
-  }
 
 }
 
@@ -1938,7 +1616,6 @@ async function chargerActivitesCloud(){
     );
 
     return;
-
   }
 
   activites =
@@ -1978,7 +1655,6 @@ async function synchroniser(){
     );
 
     return;
-
   }
 
   const {
@@ -1998,7 +1674,6 @@ async function synchroniser(){
     );
 
     return;
-
   }
 
 
@@ -2024,7 +1699,6 @@ async function synchroniser(){
 
     }));
 
-
     const {
       error
     } =
@@ -2041,7 +1715,6 @@ async function synchroniser(){
       );
 
       return;
-
     }
 
   }
@@ -2100,7 +1773,6 @@ async function ajouterActivite(){
     );
 
     return;
-
   }
 
 
@@ -2785,9 +2457,6 @@ function mettreAJourDashboard(){
   .textContent =
   heures + "h " + mins + "m";
 
-
-  mettreAJourPremium();
-
 }
 
 
@@ -2862,49 +2531,12 @@ function mettreAJourCompte(){
 
   }
 
-  mettreAJourPremium();
-
 }
 
 
 /* =====================================================
-   PREMIUM
+   MODELES
 ===================================================== */
-
-function utiliserPremium(nom){
-
-  if(!utilisateurConnecte){
-
-    afficherToast(
-      "Connecte-toi pour utiliser Premium."
-    );
-
-    ouvrirCompte();
-
-    return;
-
-  }
-
-  if(!estPremium()){
-
-    afficherToast(
-      "Cette fonction nécessite Planify Premium."
-    );
-
-    allerA("premiumSection");
-
-    return;
-
-  }
-
-  afficherToast(
-    "Modèle Premium « " +
-    nom +
-    " » activé."
-  );
-
-}
-
 
 function appliquerModele(nom){
 
@@ -2956,6 +2588,85 @@ function appliquerModele(nom){
       "18:00",
       "19:00",
       "#16a34a"
+    );
+
+  }
+
+
+  if(nom === "Objectifs"){
+
+    ajouterActiviteModele(
+      "Objectif du jour",
+      aujourdHui,
+      "09:00",
+      "10:00",
+      "#7c3aed"
+    );
+
+    ajouterActiviteModele(
+      "Action prioritaire",
+      aujourdHui,
+      "14:00",
+      "15:00",
+      "#2563eb"
+    );
+
+  }
+
+
+  if(nom === "Focus"){
+
+    ajouterActiviteModele(
+      "Session Focus",
+      aujourdHui,
+      "09:00",
+      "10:00",
+      "#7c3aed"
+    );
+
+    ajouterActiviteModele(
+      "Pause",
+      aujourdHui,
+      "10:00",
+      "10:15",
+      "#16a34a"
+    );
+
+  }
+
+
+  if(nom === "Productivité"){
+
+    ajouterActiviteModele(
+      "Planification",
+      aujourdHui,
+      "08:00",
+      "08:30",
+      "#7c3aed"
+    );
+
+    ajouterActiviteModele(
+      "Tâche principale",
+      aujourdHui,
+      "09:00",
+      "11:00",
+      "#2563eb"
+    );
+
+    ajouterActiviteModele(
+      "Pause",
+      aujourdHui,
+      "11:00",
+      "11:15",
+      "#16a34a"
+    );
+
+    ajouterActiviteModele(
+      "Tâche secondaire",
+      aujourdHui,
+      "14:00",
+      "15:00",
+      "#ea580c"
     );
 
   }
@@ -3269,16 +2980,7 @@ supabaseClient.auth
 
     if(utilisateurConnecte){
 
-      await chargerProfilPremium();
-
       await chargerActivitesCloud();
-
-    }else{
-
-      profilPremium = {
-        is_premium:false,
-        premium_until:null
-      };
 
     }
 
