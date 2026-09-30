@@ -449,7 +449,11 @@ select:focus {
 }
 
 .template.premium {
-  background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(168,85,247,0.12));
+  background: linear-gradient(
+    135deg,
+    rgba(124,58,237,0.08),
+    rgba(168,85,247,0.12)
+  );
 }
 
 .template-icon {
@@ -506,6 +510,28 @@ select:focus {
   color: var(--text);
 }
 
+.save-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.save-card {
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  padding: 17px;
+}
+
+.save-card h3 {
+  margin: 0 0 7px;
+}
+
+.save-card p {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 13px;
+}
+
 .overlay {
   position: fixed;
   inset: 0;
@@ -550,6 +576,7 @@ footer {
 }
 
 @media (max-width: 950px) {
+
   .dashboard {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -564,11 +591,14 @@ footer {
 
   .week-grid {
     overflow-x: auto;
-    grid-template-columns: repeat(7, minmax(145px, 1fr));
+    grid-template-columns:
+      repeat(7, minmax(145px, 1fr));
   }
+
 }
 
 @media (max-width: 650px) {
+
   .navbar {
     padding: 10px 14px;
   }
@@ -623,6 +653,10 @@ footer {
     grid-template-columns: 1fr;
   }
 
+  .save-box {
+    grid-template-columns: 1fr;
+  }
+
   .premium-box {
     flex-direction: column;
     align-items: flex-start;
@@ -639,9 +673,11 @@ footer {
   .month-container {
     overflow-x: auto;
   }
+
 }
 
 @media print {
+
   header,
   .hero,
   .dashboard,
@@ -661,6 +697,7 @@ footer {
     box-shadow: none;
     border: none;
   }
+
 }
 </style>
 </head>
@@ -668,344 +705,748 @@ footer {
 <body>
 
 <header>
+
   <div class="navbar">
 
     <div class="logo">
-      <div class="logo-icon">✓</div>
+
+      <div class="logo-icon">
+        ✓
+      </div>
+
       Planify
+
     </div>
 
     <div class="nav-actions">
-      <button class="nav-btn" onclick="aujourdHui()">Aujourd'hui</button>
 
-      <button class="nav-btn" onclick="changerMode('semaine')">
+      <button
+        class="nav-btn"
+        onclick="aujourdHui()">
+        Aujourd'hui
+      </button>
+
+      <button
+        class="nav-btn"
+        onclick="changerMode('semaine')">
         Semaine
       </button>
 
-      <button class="nav-btn" onclick="changerMode('mois')">
+      <button
+        class="nav-btn"
+        onclick="changerMode('mois')">
         Mois
       </button>
 
       <div class="profile">
-        <div class="avatar">P</div>
-        <div class="profile-text">
-          <strong>Mon espace</strong>
-          <small id="navStatut">Compte gratuit</small>
+
+        <div class="avatar">
+          P
         </div>
+
+        <div class="profile-text">
+
+          <strong>
+            Mon espace
+          </strong>
+
+          <small id="navStatut">
+            Compte gratuit
+          </small>
+
+        </div>
+
       </div>
+
     </div>
 
   </div>
+
 </header>
+
 
 <main class="container">
 
   <section class="hero">
-    <h1>Organise ta journée. ✨</h1>
-    <p>Planifie tes activités simplement et garde une vue claire sur ton temps.</p>
+
+    <h1>
+      Organise ta journée. ✨
+    </h1>
+
+    <p>
+      Planifie tes activités simplement et garde une vue claire sur ton temps.
+    </p>
+
   </section>
 
+
   <!-- DASHBOARD -->
+
   <section class="dashboard">
 
     <div class="stat-card">
-      <div class="stat-icon">📋</div>
-      <div class="stat-number" id="statActivites">0</div>
-      <div class="stat-label">Activités</div>
+
+      <div class="stat-icon">
+        📋
+      </div>
+
+      <div
+        class="stat-number"
+        id="statActivites">
+        0
+      </div>
+
+      <div class="stat-label">
+        Activités
+      </div>
+
     </div>
 
-    <div class="stat-card">
-      <div class="stat-icon">⏱️</div>
-      <div class="stat-number" id="statTemps">0h</div>
-      <div class="stat-label">Temps planifié</div>
-    </div>
 
     <div class="stat-card">
-      <div class="stat-icon">📅</div>
-      <div class="stat-number" id="statJours">0</div>
-      <div class="stat-label">Jours occupés</div>
+
+      <div class="stat-icon">
+        ⏱️
+      </div>
+
+      <div
+        class="stat-number"
+        id="statTemps">
+        0h
+      </div>
+
+      <div class="stat-label">
+        Temps planifié
+      </div>
+
     </div>
 
+
     <div class="stat-card">
-      <div class="stat-icon">⭐</div>
-      <div class="stat-number" id="statCompte">FREE</div>
-      <div class="stat-label">Statut du compte</div>
+
+      <div class="stat-icon">
+        📅
+      </div>
+
+      <div
+        class="stat-number"
+        id="statJours">
+        0
+      </div>
+
+      <div class="stat-label">
+        Jours occupés
+      </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+      <div class="stat-icon">
+        ⭐
+      </div>
+
+      <div
+        class="stat-number"
+        id="statCompte">
+        FREE
+      </div>
+
+      <div class="stat-label">
+        Statut du compte
+      </div>
+
     </div>
 
   </section>
 
+
   <!-- AJOUT -->
+
   <section class="section">
 
     <div class="section-title">
-      <h2>➕ Ajouter une activité</h2>
+
+      <h2>
+        ➕ Ajouter une activité
+      </h2>
+
     </div>
+
 
     <div class="form-grid">
 
       <div class="form-group">
-        <label>Nom de l'activité</label>
-        <input id="nom" type="text" placeholder="Ex : Réviser les maths">
+
+        <label>
+          Nom de l'activité
+        </label>
+
+        <input
+          id="nom"
+          type="text"
+          placeholder="Ex : Réviser les maths">
+
       </div>
 
-      <div class="form-group">
-        <label>Date</label>
-        <input id="date" type="date">
-      </div>
 
       <div class="form-group">
-        <label>Début</label>
-        <input id="debut" type="time">
+
+        <label>
+          Date
+        </label>
+
+        <input
+          id="date"
+          type="date">
+
       </div>
 
-      <div class="form-group">
-        <label>Fin</label>
-        <input id="fin" type="time">
-      </div>
 
       <div class="form-group">
-        <label>Couleur</label>
+
+        <label>
+          Début
+        </label>
+
+        <input
+          id="debut"
+          type="time">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Fin
+        </label>
+
+        <input
+          id="fin"
+          type="time">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Couleur
+        </label>
+
         <select id="couleur">
-          <option value="#7c3aed">Violet</option>
-          <option value="#2563eb">Bleu</option>
-          <option value="#16a34a">Vert</option>
-          <option value="#ea580c">Orange</option>
-          <option value="#db2777">Rose</option>
-          <option value="#ef4444">Rouge</option>
+
+          <option value="#7c3aed">
+            Violet
+          </option>
+
+          <option value="#2563eb">
+            Bleu
+          </option>
+
+          <option value="#16a34a">
+            Vert
+          </option>
+
+          <option value="#ea580c">
+            Orange
+          </option>
+
+          <option value="#db2777">
+            Rose
+          </option>
+
+          <option value="#ef4444">
+            Rouge
+          </option>
+
         </select>
+
       </div>
 
+
       <div class="form-group">
-        <label>Répétition</label>
+
+        <label>
+          Répétition
+        </label>
+
         <select id="repetition">
-          <option value="aucune">Aucune</option>
-          <option value="quotidienne">Tous les jours</option>
-          <option value="hebdomadaire">Toutes les semaines</option>
-          <option value="mensuelle">Tous les mois</option>
+
+          <option value="aucune">
+            Aucune
+          </option>
+
+          <option value="quotidienne">
+            Tous les jours
+          </option>
+
+          <option value="hebdomadaire">
+            Toutes les semaines
+          </option>
+
+          <option value="mensuelle">
+            Tous les mois
+          </option>
+
         </select>
+
       </div>
 
     </div>
 
+
     <div class="form-actions">
-      <button class="primary" onclick="ajouterActivite()">
+
+      <button
+        class="primary"
+        onclick="ajouterActivite()">
+
         ➕ Ajouter
+
       </button>
 
-      <button class="secondary" onclick="viderFormulaire()">
+
+      <button
+        class="secondary"
+        onclick="viderFormulaire()">
+
         Effacer
+
       </button>
+
     </div>
 
   </section>
 
+
   <!-- CONTROLES -->
+
   <section class="section">
 
     <div class="controls">
 
-      <button class="secondary" onclick="precedent()">← Précédent</button>
+      <button
+        class="secondary"
+        onclick="precedent()">
 
-      <button class="primary" onclick="aujourdHui()">Aujourd'hui</button>
+        ← Précédent
 
-      <button class="secondary" onclick="suivant()">Suivant →</button>
+      </button>
 
-      <button class="success" onclick="exporterPDF()">📄 Exporter / PDF</button>
+
+      <button
+        class="primary"
+        onclick="aujourdHui()">
+
+        Aujourd'hui
+
+      </button>
+
+
+      <button
+        class="secondary"
+        onclick="suivant()">
+
+        Suivant →
+
+      </button>
+
+
+      <button
+        class="success"
+        onclick="exporterPDF()">
+
+        📄 Exporter / PDF
+
+      </button>
 
     </div>
 
-    <div class="view-title" id="titrePeriode"></div>
+
+    <div
+      class="view-title"
+      id="titrePeriode">
+    </div>
 
   </section>
 
+
   <!-- PLANNING -->
+
   <section class="section planning-section">
 
     <div class="section-title">
-      <h2>📅 Mon planning</h2>
+
+      <h2>
+        📅 Mon planning
+      </h2>
+
     </div>
 
     <div id="planning"></div>
 
   </section>
 
+
   <!-- MODELES -->
+
   <section class="section">
 
     <div class="section-title">
-      <h2>📚 Modèles de planning</h2>
+
+      <h2>
+        📚 Modèles de planning
+      </h2>
+
     </div>
+
 
     <div class="templates">
 
-      <button class="template" onclick="chargerModele('etudiant')">
-        <div class="template-icon">🎓</div>
-        <div class="template-title">Étudiant</div>
+
+      <button
+        class="template"
+        onclick="chargerModele('etudiant')">
+
+        <div class="template-icon">
+          🎓
+        </div>
+
+        <div class="template-title">
+          Étudiant
+        </div>
+
         <div class="template-description">
           Cours, devoirs et temps libre.
         </div>
+
       </button>
 
-      <button class="template" onclick="chargerModele('revision')">
-        <div class="template-icon">📚</div>
-        <div class="template-title">Révisions</div>
+
+      <button
+        class="template"
+        onclick="chargerModele('revision')">
+
+        <div class="template-icon">
+          📚
+        </div>
+
+        <div class="template-title">
+          Révisions
+        </div>
+
         <div class="template-description">
           Organise tes séances de révision.
         </div>
+
       </button>
 
-      <button class="template" onclick="chargerModele('sport')">
-        <div class="template-icon">🏋️</div>
-        <div class="template-title">Sport</div>
+
+      <button
+        class="template"
+        onclick="chargerModele('sport')">
+
+        <div class="template-icon">
+          🏋️
+        </div>
+
+        <div class="template-title">
+          Sport
+        </div>
+
         <div class="template-description">
           Planifie tes entraînements.
         </div>
+
       </button>
 
-      <button class="template" onclick="chargerModele('vacances')">
-        <div class="template-icon">🏖️</div>
-        <div class="template-title">Vacances</div>
+
+      <button
+        class="template"
+        onclick="chargerModele('vacances')">
+
+        <div class="template-icon">
+          🏖️
+        </div>
+
+        <div class="template-title">
+          Vacances
+        </div>
+
         <div class="template-description">
           Profite de tes journées sans oublier tes activités.
         </div>
+
       </button>
 
-      <button class="template" onclick="chargerModele('organisation')">
-        <div class="template-icon">💼</div>
-        <div class="template-title">Organisation</div>
+
+      <button
+        class="template"
+        onclick="chargerModele('organisation')">
+
+        <div class="template-icon">
+          💼
+        </div>
+
+        <div class="template-title">
+          Organisation
+        </div>
+
         <div class="template-description">
           Structure tes tâches quotidiennes.
         </div>
+
       </button>
 
-      <button class="template premium" onclick="utiliserModelePremium('examens')">
-        <div class="template-icon">🔒</div>
-        <div class="template-title">📝 Examens</div>
+
+      <button
+        class="template premium"
+        onclick="utiliserModelePremium('examens')">
+
+        <div class="template-icon">
+          🔒
+        </div>
+
+        <div class="template-title">
+          📝 Examens
+        </div>
+
         <div class="template-description">
           Modèle Premium
         </div>
+
       </button>
 
-      <button class="template premium" onclick="utiliserModelePremium('productivite')">
-        <div class="template-icon">🔒</div>
-        <div class="template-title">🧠 Productivité</div>
+
+      <button
+        class="template premium"
+        onclick="utiliserModelePremium('productivite')">
+
+        <div class="template-icon">
+          🔒
+        </div>
+
+        <div class="template-title">
+          🧠 Productivité
+        </div>
+
         <div class="template-description">
           Modèle Premium
         </div>
+
       </button>
 
-      <button class="template premium" onclick="utiliserModelePremium('objectifs')">
-        <div class="template-icon">🔒</div>
-        <div class="template-title">🎯 Objectifs</div>
+
+      <button
+        class="template premium"
+        onclick="utiliserModelePremium('objectifs')">
+
+        <div class="template-icon">
+          🔒
+        </div>
+
+        <div class="template-title">
+          🎯 Objectifs
+        </div>
+
         <div class="template-description">
           Modèle Premium
         </div>
+
       </button>
 
-      <button class="template premium" onclick="utiliserModelePremium('personnalise')">
-        <div class="template-icon">🔒</div>
-        <div class="template-title">✨ Personnalisé</div>
+
+      <button
+        class="template premium"
+        onclick="utiliserModelePremium('personnalise')">
+
+        <div class="template-icon">
+          🔒
+        </div>
+
+        <div class="template-title">
+          ✨ Personnalisé
+        </div>
+
         <div class="template-description">
           Modèle Premium
         </div>
+
       </button>
 
     </div>
 
   </section>
 
+
   <!-- PREMIUM -->
+
   <section class="section">
 
     <div class="premium-box">
 
       <div>
-        <h2>⭐ Planify Premium</h2>
+
+        <h2>
+          ⭐ Planify Premium
+        </h2>
+
         <p id="premiumTexte">
           Débloque les modèles Premium avec le mode démo.
         </p>
+
       </div>
+
 
       <button
         id="premiumButton"
         class="premium-button"
         onclick="activerPremiumDemo()">
+
         ⭐ Activer le mode Premium
+
       </button>
 
     </div>
 
   </section>
-  </section>
+
 
   <!-- SAUVEGARDE -->
+
   <section class="section">
 
     <div class="section-title">
-      <h2>💾 Mes données</h2>
+
+      <h2>
+        💾 Mes données
+      </h2>
+
     </div>
 
+
     <p style="color:var(--muted);">
+
       Sauvegarde ton planning ou récupère une sauvegarde précédente.
+
     </p>
 
-    <div class="form-actions">
 
-      <button class="primary" onclick="exporterDonnees()">
-        💾 Exporter mon planning
-      </button>
+    <div class="save-box">
 
-      <button class="secondary" onclick="document.getElementById('importFichier').click()">
-        📂 Importer mon planning
-      </button>
 
-      <input
-        type="file"
-        id="importFichier"
-        accept=".json"
-        style="display:none"
-        onchange="importerDonnees(event)"
-      >
+      <div class="save-card">
+
+        <h3>
+          💾 Sauvegarder
+        </h3>
+
+        <p>
+          Télécharge une copie de ton planning sur ton appareil.
+        </p>
+
+        <button
+          class="primary"
+          onclick="exporterDonnees()">
+
+          💾 Exporter mon planning
+
+        </button>
+
+      </div>
+
+
+      <div class="save-card">
+
+        <h3>
+          📂 Restaurer
+        </h3>
+
+        <p>
+          Récupère un planning enregistré précédemment.
+        </p>
+
+        <button
+          class="secondary"
+          onclick="document.getElementById('importFichier').click()">
+
+          📂 Importer mon planning
+
+        </button>
+
+
+        <input
+          type="file"
+          id="importFichier"
+          accept=".json"
+          style="display:none"
+          onchange="importerDonnees(event)">
+
+      </div>
 
     </div>
 
   </section>
 
+
   <!-- THEMES -->
-  <!-- THEMES -->
+
   <section class="section">
 
     <div class="section-title">
-      <h2>🎨 Personnalisation</h2>
+
+      <h2>
+        🎨 Personnalisation
+      </h2>
+
     </div>
 
+
     <p style="color:var(--muted);">
+
       Choisis le thème de Planify.
+
     </p>
+
 
     <div class="theme-buttons">
 
-      <button class="theme-btn" onclick="changerTheme('violet')">
+      <button
+        class="theme-btn"
+        onclick="changerTheme('violet')">
         🟣 Violet
       </button>
 
-      <button class="theme-btn" onclick="changerTheme('blue')">
+      <button
+        class="theme-btn"
+        onclick="changerTheme('blue')">
         🔵 Bleu
       </button>
 
-      <button class="theme-btn" onclick="changerTheme('green')">
+      <button
+        class="theme-btn"
+        onclick="changerTheme('green')">
         🟢 Vert
       </button>
 
-      <button class="theme-btn" onclick="changerTheme('orange')">
+      <button
+        class="theme-btn"
+        onclick="changerTheme('orange')">
         🟠 Orange
       </button>
 
-      <button class="theme-btn" onclick="changerTheme('pink')">
+      <button
+        class="theme-btn"
+        onclick="changerTheme('pink')">
         🩷 Rose
       </button>
 
-      <button class="theme-btn" onclick="changerTheme('dark')">
+      <button
+        class="theme-btn"
+        onclick="changerTheme('dark')">
         🌙 Sombre
       </button>
 
@@ -1015,45 +1456,79 @@ footer {
 
 </main>
 
+
 <footer>
+
   Planify © 2026 — Ton planning, simplement.
+
 </footer>
 
+
 <!-- MODALE PREMIUM -->
-<div class="overlay" id="premiumOverlay">
+
+<div
+  class="overlay"
+  id="premiumOverlay">
 
   <div class="modal">
 
-    <div class="modal-icon">⭐</div>
+    <div class="modal-icon">
+      ⭐
+    </div>
 
-    <h2>Fonctionnalité Premium</h2>
+    <h2>
+      Fonctionnalité Premium
+    </h2>
 
     <p>
+
       Ce modèle fait partie de Planify Premium.
       Tu peux activer le mode Premium démo pour tester cette fonctionnalité.
+
     </p>
 
-    <button class="primary" onclick="activerPremiumDemo()">
+
+    <button
+      class="primary"
+      onclick="activerPremiumDemo()">
+
       ⭐ Activer le Premium démo
+
     </button>
+
 
     <br><br>
 
-    <button class="secondary" onclick="fermerMessagePremium()">
+
+    <button
+      class="secondary"
+      onclick="fermerMessagePremium()">
+
       Fermer
+
     </button>
 
   </div>
 
 </div>
 
+
 <script>
 
-let activites = JSON.parse(localStorage.getItem("monPlanning")) || [];
+/* =========================
+   DONNEES
+========================= */
 
-let dateActuelle = new Date();
+let activites =
+  JSON.parse(
+    localStorage.getItem("monPlanning")
+  ) || [];
 
-let mode = "semaine";
+let dateActuelle =
+  new Date();
+
+let mode =
+  "semaine";
 
 let premiumActif =
   localStorage.getItem("premiumDemo") === "true";
@@ -1065,11 +1540,18 @@ let premiumActif =
 
 function formatDate(date) {
 
-  let annee = date.getFullYear();
+  let annee =
+    date.getFullYear();
 
-  let mois = String(date.getMonth() + 1).padStart(2, "0");
+  let mois =
+    String(
+      date.getMonth() + 1
+    ).padStart(2, "0");
 
-  let jour = String(date.getDate()).padStart(2, "0");
+  let jour =
+    String(
+      date.getDate()
+    ).padStart(2, "0");
 
   return `${annee}-${mois}-${jour}`;
 
@@ -1078,15 +1560,27 @@ function formatDate(date) {
 
 function obtenirLundi(date) {
 
-  let d = new Date(date);
+  let d =
+    new Date(date);
 
-  let jour = d.getDay();
+  let jour =
+    d.getDay();
 
-  let difference = jour === 0 ? -6 : 1 - jour;
+  let difference =
+    jour === 0
+      ? -6
+      : 1 - jour;
 
-  d.setDate(d.getDate() + difference);
+  d.setDate(
+    d.getDate() + difference
+  );
 
-  d.setHours(0,0,0,0);
+  d.setHours(
+    0,
+    0,
+    0,
+    0
+  );
 
   return d;
 
@@ -1108,11 +1602,31 @@ function sauvegarder() {
 function escapeHTML(texte) {
 
   return String(texte)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 
 }
 
@@ -1123,52 +1637,102 @@ function escapeHTML(texte) {
 
 function mettreAJourDashboard() {
 
-  document.getElementById("statActivites").textContent =
+  document.getElementById(
+    "statActivites"
+  ).textContent =
     activites.length;
 
-  let totalMinutes = 0;
+
+  let totalMinutes =
+    0;
+
 
   activites.forEach(a => {
 
-    if (!a.debut || !a.fin) return;
+    if (
+      !a.debut ||
+      !a.fin
+    ) return;
 
-    let debut = a.debut.split(":");
-    let fin = a.fin.split(":");
+
+    let debut =
+      a.debut.split(":");
+
+    let fin =
+      a.fin.split(":");
+
 
     let minutesDebut =
-      Number(debut[0]) * 60 + Number(debut[1]);
+      Number(debut[0]) * 60 +
+      Number(debut[1]);
+
 
     let minutesFin =
-      Number(fin[0]) * 60 + Number(fin[1]);
+      Number(fin[0]) * 60 +
+      Number(fin[1]);
 
-    if (minutesFin >= minutesDebut) {
-      totalMinutes += minutesFin - minutesDebut;
+
+    if (
+      minutesFin >=
+      minutesDebut
+    ) {
+
+      totalMinutes +=
+        minutesFin -
+        minutesDebut;
+
     }
 
   });
 
-  let heures = Math.floor(totalMinutes / 60);
 
-  let minutes = totalMinutes % 60;
+  let heures =
+    Math.floor(
+      totalMinutes / 60
+    );
 
-  document.getElementById("statTemps").textContent =
+
+  let minutes =
+    totalMinutes % 60;
+
+
+  document.getElementById(
+    "statTemps"
+  ).textContent =
     minutes === 0
       ? `${heures}h`
       : `${heures}h ${minutes}m`;
 
-  let jours = new Set(
-    activites.map(a => a.date)
-  );
 
-  document.getElementById("statJours").textContent =
+  let jours =
+    new Set(
+      activites.map(
+        a => a.date
+      )
+    );
+
+
+  document.getElementById(
+    "statJours"
+  ).textContent =
     jours.size;
 
-  let statut = premiumActif ? "PREMIUM" : "FREE";
 
-  document.getElementById("statCompte").textContent =
+  let statut =
+    premiumActif
+      ? "PREMIUM"
+      : "FREE";
+
+
+  document.getElementById(
+    "statCompte"
+  ).textContent =
     statut;
 
-  document.getElementById("navStatut").textContent =
+
+  document.getElementById(
+    "navStatut"
+  ).textContent =
     premiumActif
       ? "⭐ Premium"
       : "Compte gratuit";
@@ -1177,33 +1741,57 @@ function mettreAJourDashboard() {
 
 
 /* =========================
-   AJOUT
+   AJOUT ACTIVITE
 ========================= */
 
 function ajouterActivite() {
 
   let nom =
-    document.getElementById("nom").value.trim();
+    document.getElementById(
+      "nom"
+    ).value.trim();
+
 
   let date =
-    document.getElementById("date").value;
+    document.getElementById(
+      "date"
+    ).value;
+
 
   let debut =
-    document.getElementById("debut").value;
+    document.getElementById(
+      "debut"
+    ).value;
+
 
   let fin =
-    document.getElementById("fin").value;
+    document.getElementById(
+      "fin"
+    ).value;
+
 
   let couleur =
-    document.getElementById("couleur").value;
+    document.getElementById(
+      "couleur"
+    ).value;
+
 
   let repetition =
-    document.getElementById("repetition").value;
+    document.getElementById(
+      "repetition"
+    ).value;
 
 
-  if (!nom || !date || !debut || !fin) {
+  if (
+    !nom ||
+    !date ||
+    !debut ||
+    !fin
+  ) {
 
-    alert("⚠️ Remplis tous les champs principaux.");
+    alert(
+      "⚠️ Remplis tous les champs principaux."
+    );
 
     return;
 
@@ -1211,16 +1799,27 @@ function ajouterActivite() {
 
 
   let nombreOccurrences =
-    repetition === "aucune" ? 1 : 12;
+    repetition === "aucune"
+      ? 1
+      : 12;
 
 
-  for (let i = 0; i < nombreOccurrences; i++) {
+  for (
+    let i = 0;
+    i < nombreOccurrences;
+    i++
+  ) {
 
     let nouvelleDate =
-      new Date(date + "T12:00:00");
+      new Date(
+        date + "T12:00:00"
+      );
 
 
-    if (repetition === "quotidienne") {
+    if (
+      repetition ===
+      "quotidienne"
+    ) {
 
       nouvelleDate.setDate(
         nouvelleDate.getDate() + i
@@ -1228,15 +1827,24 @@ function ajouterActivite() {
 
     }
 
-    if (repetition === "hebdomadaire") {
+
+    if (
+      repetition ===
+      "hebdomadaire"
+    ) {
 
       nouvelleDate.setDate(
-        nouvelleDate.getDate() + i * 7
+        nouvelleDate.getDate() +
+        i * 7
       );
 
     }
 
-    if (repetition === "mensuelle") {
+
+    if (
+      repetition ===
+      "mensuelle"
+    ) {
 
       nouvelleDate.setMonth(
         nouvelleDate.getMonth() + i
@@ -1247,11 +1855,17 @@ function ajouterActivite() {
 
     activites.push({
 
-      id: Date.now() + i + Math.random(),
+      id:
+        Date.now() +
+        i +
+        Math.random(),
 
       nom,
 
-      date: formatDate(nouvelleDate),
+      date:
+        formatDate(
+          nouvelleDate
+        ),
 
       debut,
 
@@ -1275,14 +1889,28 @@ function ajouterActivite() {
 }
 
 
+/* =========================
+   SUPPRIMER
+========================= */
+
 function supprimerActivite(id) {
 
-  if (!confirm("Supprimer cette activité ?")) {
+  if (
+    !confirm(
+      "Supprimer cette activité ?"
+    )
+  ) {
+
     return;
+
   }
 
+
   activites =
-    activites.filter(a => a.id !== id);
+    activites.filter(
+      a => a.id !== id
+    );
+
 
   sauvegarder();
 
@@ -1291,102 +1919,177 @@ function supprimerActivite(id) {
 }
 
 
+/* =========================
+   MODIFIER
+========================= */
+
 function modifierActivite(id) {
 
   let activite =
-    activites.find(a => a.id === id);
+    activites.find(
+      a => a.id === id
+    );
+
 
   if (!activite) return;
 
-  document.getElementById("nom").value =
+
+  document.getElementById(
+    "nom"
+  ).value =
     activite.nom;
 
-  document.getElementById("date").value =
+
+  document.getElementById(
+    "date"
+  ).value =
     activite.date;
 
-  document.getElementById("debut").value =
+
+  document.getElementById(
+    "debut"
+  ).value =
     activite.debut;
 
-  document.getElementById("fin").value =
+
+  document.getElementById(
+    "fin"
+  ).value =
     activite.fin;
 
-  document.getElementById("couleur").value =
+
+  document.getElementById(
+    "couleur"
+  ).value =
     activite.couleur;
 
-  document.getElementById("repetition").value =
+
+  document.getElementById(
+    "repetition"
+  ).value =
     "aucune";
 
 
   activites =
-    activites.filter(a => a.id !== id);
+    activites.filter(
+      a => a.id !== id
+    );
+
 
   sauvegarder();
 
   afficher();
 
+
   window.scrollTo({
+
     top: 0,
+
     behavior: "smooth"
+
   });
 
 }
 
 
+/* =========================
+   VIDER FORMULAIRE
+========================= */
+
 function viderFormulaire() {
 
-  document.getElementById("nom").value = "";
+  document.getElementById(
+    "nom"
+  ).value = "";
 
-  document.getElementById("date").value =
-    formatDate(new Date());
 
-  document.getElementById("debut").value = "";
+  document.getElementById(
+    "date"
+  ).value =
+    formatDate(
+      new Date()
+    );
 
-  document.getElementById("fin").value = "";
 
-  document.getElementById("couleur").value =
+  document.getElementById(
+    "debut"
+  ).value = "";
+
+
+  document.getElementById(
+    "fin"
+  ).value = "";
+
+
+  document.getElementById(
+    "couleur"
+  ).value =
     "#7c3aed";
 
-  document.getElementById("repetition").value =
+
+  document.getElementById(
+    "repetition"
+  ).value =
     "aucune";
 
 }
 
 
 /* =========================
-   AFFICHAGE ACTIVITE
+   AFFICHER ACTIVITE
 ========================= */
 
-function afficherActivite(activite) {
+function afficherActivite(
+  activite
+) {
 
   return `
+
     <div
       class="activity"
       style="background:${activite.couleur}"
     >
 
       <strong>
-        ${escapeHTML(activite.nom)}
+        ${escapeHTML(
+          activite.nom
+        )}
       </strong>
 
       <span>
-        ${activite.debut} → ${activite.fin}
+        ${activite.debut}
+        →
+        ${activite.fin}
       </span>
+
 
       <div class="activity-actions">
 
         <button
-          onclick="event.stopPropagation(); modifierActivite(${activite.id})">
+          onclick="
+            event.stopPropagation();
+            modifierActivite(${activite.id})
+          ">
+
           ✏️
+
         </button>
 
+
         <button
-          onclick="event.stopPropagation(); supprimerActivite(${activite.id})">
+          onclick="
+            event.stopPropagation();
+            supprimerActivite(${activite.id})
+          ">
+
           🗑️
+
         </button>
 
       </div>
 
     </div>
+
   `;
 
 }
@@ -1399,9 +2102,13 @@ function afficherActivite(activite) {
 function afficherSemaine() {
 
   let lundi =
-    obtenirLundi(dateActuelle);
+    obtenirLundi(
+      dateActuelle
+    );
+
 
   let nomsJours = [
+
     "Lundi",
     "Mardi",
     "Mercredi",
@@ -1409,84 +2116,128 @@ function afficherSemaine() {
     "Vendredi",
     "Samedi",
     "Dimanche"
+
   ];
+
 
   let html =
     `<div class="week-grid">`;
 
 
-  for (let i = 0; i < 7; i++) {
+  for (
+    let i = 0;
+    i < 7;
+    i++
+  ) {
 
     let jour =
       new Date(lundi);
+
 
     jour.setDate(
       lundi.getDate() + i
     );
 
+
     let dateString =
       formatDate(jour);
 
+
     let estAujourdHui =
-      dateString === formatDate(new Date());
+      dateString ===
+      formatDate(
+        new Date()
+      );
 
 
     let activitesJour =
       activites.filter(
-        a => a.date === dateString
+        a =>
+          a.date ===
+          dateString
       );
 
 
     html += `
-      <div class="day ${estAujourdHui ? "today" : ""}">
+
+      <div
+        class="day ${
+          estAujourdHui
+            ? "today"
+            : ""
+        }"
+      >
 
         <div class="day-header">
 
           ${nomsJours[i]}
 
           <div class="day-date">
-            ${jour.getDate()}/${jour.getMonth()+1}
+
+            ${jour.getDate()}/
+            ${jour.getMonth() + 1}
+
           </div>
 
         </div>
+
     `;
 
 
-    if (activitesJour.length === 0) {
+    if (
+      activitesJour.length === 0
+    ) {
 
       html += `
-        <div style="
-          color:var(--muted);
-          text-align:center;
-          margin-top:35px;
-          font-size:12px;
-        ">
+
+        <div
+          style="
+            color:var(--muted);
+            text-align:center;
+            margin-top:35px;
+            font-size:12px;
+          "
+        >
+
           Aucune activité
+
         </div>
+
       `;
 
     }
 
 
     activitesJour
-      .sort((a,b) =>
-        a.debut.localeCompare(b.debut)
+      .sort(
+        (a,b) =>
+          a.debut.localeCompare(
+            b.debut
+          )
       )
       .forEach(a => {
 
-        html += afficherActivite(a);
+        html +=
+          afficherActivite(a);
 
       });
 
 
-    html += `</div>`;
+    html += `
+      </div>
+    `;
 
   }
 
 
-  html += `</div>`;
+  html += `
+    </div>
+  `;
 
-  document.getElementById("planning").innerHTML =
+
+  document.getElementById(
+    "planning"
+  ).innerHTML =
     html;
 
 
@@ -1499,8 +2250,10 @@ function afficherSemaine() {
       }
     );
 
+
   let dimanche =
     new Date(lundi);
+
 
   dimanche.setDate(
     dimanche.getDate() + 6
@@ -1518,7 +2271,9 @@ function afficherSemaine() {
     );
 
 
-  document.getElementById("titrePeriode").textContent =
+  document.getElementById(
+    "titrePeriode"
+  ).textContent =
     `${debut} → ${fin}`;
 
 }
@@ -1533,25 +2288,39 @@ function afficherMois() {
   let annee =
     dateActuelle.getFullYear();
 
+
   let mois =
     dateActuelle.getMonth();
 
 
   let premierJour =
-    new Date(annee, mois, 1);
+    new Date(
+      annee,
+      mois,
+      1
+    );
+
 
   let dernierJour =
-    new Date(annee, mois + 1, 0);
+    new Date(
+      annee,
+      mois + 1,
+      0
+    );
 
 
   let debut =
     premierJour.getDay();
 
+
   debut =
-    debut === 0 ? 6 : debut - 1;
+    debut === 0
+      ? 6
+      : debut - 1;
 
 
   let nomsJours = [
+
     "Lun",
     "Mar",
     "Mer",
@@ -1559,29 +2328,43 @@ function afficherMois() {
     "Ven",
     "Sam",
     "Dim"
+
   ];
 
 
-  let html =
-    `<div class="month-container">
-       <div class="month-grid">`;
+  let html = `
+
+    <div class="month-container">
+
+      <div class="month-grid">
+
+  `;
 
 
   nomsJours.forEach(jour => {
 
     html += `
+
       <div class="month-header">
         ${jour}
       </div>
+
     `;
 
   });
 
 
-  for (let i = 0; i < debut; i++) {
+  for (
+    let i = 0;
+    i < debut;
+    i++
+  ) {
 
     html += `
-      <div class="month-day empty"></div>
+
+      <div class="month-day empty">
+      </div>
+
     `;
 
   }
@@ -1595,60 +2378,98 @@ function afficherMois() {
 
     let dateString =
       formatDate(
-        new Date(annee, mois, jour)
+        new Date(
+          annee,
+          mois,
+          jour
+        )
       );
 
 
     let estAujourdHui =
-      dateString === formatDate(new Date());
+      dateString ===
+      formatDate(
+        new Date()
+      );
 
 
     let activitesJour =
       activites.filter(
-        a => a.date === dateString
+        a =>
+          a.date ===
+          dateString
       );
 
 
     html += `
-      <div class="month-day ${estAujourdHui ? "today" : ""}">
+
+      <div
+        class="month-day ${
+          estAujourdHui
+            ? "today"
+            : ""
+        }"
+      >
 
         <div class="month-number">
+
           ${jour}
+
         </div>
+
     `;
 
 
     activitesJour.forEach(a => {
 
       html += `
+
         <div
           class="month-activity"
-          style="background:${a.couleur}"
-          title="${escapeHTML(a.nom)}"
+          style="
+            background:${a.couleur}
+          "
+          title="${escapeHTML(
+            a.nom
+          )}"
         >
-          ${escapeHTML(a.nom)}
+
+          ${escapeHTML(
+            a.nom
+          )}
+
         </div>
+
       `;
 
     });
 
 
-    html += `</div>`;
+    html += `
+      </div>
+    `;
 
   }
 
 
   html += `
+
       </div>
+
     </div>
+
   `;
 
 
-  document.getElementById("planning").innerHTML =
+  document.getElementById(
+    "planning"
+  ).innerHTML =
     html;
 
 
-  document.getElementById("titrePeriode").textContent =
+  document.getElementById(
+    "titrePeriode"
+  ).textContent =
     dateActuelle.toLocaleDateString(
       "fr-FR",
       {
@@ -1661,12 +2482,14 @@ function afficherMois() {
 
 
 /* =========================
-   MODE
+   AFFICHAGE
 ========================= */
 
 function afficher() {
 
-  if (mode === "semaine") {
+  if (
+    mode === "semaine"
+  ) {
 
     afficherSemaine();
 
@@ -1676,14 +2499,22 @@ function afficher() {
 
   }
 
+
   mettreAJourDashboard();
 
 }
 
 
-function changerMode(nouveauMode) {
+/* =========================
+   MODE
+========================= */
 
-  mode = nouveauMode;
+function changerMode(
+  nouveauMode
+) {
+
+  mode =
+    nouveauMode;
 
   afficher();
 
@@ -1692,19 +2523,24 @@ function changerMode(nouveauMode) {
 
 function precedent() {
 
-  if (mode === "semaine") {
+  if (
+    mode === "semaine"
+  ) {
 
     dateActuelle.setDate(
-      dateActuelle.getDate() - 7
+      dateActuelle.getDate() -
+      7
     );
 
   } else {
 
     dateActuelle.setMonth(
-      dateActuelle.getMonth() - 1
+      dateActuelle.getMonth() -
+      1
     );
 
   }
+
 
   afficher();
 
@@ -1713,19 +2549,24 @@ function precedent() {
 
 function suivant() {
 
-  if (mode === "semaine") {
+  if (
+    mode === "semaine"
+  ) {
 
     dateActuelle.setDate(
-      dateActuelle.getDate() + 7
+      dateActuelle.getDate() +
+      7
     );
 
   } else {
 
     dateActuelle.setMonth(
-      dateActuelle.getMonth() + 1
+      dateActuelle.getMonth() +
+      1
     );
 
   }
+
 
   afficher();
 
@@ -1734,7 +2575,8 @@ function suivant() {
 
 function aujourdHui() {
 
-  dateActuelle = new Date();
+  dateActuelle =
+    new Date();
 
   afficher();
 
@@ -1756,10 +2598,13 @@ function exporterPDF() {
    THEMES
 ========================= */
 
-function changerTheme(theme) {
+function changerTheme(
+  theme
+) {
 
   document.body.className =
     "theme-" + theme;
+
 
   localStorage.setItem(
     "themePlanning",
@@ -1772,8 +2617,11 @@ function changerTheme(theme) {
 function chargerTheme() {
 
   let theme =
-    localStorage.getItem("themePlanning") ||
+    localStorage.getItem(
+      "themePlanning"
+    ) ||
     "violet";
+
 
   document.body.className =
     "theme-" + theme;
@@ -1782,34 +2630,44 @@ function chargerTheme() {
 
 
 /* =========================
-   MODELES GRATUITS
+   MODELES
 ========================= */
 
-function ajouterModeleActivites(liste) {
+function ajouterModeleActivites(
+  liste
+) {
 
   liste.forEach(a => {
 
     activites.push({
 
-      id: Date.now() +
-          Math.random(),
+      id:
+        Date.now() +
+        Math.random(),
 
-      nom: a.nom,
+      nom:
+        a.nom,
 
-      date: formatDate(
-        new Date(
-          Date.now() +
-          a.jour * 86400000
-        )
-      ),
+      date:
+        formatDate(
+          new Date(
+            Date.now() +
+            a.jour *
+            86400000
+          )
+        ),
 
-      debut: a.debut,
+      debut:
+        a.debut,
 
-      fin: a.fin,
+      fin:
+        a.fin,
 
-      couleur: a.couleur,
+      couleur:
+        a.couleur,
 
-      repetition: "aucune"
+      repetition:
+        "aucune"
 
     });
 
@@ -1823,41 +2681,57 @@ function ajouterModeleActivites(liste) {
 }
 
 
-function chargerModele(type) {
+function chargerModele(
+  type
+) {
 
   let demain =
     1;
 
-  let couleur =
-    "#7c3aed";
 
-
-  if (type === "etudiant") {
+  if (
+    type === "etudiant"
+  ) {
 
     ajouterModeleActivites([
 
       {
-        nom: "Cours",
-        jour: demain,
-        debut: "08:00",
-        fin: "10:00",
-        couleur: "#2563eb"
+        nom:
+          "Cours",
+        jour:
+          demain,
+        debut:
+          "08:00",
+        fin:
+          "10:00",
+        couleur:
+          "#2563eb"
       },
 
       {
-        nom: "Devoirs",
-        jour: demain,
-        debut: "17:00",
-        fin: "18:30",
-        couleur: "#7c3aed"
+        nom:
+          "Devoirs",
+        jour:
+          demain,
+        debut:
+          "17:00",
+        fin:
+          "18:30",
+        couleur:
+          "#7c3aed"
       },
 
       {
-        nom: "Temps libre",
-        jour: demain,
-        debut: "19:00",
-        fin: "20:00",
-        couleur: "#16a34a"
+        nom:
+          "Temps libre",
+        jour:
+          demain,
+        debut:
+          "19:00",
+        fin:
+          "20:00",
+        couleur:
+          "#16a34a"
       }
 
     ]);
@@ -1865,32 +2739,49 @@ function chargerModele(type) {
   }
 
 
-  if (type === "revision") {
+  if (
+    type === "revision"
+  ) {
 
     ajouterModeleActivites([
 
       {
-        nom: "Mathématiques",
-        jour: demain,
-        debut: "16:00",
-        fin: "17:00",
-        couleur: "#2563eb"
+        nom:
+          "Mathématiques",
+        jour:
+          demain,
+        debut:
+          "16:00",
+        fin:
+          "17:00",
+        couleur:
+          "#2563eb"
       },
 
       {
-        nom: "Français",
-        jour: demain,
-        debut: "17:15",
-        fin: "18:15",
-        couleur: "#db2777"
+        nom:
+          "Français",
+        jour:
+          demain,
+        debut:
+          "17:15",
+        fin:
+          "18:15",
+        couleur:
+          "#db2777"
       },
 
       {
-        nom: "Pause",
-        jour: demain,
-        debut: "18:15",
-        fin: "18:45",
-        couleur: "#16a34a"
+        nom:
+          "Pause",
+        jour:
+          demain,
+        debut:
+          "18:15",
+        fin:
+          "18:45",
+        couleur:
+          "#16a34a"
       }
 
     ]);
@@ -1898,32 +2789,49 @@ function chargerModele(type) {
   }
 
 
-  if (type === "sport") {
+  if (
+    type === "sport"
+  ) {
 
     ajouterModeleActivites([
 
       {
-        nom: "Échauffement",
-        jour: demain,
-        debut: "17:00",
-        fin: "17:15",
-        couleur: "#ea580c"
+        nom:
+          "Échauffement",
+        jour:
+          demain,
+        debut:
+          "17:00",
+        fin:
+          "17:15",
+        couleur:
+          "#ea580c"
       },
 
       {
-        nom: "Entraînement",
-        jour: demain,
-        debut: "17:15",
-        fin: "18:15",
-        couleur: "#ef4444"
+        nom:
+          "Entraînement",
+        jour:
+          demain,
+        debut:
+          "17:15",
+        fin:
+          "18:15",
+        couleur:
+          "#ef4444"
       },
 
       {
-        nom: "Étirements",
-        jour: demain,
-        debut: "18:15",
-        fin: "18:30",
-        couleur: "#16a34a"
+        nom:
+          "Étirements",
+        jour:
+          demain,
+        debut:
+          "18:15",
+        fin:
+          "18:30",
+        couleur:
+          "#16a34a"
       }
 
     ]);
@@ -1931,32 +2839,49 @@ function chargerModele(type) {
   }
 
 
-  if (type === "vacances") {
+  if (
+    type === "vacances"
+  ) {
 
     ajouterModeleActivites([
 
       {
-        nom: "Matinée libre",
-        jour: demain,
-        debut: "09:00",
-        fin: "12:00",
-        couleur: "#16a34a"
+        nom:
+          "Matinée libre",
+        jour:
+          demain,
+        debut:
+          "09:00",
+        fin:
+          "12:00",
+        couleur:
+          "#16a34a"
       },
 
       {
-        nom: "Sortie",
-        jour: demain,
-        debut: "14:00",
-        fin: "17:00",
-        couleur: "#2563eb"
+        nom:
+          "Sortie",
+        jour:
+          demain,
+        debut:
+          "14:00",
+        fin:
+          "17:00",
+        couleur:
+          "#2563eb"
       },
 
       {
-        nom: "Soirée",
-        jour: demain,
-        debut: "19:00",
-        fin: "22:00",
-        couleur: "#db2777"
+        nom:
+          "Soirée",
+        jour:
+          demain,
+        debut:
+          "19:00",
+        fin:
+          "22:00",
+        couleur:
+          "#db2777"
       }
 
     ]);
@@ -1964,32 +2889,49 @@ function chargerModele(type) {
   }
 
 
-  if (type === "organisation") {
+  if (
+    type === "organisation"
+  ) {
 
     ajouterModeleActivites([
 
       {
-        nom: "Tâches importantes",
-        jour: demain,
-        debut: "09:00",
-        fin: "10:00",
-        couleur: "#7c3aed"
+        nom:
+          "Tâches importantes",
+        jour:
+          demain,
+        debut:
+          "09:00",
+        fin:
+          "10:00",
+        couleur:
+          "#7c3aed"
       },
 
       {
-        nom: "Pause",
-        jour: demain,
-        debut: "10:00",
-        fin: "10:30",
-        couleur: "#16a34a"
+        nom:
+          "Pause",
+        jour:
+          demain,
+        debut:
+          "10:00",
+        fin:
+          "10:30",
+        couleur:
+          "#16a34a"
       },
 
       {
-        nom: "Travail",
-        jour: demain,
-        debut: "10:30",
-        fin: "12:00",
-        couleur: "#2563eb"
+        nom:
+          "Travail",
+        jour:
+          demain,
+        debut:
+          "10:30",
+        fin:
+          "12:00",
+        couleur:
+          "#2563eb"
       }
 
     ]);
@@ -2003,7 +2945,9 @@ function chargerModele(type) {
    PREMIUM
 ========================= */
 
-function utiliserModelePremium(type) {
+function utiliserModelePremium(
+  type
+) {
 
   if (!premiumActif) {
 
@@ -2013,42 +2957,65 @@ function utiliserModelePremium(type) {
 
   }
 
-  chargerModelePremium(type);
+
+  chargerModelePremium(
+    type
+  );
 
 }
 
 
-function chargerModelePremium(type) {
+function chargerModelePremium(
+  type
+) {
 
-  let demain = 1;
+  let demain =
+    1;
 
 
-  if (type === "examens") {
+  if (
+    type === "examens"
+  ) {
 
     ajouterModeleActivites([
 
       {
-        nom: "Révision chapitre 1",
-        jour: demain,
-        debut: "09:00",
-        fin: "10:00",
-        couleur: "#7c3aed"
+        nom:
+          "Révision chapitre 1",
+        jour:
+          demain,
+        debut:
+          "09:00",
+        fin:
+          "10:00",
+        couleur:
+          "#7c3aed"
       },
 
       {
-        nom: "Exercices",
-        jour: demain,
-        debut: "10:15",
-        fin: "11:15",
-        couleur: "#2563eb"
+        nom:
+          "Exercices",
+        jour:
+          demain,
+        debut:
+          "10:15",
+        fin:
+          "11:15",
+        couleur:
+          "#2563eb"
       },
 
       {
-        nom: "Pause",
-        jour: demain,
-        debut: "11:15",
-        fin: "11:45",
-        couleur: "#16a34a"
+        nom:
+          "Pause",
+        jour:
+          demain,
+        debut:
+          "11:15",
+        fin:
+          "11:45",
+        couleur:
+          "#16a34a"
       }
 
     ]);
@@ -2056,32 +3023,49 @@ function chargerModelePremium(type) {
   }
 
 
-  if (type === "productivite") {
+  if (
+    type === "productivite"
+  ) {
 
     ajouterModeleActivites([
 
       {
-        nom: "Objectif principal",
-        jour: demain,
-        debut: "08:30",
-        fin: "10:00",
-        couleur: "#7c3aed"
+        nom:
+          "Objectif principal",
+        jour:
+          demain,
+        debut:
+          "08:30",
+        fin:
+          "10:00",
+        couleur:
+          "#7c3aed"
       },
 
       {
-        nom: "Tâches secondaires",
-        jour: demain,
-        debut: "10:15",
-        fin: "11:30",
-        couleur: "#2563eb"
+        nom:
+          "Tâches secondaires",
+        jour:
+          demain,
+        debut:
+          "10:15",
+        fin:
+          "11:30",
+        couleur:
+          "#2563eb"
       },
 
       {
-        nom: "Pause",
-        jour: demain,
-        debut: "11:30",
-        fin: "12:00",
-        couleur: "#16a34a"
+        nom:
+          "Pause",
+        jour:
+          demain,
+        debut:
+          "11:30",
+        fin:
+          "12:00",
+        couleur:
+          "#16a34a"
       }
 
     ]);
@@ -2089,32 +3073,49 @@ function chargerModelePremium(type) {
   }
 
 
-  if (type === "objectifs") {
+  if (
+    type === "objectifs"
+  ) {
 
     ajouterModeleActivites([
 
       {
-        nom: "Objectif 1",
-        jour: demain,
-        debut: "09:00",
-        fin: "10:00",
-        couleur: "#7c3aed"
+        nom:
+          "Objectif 1",
+        jour:
+          demain,
+        debut:
+          "09:00",
+        fin:
+          "10:00",
+        couleur:
+          "#7c3aed"
       },
 
       {
-        nom: "Objectif 2",
-        jour: demain,
-        debut: "14:00",
-        fin: "15:00",
-        couleur: "#db2777"
+        nom:
+          "Objectif 2",
+        jour:
+          demain,
+        debut:
+          "14:00",
+        fin:
+          "15:00",
+        couleur:
+          "#db2777"
       },
 
       {
-        nom: "Bilan",
-        jour: demain,
-        debut: "18:00",
-        fin: "18:30",
-        couleur: "#16a34a"
+        nom:
+          "Bilan",
+        jour:
+          demain,
+        debut:
+          "18:00",
+        fin:
+          "18:30",
+        couleur:
+          "#16a34a"
       }
 
     ]);
@@ -2122,32 +3123,49 @@ function chargerModelePremium(type) {
   }
 
 
-  if (type === "personnalise") {
+  if (
+    type === "personnalise"
+  ) {
 
     ajouterModeleActivites([
 
       {
-        nom: "Projet personnalisé",
-        jour: demain,
-        debut: "09:00",
-        fin: "11:00",
-        couleur: "#7c3aed"
+        nom:
+          "Projet personnalisé",
+        jour:
+          demain,
+        debut:
+          "09:00",
+        fin:
+          "11:00",
+        couleur:
+          "#7c3aed"
       },
 
       {
-        nom: "Pause",
-        jour: demain,
-        debut: "11:00",
-        fin: "11:30",
-        couleur: "#16a34a"
+        nom:
+          "Pause",
+        jour:
+          demain,
+        debut:
+          "11:00",
+        fin:
+          "11:30",
+        couleur:
+          "#16a34a"
       },
 
       {
-        nom: "Travail personnalisé",
-        jour: demain,
-        debut: "14:00",
-        fin: "16:00",
-        couleur: "#2563eb"
+        nom:
+          "Travail personnalisé",
+        jour:
+          demain,
+        debut:
+          "14:00",
+        fin:
+          "16:00",
+        couleur:
+          "#2563eb"
       }
 
     ]);
@@ -2156,15 +3174,22 @@ function chargerModelePremium(type) {
 
 }
 
+
+/* =========================
+   PREMIUM DEMO
+========================= */
 
 function activerPremiumDemo() {
 
-  premiumActif = true;
+  premiumActif =
+    true;
+
 
   localStorage.setItem(
     "premiumDemo",
     "true"
   );
+
 
   fermerMessagePremium();
 
@@ -2178,10 +3203,15 @@ function activerPremiumDemo() {
 function mettreAJourPremium() {
 
   let texte =
-    document.getElementById("premiumTexte");
+    document.getElementById(
+      "premiumTexte"
+    );
+
 
   let bouton =
-    document.getElementById("premiumButton");
+    document.getElementById(
+      "premiumButton"
+    );
 
 
   if (premiumActif) {
@@ -2189,8 +3219,10 @@ function mettreAJourPremium() {
     texte.textContent =
       "🔓 Mode Premium démo activé. Tous les modèles sont accessibles.";
 
+
     bouton.textContent =
       "🔴 Désactiver le mode Premium démo";
+
 
     bouton.onclick =
       desactiverPremiumDemo;
@@ -2200,8 +3232,10 @@ function mettreAJourPremium() {
     texte.textContent =
       "Débloque les modèles Premium avec le mode démo.";
 
+
     bouton.textContent =
       "⭐ Activer le mode Premium";
+
 
     bouton.onclick =
       activerPremiumDemo;
@@ -2213,12 +3247,15 @@ function mettreAJourPremium() {
 
 function desactiverPremiumDemo() {
 
-  premiumActif = false;
+  premiumActif =
+    false;
+
 
   localStorage.setItem(
     "premiumDemo",
     "false"
   );
+
 
   mettreAJourPremium();
 
@@ -2227,11 +3264,16 @@ function desactiverPremiumDemo() {
 }
 
 
+/* =========================
+   MODALE PREMIUM
+========================= */
+
 function afficherMessagePremium() {
 
   document.getElementById(
     "premiumOverlay"
-  ).style.display = "flex";
+  ).style.display =
+    "flex";
 
 }
 
@@ -2240,7 +3282,212 @@ function fermerMessagePremium() {
 
   document.getElementById(
     "premiumOverlay"
-  ).style.display = "none";
+  ).style.display =
+    "none";
+
+}
+
+
+/* =========================
+   SAUVEGARDE / IMPORT
+========================= */
+
+function exporterDonnees() {
+
+  let sauvegarde = {
+
+    version: 1,
+
+    dateExport:
+      new Date().toISOString(),
+
+    activites:
+      activites,
+
+    theme:
+      localStorage.getItem(
+        "themePlanning"
+      ) || "violet",
+
+    premiumDemo:
+      premiumActif
+
+  };
+
+
+  let contenu =
+    JSON.stringify(
+      sauvegarde,
+      null,
+      2
+    );
+
+
+  let fichier =
+    new Blob(
+      [contenu],
+      {
+        type:
+          "application/json"
+      }
+    );
+
+
+  let url =
+    URL.createObjectURL(
+      fichier
+    );
+
+
+  let lien =
+    document.createElement(
+      "a"
+    );
+
+
+  lien.href =
+    url;
+
+
+  lien.download =
+    "planify-sauvegarde.json";
+
+
+  lien.click();
+
+
+  URL.revokeObjectURL(
+    url
+  );
+
+}
+
+
+function importerDonnees(
+  event
+) {
+
+  let fichier =
+    event.target.files[0];
+
+
+  if (!fichier) {
+    return;
+  }
+
+
+  let lecteur =
+    new FileReader();
+
+
+  lecteur.onload =
+    function(e) {
+
+      try {
+
+        let donnees =
+          JSON.parse(
+            e.target.result
+          );
+
+
+        if (
+          !donnees.activites ||
+          !Array.isArray(
+            donnees.activites
+          )
+        ) {
+
+          alert(
+            "❌ Ce fichier n'est pas une sauvegarde Planify valide."
+          );
+
+          return;
+
+        }
+
+
+        if (
+          !confirm(
+            "Importer cette sauvegarde va remplacer ton planning actuel. Continuer ?"
+          )
+        ) {
+
+          return;
+
+        }
+
+
+        activites =
+          donnees.activites;
+
+
+        localStorage.setItem(
+          "monPlanning",
+          JSON.stringify(
+            activites
+          )
+        );
+
+
+        if (
+          donnees.theme
+        ) {
+
+          localStorage.setItem(
+            "themePlanning",
+            donnees.theme
+          );
+
+
+          chargerTheme();
+
+        }
+
+
+        if (
+          typeof donnees.premiumDemo ===
+          "boolean"
+        ) {
+
+          premiumActif =
+            donnees.premiumDemo;
+
+
+          localStorage.setItem(
+            "premiumDemo",
+            String(
+              premiumActif
+            )
+          );
+
+        }
+
+
+        mettreAJourPremium();
+
+        afficher();
+
+
+        alert(
+          "✅ Ton planning a été restauré !"
+        );
+
+
+      } catch (erreur) {
+
+        alert(
+          "❌ Impossible de lire cette sauvegarde."
+        );
+
+      }
+
+    };
+
+
+  lecteur.readAsText(
+    fichier
+  );
 
 }
 
@@ -2251,150 +3498,20 @@ function fermerMessagePremium() {
 
 chargerTheme();
 
-document.getElementById("date").value =
-  formatDate(new Date());
+
+document.getElementById(
+  "date"
+).value =
+  formatDate(
+    new Date()
+  );
+
 
 mettreAJourPremium();
 
 afficher();
 
 </script>
-/* =========================
-   SAUVEGARDE / IMPORT
-========================= */
 
-function exporterDonnees() {
-
-  let sauvegarde = {
-    version: 1,
-    dateExport: new Date().toISOString(),
-    activites: activites,
-    theme: localStorage.getItem("themePlanning") || "violet",
-    premiumDemo: premiumActif
-  };
-
-  let contenu = JSON.stringify(
-    sauvegarde,
-    null,
-    2
-  );
-
-  let fichier = new Blob(
-    [contenu],
-    {
-      type: "application/json"
-    }
-  );
-
-  let url =
-    URL.createObjectURL(fichier);
-
-  let lien =
-    document.createElement("a");
-
-  lien.href = url;
-
-  lien.download =
-    "planify-sauvegarde.json";
-
-  lien.click();
-
-  URL.revokeObjectURL(url);
-
-}
-
-
-function importerDonnees(event) {
-
-  let fichier =
-    event.target.files[0];
-
-  if (!fichier) return;
-
-  let lecteur =
-    new FileReader();
-
-  lecteur.onload = function(e) {
-
-    try {
-
-      let donnees =
-        JSON.parse(e.target.result);
-
-      if (
-        !donnees.activites ||
-        !Array.isArray(donnees.activites)
-      ) {
-
-        alert(
-          "❌ Ce fichier n'est pas une sauvegarde Planify valide."
-        );
-
-        return;
-
-      }
-
-      if (!confirm(
-        "Importer cette sauvegarde va remplacer ton planning actuel. Continuer ?"
-      )) {
-
-        return;
-
-      }
-
-      activites =
-        donnees.activites;
-
-      localStorage.setItem(
-        "monPlanning",
-        JSON.stringify(activites)
-      );
-
-      if (donnees.theme) {
-
-        localStorage.setItem(
-          "themePlanning",
-          donnees.theme
-        );
-
-        chargerTheme();
-
-      }
-
-      if (
-        typeof donnees.premiumDemo === "boolean"
-      ) {
-
-        premiumActif =
-          donnees.premiumDemo;
-
-        localStorage.setItem(
-          "premiumDemo",
-          String(premiumActif)
-        );
-
-      }
-
-      mettreAJourPremium();
-
-      afficher();
-
-      alert(
-        "✅ Ton planning a été restauré !"
-      );
-
-    } catch (erreur) {
-
-      alert(
-        "❌ Impossible de lire cette sauvegarde."
-      );
-
-    }
-
-  };
-
-  lecteur.readAsText(fichier);
-
-}
 </body>
 </html>
